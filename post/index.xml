@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on nRevery's Blog</title><link>https://blog.nrevery.cn/post/</link><description>Recent content in Posts on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Wed, 11 Oct 2023 07:58:34 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/post/index.xml" rel="self" type="application/rss+xml"/><item><title>CTF战队招新</title><link>https://blog.nrevery.cn/p/ctf%E6%88%98%E9%98%9F%E6%8B%9B%E6%96%B0/</link><pubDate>Wed, 11 Oct 2023 07:58:34 +0800</pubDate><guid>https://blog.nrevery.cn/p/ctf%E6%88%98%E9%98%9F%E6%8B%9B%E6%96%B0/</guid><description>&lt;h1 id="ctf战队招新">CTF战队招新&lt;/h1>
-&lt;h2 id="misc">MISC&lt;/h2>
+&lt;h2 id="misc">Misc&lt;/h2>
 &lt;h3 id="signin">Signin&lt;/h3>
 &lt;p>略&lt;/p>
 &lt;h3 id="base64">base64?&lt;/h3>
@@ -73,8 +73,8 @@ alt="p4"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#n = 155973472877500551696404049342507495077134952416313340244284845928778400385389548636037403472336378336490931666382159990607516752340206514340009510417187026921007116552045963973163720919596636575029141772459275706505175142195195686881713118383919643653234410908740422880120161538592336383479253864155940629093&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#c = 32349988441710439726991823014652327949110727303493414402820119679942533399117470462729126720315109509283386087378965374529410971247867614623318967344071216979994926505735379297102144644819487720051553195643392945426400493308569024431403247836671630208580022421678378308476007451938426212992790979191141986943&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="题解-2">题解&lt;/h4>
-&lt;p>这是已知n、c的rsa加密题
-RSA加密算法用到六个数字，p,q,n,φ(n),e,d,主要过程如下：&lt;/p>
+&lt;p>这是已知n、c的rsa加密题&lt;/p>
+&lt;p>RSA加密算法用到六个数字，p,q,n,φ(n),e,d,主要过程如下：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">随意选择两个大的质数$p$和$q$，$p$不等于$q$，计算$n=pq$。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">根据欧拉函数，不大于N且与N互质的整数個数為$φ(n)=(p-1)(q-1)$。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">选择一个整数e与φ(n)互质，并且e小于φ(n)。
@@ -89,4 +89,179 @@ alt="p5"
 &lt;li>在RSATool中把n填入对应位置点Factor N,将n分解为两个素数，即p,q。&lt;/li>
 &lt;li>再点Calc.D得到d,此时可以点Test，输入一个数字，先加密再解密，若数字不变则测试成功，把密文c输入并解密即可得到flag&lt;/li>
 &lt;li>以上所有操作都可以在python中解决，且题型可以是知道6个数字中的其他一些数字，根据情况处理即可。&lt;/li>
-&lt;/ol></description></item></channel></rss>
+&lt;/ol>
+&lt;h2 id="web">Web&lt;/h2>
+&lt;h3 id="phpplayer">phpplayer&lt;/h3>
+&lt;h4 id="题目-3">题目&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-php" data-lang="php">&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="nx">php&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">highlight_file&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="no">__FILE__&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$flag&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nx">file_get_contents&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;/flag&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$fake_flag&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;flag{xxxxxxxxxxxxxxxxx}&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="nx">isset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$_GET&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;a&amp;#39;&lt;/span>&lt;span class="p">])){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">die&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;error1&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$num&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nv">$_GET&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;a&amp;#39;&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">preg_match&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;/[0-9]/&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nv">$num&lt;/span>&lt;span class="p">)){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">die&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;error1&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="nx">intval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$num&lt;/span>&lt;span class="p">)){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">die&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;error1&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="nx">isset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$_GET&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;b&amp;#39;&lt;/span>&lt;span class="p">])){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">die&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;error2&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="nx">isset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$_GET&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;c&amp;#39;&lt;/span>&lt;span class="p">])){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">die&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;error2&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nv">$_GET&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;b&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="nv">$_GET&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;c&amp;#39;&lt;/span>&lt;span class="p">]){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">die&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;error2&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">md5&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$_GET&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;b&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span> &lt;span class="o">!==&lt;/span> &lt;span class="nx">md5&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$_GET&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;c&amp;#39;&lt;/span>&lt;span class="p">])){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">die&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;error2&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="nx">isset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$_GET&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;d_1.01&amp;#39;&lt;/span>&lt;span class="p">])){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">die&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;error3&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="nx">isset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$_GET&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;flag&amp;#39;&lt;/span>&lt;span class="p">])){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">die&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;error4&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="nx">isset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$_POST&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;flag&amp;#39;&lt;/span>&lt;span class="p">])){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">die&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;error4&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">foreach&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$_GET&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nv">$key&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="nv">$value&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">$$key&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nv">$$value&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">test&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="nv">$a&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;123&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">function&lt;/span> &lt;span class="fm">__wakeup&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">$this&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="na">a&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;123&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">function&lt;/span> &lt;span class="fm">__destruct&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$this&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="na">a&lt;/span> &lt;span class="o">!==&lt;/span> &lt;span class="s1">&amp;#39;abc&amp;#39;&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">die&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;error5&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">echo&lt;/span> &lt;span class="nv">$GLOBALS&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;fake_flag&amp;#39;&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="nx">isset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$_GET&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;obj&amp;#39;&lt;/span>&lt;span class="p">])){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">die&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;error4&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">unserialize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$_GET&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;obj&amp;#39;&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="题解-3">题解&lt;/h4>
+&lt;p>一句话总结：利用各类“绕过”&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20231011150734.png"
+loading="lazy"
+alt="p6"
+>&lt;/p>
+&lt;ol>
+&lt;li>preg_match(&amp;quot;/[0-9]/&amp;quot;, $num),当num是数组时会返回false，也可以直接不传入a的值&lt;/li>
+&lt;li>md5()数组绕过，返回值都是null&lt;/li>
+&lt;li>在firefox中用hackbar，可以方便地写post等的数据&lt;/li>
+&lt;li>d_1.01的“.”是非法字符，但是把“_”换成“[” ，可以绕过，原理是第一个非法字符被变成了“_”,其余的非法字符得以保留&lt;/li>
+&lt;li>foreach()语句中的操作被称为“变量覆盖”，可以利用它把fake_flag中的值覆盖为真flag的值，因为代码最终只输出了fake_flag&lt;/li>
+&lt;/ol>
+&lt;p>综上，可以写成如下形式：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">http://webt4.chall.ctf.l3hsec.com/?a&amp;amp;b[]&amp;amp;c[]=1&amp;amp;d[1.01&amp;amp;fake_flag=flag&amp;amp;obj=O:4:&amp;#34;test&amp;#34;:2:{s:1:&amp;#34;a&amp;#34;;s:3:&amp;#34;abc&amp;#34;}&amp;amp;flag&amp;amp;$_post[&amp;#39;flag&amp;#39;]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="reverse">Reverse&lt;/h3>
+&lt;h4 id="题目-4">题目&lt;/h4>
+&lt;p>encode&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl"> 9 0 BUILD_LIST 0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 2 STORE_FAST 1 (ret)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 10 4 LOAD_GLOBAL 0 (list)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 6 LOAD_FAST 0 (s)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 8 CALL_FUNCTION 1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 10 STORE_FAST 2 (ls)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 11 12 LOAD_GLOBAL 1 (range)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 14 LOAD_CONST 1 (0)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 16 LOAD_GLOBAL 2 (len)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 18 LOAD_FAST 2 (ls)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 20 CALL_FUNCTION 1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 22 LOAD_CONST 2 (2)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 24 CALL_FUNCTION 3
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 26 GET_ITER
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;gt;&amp;gt; 28 FOR_ITER 90 (to 120)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 30 STORE_FAST 3 (i)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 12 32 LOAD_GLOBAL 3 (ord)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 34 LOAD_FAST 2 (ls)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 36 LOAD_FAST 3 (i)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 38 BINARY_SUBSCR
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 40 CALL_FUNCTION 1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 42 STORE_FAST 4 (num1)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 13 44 LOAD_GLOBAL 3 (ord)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 46 LOAD_FAST 2 (ls)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 48 LOAD_FAST 3 (i)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 50 LOAD_CONST 3 (1)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 52 BINARY_ADD
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 54 BINARY_SUBSCR
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 56 CALL_FUNCTION 1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 58 STORE_FAST 5 (num2)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 14 60 LOAD_FAST 4 (num1)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 62 LOAD_CONST 4 (248)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 64 BINARY_AND
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 66 LOAD_CONST 5 (3)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 68 BINARY_RSHIFT
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 70 STORE_FAST 6 (numa)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 15 72 LOAD_FAST 4 (num1)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 74 LOAD_CONST 6 (7)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 76 BINARY_AND
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 78 LOAD_CONST 5 (3)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 80 BINARY_LSHIFT
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 82 LOAD_FAST 5 (num2)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 84 LOAD_CONST 7 (240)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 86 BINARY_AND
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 88 LOAD_CONST 8 (4)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 90 BINARY_RSHIFT
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 92 BINARY_OR
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 94 STORE_FAST 7 (numb)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 16 96 LOAD_FAST 5 (num2)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 98 LOAD_CONST 9 (15)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 100 BINARY_AND
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 102 STORE_FAST 8 (numc)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 17 104 LOAD_FAST 1 (ret)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 106 LOAD_FAST 6 (numa)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 108 LOAD_FAST 7 (numb)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 110 LOAD_FAST 8 (numc)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 112 BUILD_LIST 3
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 114 BINARY_ADD
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 116 STORE_FAST 1 (ret)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 118 JUMP_ABSOLUTE 28
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 18 &amp;gt;&amp;gt; 120 LOAD_FAST 1 (ret)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 122 RETURN_VALUE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">None
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>output&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">[13, 35, 3, 13, 7, 3, 12, 46, 3, 15, 30, 1, 6, 19, 9, 6, 62, 6, 7, 3, 6, 12, 34, 13, 12, 51, 1, 12, 11, 6, 5, 43, 4, 12, 11, 3, 6, 50, 13, 7, 14, 6, 6, 6, 6, 5, 43, 3, 6, 43, 8, 6, 59, 3, 12, 35, 3, 12, 11, 1, 6, 46, 6, 6, 15, 13]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="题解-4">题解&lt;/h4>
+&lt;p>encode是python字节码,用 &lt;code>python -m dis xxx.py&lt;/code> 可以查看字节码
+经过分析，对应的代码如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">ret&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">ls&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">list&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">s&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">s&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">num1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">ord&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ls&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">num2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">ord&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ls&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">numa&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">num1&lt;/span> &lt;span class="o">&amp;amp;&lt;/span> &lt;span class="mi">248&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;gt;&amp;gt;&lt;/span> &lt;span class="mi">3&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">numb&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">((&lt;/span>&lt;span class="n">num1&lt;/span> &lt;span class="o">&amp;amp;&lt;/span> &lt;span class="mi">7&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;gt;&amp;gt;&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="p">((&lt;/span>&lt;span class="n">num2&lt;/span> &lt;span class="o">&amp;amp;&lt;/span> &lt;span class="mi">240&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;gt;&amp;gt;&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">numc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">num2&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">15&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ret&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ret&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">numa&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">numb&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">numc&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20231011151609.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>注意：&lt;/p>
+&lt;ol>
+&lt;li>字节码中and和add不要看错（大哭）&lt;/li>
+&lt;li>因为有很多按位与的操作，所以很难反推出flag，只能正向尝试。&lt;/li>
+&lt;li>这段代码相当于是把两个数字经过某个函数变成了三个数字，也就是说串s可以每两个分为一组，组间互不干扰，所以正向遍历所有可能也计算量很小&lt;/li>
+&lt;/ol>
+&lt;p>得到flag的代码如下图：&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20231011152844.png"
+loading="lazy"
+alt="p7"
+>&lt;/p></description></item></channel></rss>
