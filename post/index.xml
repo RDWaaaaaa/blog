@@ -162,7 +162,8 @@ alt="p6"
 &lt;/ol>
 &lt;p>综上，可以写成如下形式：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">http://webt4.chall.ctf.l3hsec.com/?a&amp;amp;b[]&amp;amp;c[]=1&amp;amp;d[1.01&amp;amp;fake_flag=flag&amp;amp;obj=O:4:&amp;#34;test&amp;#34;:2:{s:1:&amp;#34;a&amp;#34;;s:3:&amp;#34;abc&amp;#34;}&amp;amp;flag&amp;amp;$_post[&amp;#39;flag&amp;#39;]
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="reverse">Reverse&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="reverse">Reverse&lt;/h2>
+&lt;h3 id="pyencode">pyencode&lt;/h3>
 &lt;h4 id="题目-4">题目&lt;/h4>
 &lt;p>encode&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl"> 9 0 BUILD_LIST 0
