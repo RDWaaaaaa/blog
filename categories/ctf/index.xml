@@ -51,7 +51,7 @@ alt="p3"
 loading="lazy"
 alt="p4"
 >&lt;/p>
-&lt;h2 id="ctypto">CTYPTO&lt;/h2>
+&lt;h2 id="crypto">Crypto&lt;/h2>
 &lt;h3 id="factor">factor&lt;/h3>
 &lt;h4 id="题目-2">题目&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">Crypto.Util.number&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="o">*&lt;/span>
