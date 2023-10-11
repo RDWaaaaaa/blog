@@ -75,10 +75,10 @@ alt="p4"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="题解-2">题解&lt;/h4>
 &lt;p>这是已知n、c的rsa加密题&lt;/p>
 &lt;p>RSA加密算法用到六个数字，p,q,n,φ(n),e,d,主要过程如下：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">随意选择两个大的质数$p$和$q$，$p$不等于$q$，计算$n=pq$。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">根据欧拉函数，不大于N且与N互质的整数個数為$φ(n)=(p-1)(q-1)$。
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">随意选择两个大的质数p和q，p不等于q，计算n=pq。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">根据欧拉函数，不大于N且与N互质的整数個数為φ(n)=(p-1)(q-1)。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">选择一个整数e与φ(n)互质，并且e小于φ(n)。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">用以下这个公式计算$d：d×e ≡ 1 (mod φ(n))$。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">用以下这个公式计算d：d×e ≡ 1 (mod φ(n))。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">将p和q的记录销毁。
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20231011140633.png"
 loading="lazy"
@@ -259,10 +259,12 @@ loading="lazy"
 &lt;ol>
 &lt;li>字节码中and和add不要看错（大哭）&lt;/li>
 &lt;li>因为有很多按位与的操作，所以很难反推出flag，只能正向尝试。&lt;/li>
-&lt;li>这段代码相当于是把两个数字经过某个函数变成了三个数字，也就是说串s可以每两个分为一组，组间互不干扰，所以正向遍历所有可能也计算量很小&lt;/li>
+&lt;li>这段代码相当于是把两个数字经过某个函数变成了三个数字，也就是说串s可以每两个分为一组，组间互不干扰，所以正向遍历所有情况计算量也很小&lt;/li>
 &lt;/ol>
 &lt;p>得到flag的代码如下图：&lt;/p>
 &lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20231011152844.png"
 loading="lazy"
 alt="p7"
->&lt;/p></description></item></channel></rss>
+>&lt;/p>
+&lt;h2 id="一些未完待续">一些未完待续&lt;/h2>
+&lt;p>在查资料的过程中看到很多相关知识，比如常用的文件头有哪些、绕过MD5的多种方式，rsa的其他题型、misc用到了哪些工具、有哪些好用的在线网站等等。已经保存了可是太凌乱了。。。最近忙到起飞，有时间再分专题整理&lt;/p></description></item></channel></rss>
