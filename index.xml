@@ -1,4 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>nRevery's Blog</title><link>https://blog.nrevery.cn/</link><description>Recent content on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Tue, 10 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.nrevery.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Archives</title><link>https://blog.nrevery.cn/archives/</link><pubDate>Tue, 10 Oct 2023 00:00:00 +0000</pubDate><guid>https://blog.nrevery.cn/archives/</guid><description/></item><item><title>Links</title><link>https://blog.nrevery.cn/links/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://blog.nrevery.cn/links/</guid><description>&lt;p>To use this feature, add &lt;code>links&lt;/code> section to frontmatter.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>nRevery's Blog</title><link>https://blog.nrevery.cn/</link><description>Recent content on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Wed, 11 Oct 2023 07:58:34 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>CTF战队招新</title><link>https://blog.nrevery.cn/p/ctf%E6%88%98%E9%98%9F%E6%8B%9B%E6%96%B0/</link><pubDate>Wed, 11 Oct 2023 07:58:34 +0800</pubDate><guid>https://blog.nrevery.cn/p/ctf%E6%88%98%E9%98%9F%E6%8B%9B%E6%96%B0/</guid><description>&lt;h1 id="ctf战队招新">CTF战队招新&lt;/h1>
+&lt;h2 id="misc">MISC&lt;/h2>
+&lt;h3 id="signin">Signin&lt;/h3>
+&lt;p>略&lt;/p>
+&lt;h3 id="base64">base64?&lt;/h3>
+&lt;h4 id="题目">题目&lt;/h4>
+&lt;p>我的密文: ox6qJI1Q7kJY1OvuR/1CBs1yRVvuEIfeR/lCUMAGrV8LwEL=&lt;/p>
+&lt;p>泄露的明文: jRQfVJMwco5wegcVY3cAFi5a7V97IIWMgNh/epeit8Prp1+vdved0CzndIyCqfEMvho3YF33SYjeif4oi0mGscBFhRH70i17E8IgGAVXtZGDhSK9vPkH5MhI&lt;/p>
+&lt;p>泄露的密文: N+d9r+rjVElQoG1krPlQ1+MG8LvXNV1p658u6L+d1L5aVsFKrEA+NEUhB/dYRTfIr/r+rxAx7suMTE+xJPrvVErqoG6r9QRGB5+0rP+s6XSWRX5/JI6m9spTTxJYNVnk9VpdrLlA1+pLPMlnNv6zbErUNLF5VPpd&lt;/p>
+&lt;p>你现在知道我的明文了吗？&lt;/p>
+&lt;h4 id="题解">题解&lt;/h4>
+&lt;p>1.将泄露的明文用base64加密&lt;/p>
+&lt;p>alJRZlZKTXdjbzV3ZWdjVlkzY0FGaTVhN1Y5N0lJV01nTmgvZXBlaXQ4UHJwMSt2ZHZlZDBDem5kSXlDcWZFTXZobzNZRjMzU1lqZWlmNG9pMG1Hc2NCRmhSSDcwaTE3RThJZ0dBVlh0WkdEaFNLOXZQa0g1TWhJ&lt;/p>
+&lt;p>2.发现泄露的密文与加密后的密文的字符有对应关系
+（代码不小心删了，就是找到目前能对应的字符并且把我的密文尽量转换，并且输出目前还没有对应的字符）
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/photo1.png"
+loading="lazy"
+alt="p1"
+>&lt;/p>
+&lt;p>3.将得到的不完整的明文每四个字符进行base64解密，得到flag的大部分。根据推理和几次尝试就得到完整的flag（&lt;/p></description></item><item><title>Archives</title><link>https://blog.nrevery.cn/archives/</link><pubDate>Tue, 10 Oct 2023 00:00:00 +0000</pubDate><guid>https://blog.nrevery.cn/archives/</guid><description/></item><item><title>Links</title><link>https://blog.nrevery.cn/links/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://blog.nrevery.cn/links/</guid><description>&lt;p>To use this feature, add &lt;code>links&lt;/code> section to frontmatter.&lt;/p>
 &lt;p>This page&amp;rsquo;s frontmatter:&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">links&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">title&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">GitHub&lt;/span>&lt;span class="w">
