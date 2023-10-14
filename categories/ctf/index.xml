@@ -320,7 +320,7 @@ alt="p13"
 &lt;li>&lt;code>b main&lt;/code>在main函数设置断点&lt;/li>
 &lt;li>&lt;code>r&lt;/code>运行，一开始显示错误，经过搜索是因为对文件的权限不够，用&lt;code>chmod u+x ret2text&lt;/code>提升权限&lt;/li>
 &lt;li>在main函数输入v4的时候输入一个字符串&lt;/li>
-&lt;li>关注x7fffffffde40和0x7fffffffdef80两行，相减得148&lt;/li>
+&lt;li>关注0x7fffffffde40和0x7fffffffdef8两行，相减得148&lt;/li>
 &lt;/ol>
 &lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20231014163520.png"
 loading="lazy"
