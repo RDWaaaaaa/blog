@@ -1,4 +1,96 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on nRevery's Blog</title><link>https://blog.nrevery.cn/post/</link><description>Recent content in Posts on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Sun, 15 Oct 2023 10:36:36 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/post/index.xml" rel="self" type="application/rss+xml"/><item><title>AcWing学习记录</title><link>https://blog.nrevery.cn/p/acwing%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link><pubDate>Sun, 15 Oct 2023 10:36:36 +0800</pubDate><guid>https://blog.nrevery.cn/p/acwing%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid><description>&lt;h1 id="搜索">搜索&lt;/h1></description></item><item><title>CTF战队招新赛</title><link>https://blog.nrevery.cn/p/ctf%E6%88%98%E9%98%9F%E6%8B%9B%E6%96%B0%E8%B5%9B/</link><pubDate>Wed, 11 Oct 2023 07:58:34 +0800</pubDate><guid>https://blog.nrevery.cn/p/ctf%E6%88%98%E9%98%9F%E6%8B%9B%E6%96%B0%E8%B5%9B/</guid><description>&lt;h1 id="ctf战队招新赛">CTF战队招新赛&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on nRevery's Blog</title><link>https://blog.nrevery.cn/post/</link><description>Recent content in Posts on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Sun, 15 Oct 2023 10:36:36 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/post/index.xml" rel="self" type="application/rss+xml"/><item><title>AcWing学习记录-搜索</title><link>https://blog.nrevery.cn/p/acwing%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-%E6%90%9C%E7%B4%A2/</link><pubDate>Sun, 15 Oct 2023 10:36:36 +0800</pubDate><guid>https://blog.nrevery.cn/p/acwing%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-%E6%90%9C%E7%B4%A2/</guid><description>&lt;h1 id="搜索">搜索&lt;/h1>
+&lt;h2 id="双向bfs">双向BFS&lt;/h2>
+&lt;p>&lt;strong>基本形式&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">int&lt;/span> &lt;span class="nf">bfs&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">A&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">B&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">queue&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">string&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">qa&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">qb&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">unordered_map&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">string&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">da&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">db&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qa&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">A&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">qb&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">B&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">da&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">A&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">db&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">B&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="c1">//init
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="n">step&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">while&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">qa&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">size&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="n">qb&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">size&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="n">t&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">qa&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">size&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="n">qb&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">size&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="n">t&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">extend&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">qa&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">da&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">db&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span> &lt;span class="n">t&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">extend&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">qb&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">db&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">da&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">t&lt;/span> &lt;span class="o">&amp;lt;=&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="n">t&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span> &lt;span class="o">++&lt;/span> &lt;span class="n">step&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kt">int&lt;/span> &lt;span class="nf">extend&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">queue&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">string&lt;/span>&lt;span class="o">&amp;gt;&amp;amp;&lt;/span> &lt;span class="n">q&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">unordered_map&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">string&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="o">&amp;gt;&amp;amp;&lt;/span>&lt;span class="n">da&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">unordered_map&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">string&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="o">&amp;gt;&amp;amp;&lt;/span> &lt;span class="n">db&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">string&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">N&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">string&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">N&lt;/span>&lt;span class="p">]){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="a">A*&lt;/h2>
+&lt;p>&lt;strong>条件&lt;/strong>：边权非负，且保证有解（若无解则效率低于普通bfs）&lt;/p>
+&lt;p>&lt;strong>适用范围&lt;/strong>：求最短路等，状态很多例如八数码问题。只能保证终点第一次出队时是最小值，不能保证其他点第一次出队是最小值。&lt;/p>
+&lt;p>&lt;strong>估计距离的条件&lt;/strong>：设当前点到终点的估计距离为f(state),当前点到终点的真实子u段距离为g(state),要有f(state)&amp;lt;=g(state)&lt;/p>
+&lt;p>&lt;strong>八数码&lt;/strong>：有解充要条件是逆序对数量为偶数，估计距离为现在这个状态每个点到目标位置的曼哈顿距离之和。&lt;/p>
+&lt;p>&lt;strong>第k短路&lt;/strong>：先Dijkstra，得到每个点到终点的最短距离，以g(state)为f(state)，再A*，当终点第k次出队，就是答案。&lt;/p>
+&lt;p>&lt;strong>基本形式&lt;/strong>：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="line">&lt;span class="cl">&lt;span class="n">priority_queue&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">vector&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">greater&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="o">&amp;gt;&lt;/span>&lt;span class="n">q&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">q&lt;/span>&lt;span class="err">里面存：起点到当前点的准确距离（不一定最短）&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="err">当前点到终点的估计距离&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">while&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="n">q&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">empty&lt;/span>&lt;span class="p">()){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">t&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">q&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">top&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">终点第一次出队时是最小值。&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">q&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">pop&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">t&lt;/span>&lt;span class="err">的所有邻边&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">如果能被更新就入队&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>形式与Dijkstra相似，Dijkstra算法可看作把估计距离都取0的A*&lt;/p>
+&lt;h2 id="剪枝">剪枝&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>优化搜索顺序&lt;/p>
+&lt;p>例：小猫重量w[i],缆车最大承重W,问至少需要多少缆车。显然重量大的小猫安排较为“困难”，可以将小猫重量降序sort。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>排除等效冗余
+组合问题不要写成排列&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>可行性剪枝&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>最优性剪枝&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>记忆化搜索（dp）&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="迭代加深">迭代加深&lt;/h2>
+&lt;p>“找到最短的序列”类似问题
+核心思想：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="line">&lt;span class="cl"> &lt;span class="k">while&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="n">dfs&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">k&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="n">k&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="双向dfs">双向DFS&lt;/h2>
+&lt;p>n个物品每个重量g[i]，拿的总重不超过W，n&amp;lt;=46,W&amp;lt;=1&amp;laquo;31,求最大能拿多重。
+先降序排序，前一半dfs暴搜求所有可能的总重量，降重、排序，后一半也暴搜，对后一半可能的总和x，再前一半找y&amp;lt;=W-x的最大y值，更新x+y的最大值。复杂度从 $O(2^n)$ 降到$O(log(2^{n \over 2})*2^{n \over 2})$即$O(n2^{n \over 2} )$&lt;/p>
+&lt;h2 id="ida">IDA*&lt;/h2>
+&lt;p>&lt;strong>例题&lt;/strong>&lt;/p>
+&lt;p>给定n本书，编号为1∼n在初始状态下，书是任意排列的。
+在每一次操作中，可以抽取其中连续的一段，再把这段插入到其他某个位置。
+我们的目标状态是把书按照 1∼n的顺序依次排列。
+求最少需要多少次操作。
+若大于等于5次就直接输出&amp;quot;5 or more&amp;quot;
+1&amp;lt;=n&amp;lt;=15&lt;/p>
+&lt;p>&lt;strong>思路&lt;/strong>&lt;/p>
+&lt;p>先考虑每一步的决策数量：
+当抽取长度为i的一段时，有n−i+1种抽法，对于每种抽法，有n−i种放法。另外，将某一段向前移动，等价于将跳过的那段向后移动，因此每种移动方式被算了两遍，所以每个状态总共的分支数量是：∑ni=1(n−i)∗(n−i+1)/2=(15∗14+14∗13+…+2∗1)/2=560&lt;/p>
+&lt;p>考虑在四步以内解决，最多有 560^4个状态，会超时。可以使用双向BFS或者IDA*来优化。我们用IDA*来解决此题。&lt;/p>
+&lt;p>&lt;strong>估价函数：&lt;/strong>&lt;/p>
+&lt;p>需要满足：不大于实际步数
+在最终状态下，每本书后面的书的编号应该比当前书多1。
+每次移动最多会断开三个相连的位置，再重新加入三个相连的位置，因此最多会将3个错误的连接修正，所以如果当前有 tot个连接，那么最少需要 ⌈tot/3⌉次操作。因此当前状态 s的估价函数可以设计成 f(s)=⌈tot/3⌉如果当前层数加上 f(s)大于迭代加深的层数上限，则直接从当前分支回溯。&lt;/p>
+&lt;p>&lt;strong>时间复杂度&lt;/strong>&lt;/p>
+&lt;p>理论上最多搜索 560^4个状态，使用IDA*后实际搜索的状态数量很少。&lt;/p></description></item><item><title>CTF战队招新赛</title><link>https://blog.nrevery.cn/p/ctf%E6%88%98%E9%98%9F%E6%8B%9B%E6%96%B0%E8%B5%9B/</link><pubDate>Wed, 11 Oct 2023 07:58:34 +0800</pubDate><guid>https://blog.nrevery.cn/p/ctf%E6%88%98%E9%98%9F%E6%8B%9B%E6%96%B0%E8%B5%9B/</guid><description>&lt;h1 id="ctf战队招新赛">CTF战队招新赛&lt;/h1>
 &lt;h2 id="misc">Misc&lt;/h2>
 &lt;h3 id="signin">Signin&lt;/h3>
 &lt;p>略&lt;/p>
