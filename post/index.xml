@@ -1,4 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on nRevery's Blog</title><link>https://blog.nrevery.cn/post/</link><description>Recent content in Posts on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Sun, 15 Oct 2023 10:36:36 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/post/index.xml" rel="self" type="application/rss+xml"/><item><title>AcWing学习记录-搜索</title><link>https://blog.nrevery.cn/p/acwing%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-%E6%90%9C%E7%B4%A2/</link><pubDate>Sun, 15 Oct 2023 10:36:36 +0800</pubDate><guid>https://blog.nrevery.cn/p/acwing%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-%E6%90%9C%E7%B4%A2/</guid><description>&lt;h1 id="搜索">搜索&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on nRevery's Blog</title><link>https://blog.nrevery.cn/post/</link><description>Recent content in Posts on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Sun, 15 Oct 2023 23:55:09 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/post/index.xml" rel="self" type="application/rss+xml"/><item><title>那些不太聪明的Bug</title><link>https://blog.nrevery.cn/p/%E9%82%A3%E4%BA%9B%E4%B8%8D%E5%A4%AA%E8%81%AA%E6%98%8E%E7%9A%84bug/</link><pubDate>Sun, 15 Oct 2023 23:55:09 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E9%82%A3%E4%BA%9B%E4%B8%8D%E5%A4%AA%E8%81%AA%E6%98%8E%E7%9A%84bug/</guid><description>&lt;ol>
+&lt;li>没有输入输出&lt;/li>
+&lt;li>调试后提交，输出没有注释掉&lt;/li>
+&lt;li>变量重名&lt;/li>
+&lt;li>没开long long&lt;/li>
+&lt;li>double有时候需要改成long double，long double输出时为%Lf&lt;/li>
+&lt;li>有多个测试点时，数组等要初始化，队列等要清空&lt;/li>
+&lt;li>&lt;code>1&amp;lt;&amp;lt;k&lt;/code>只能是int型，必要时应写或者&lt;code>1ll&amp;lt;&amp;lt;k&lt;/code>&lt;/li>
+&lt;li>符号优先级，&lt;code>if(((i&amp;gt;&amp;gt;j)&amp;amp;1)==0)&lt;/code>正确,&lt;code>if((i&amp;gt;&amp;gt;j)&amp;amp;1==0)&lt;/code>错误&lt;/li>
+&lt;li>矩形的n和m都写成n&lt;/li>
+&lt;li>有图的题注意重边和自环&lt;/li>
+&lt;li>……&lt;/li>
+&lt;/ol></description></item><item><title>AcWing学习记录-搜索</title><link>https://blog.nrevery.cn/p/acwing%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-%E6%90%9C%E7%B4%A2/</link><pubDate>Sun, 15 Oct 2023 10:36:36 +0800</pubDate><guid>https://blog.nrevery.cn/p/acwing%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-%E6%90%9C%E7%B4%A2/</guid><description>&lt;h1 id="搜索">搜索&lt;/h1>
 &lt;h2 id="双向bfs">双向BFS&lt;/h2>
 &lt;p>&lt;strong>基本形式&lt;/strong>&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">int&lt;/span> &lt;span class="nf">bfs&lt;/span>&lt;span class="p">()&lt;/span>
