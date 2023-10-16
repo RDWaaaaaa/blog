@@ -9,7 +9,7 @@
 &lt;li>符号优先级，&lt;code>if(((i&amp;gt;&amp;gt;j)&amp;amp;1)==0)&lt;/code>正确,&lt;code>if((i&amp;gt;&amp;gt;j)&amp;amp;1==0)&lt;/code>错误&lt;/li>
 &lt;li>矩形的n和m都写成n&lt;/li>
 &lt;li>有图的题注意重边和自环&lt;/li>
-&lt;li>数据并未按照顺序给出&lt;/li>
+&lt;li>数据并未按照顺序给出,例如模拟题中的时间顺序&lt;/li>
 &lt;li>……&lt;/li>
 &lt;/ol></description></item><item><title>AcWing学习记录-搜索</title><link>https://blog.nrevery.cn/p/acwing%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-%E6%90%9C%E7%B4%A2/</link><pubDate>Sun, 15 Oct 2023 10:36:36 +0800</pubDate><guid>https://blog.nrevery.cn/p/acwing%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-%E6%90%9C%E7%B4%A2/</guid><description>&lt;h1 id="搜索">搜索&lt;/h1>
 &lt;h2 id="双向bfs">双向BFS&lt;/h2>
