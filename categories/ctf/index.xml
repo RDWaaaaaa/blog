@@ -1,4 +1,45 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CTF on nRevery's Blog</title><link>https://blog.nrevery.cn/categories/ctf/</link><description>Recent content in CTF on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Wed, 11 Oct 2023 07:58:34 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/categories/ctf/index.xml" rel="self" type="application/rss+xml"/><item><title>CTF战队招新赛</title><link>https://blog.nrevery.cn/p/ctf%E6%88%98%E9%98%9F%E6%8B%9B%E6%96%B0%E8%B5%9B/</link><pubDate>Wed, 11 Oct 2023 07:58:34 +0800</pubDate><guid>https://blog.nrevery.cn/p/ctf%E6%88%98%E9%98%9F%E6%8B%9B%E6%96%B0%E8%B5%9B/</guid><description>&lt;h1 id="ctf战队招新赛">CTF战队招新赛&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CTF on nRevery's Blog</title><link>https://blog.nrevery.cn/categories/ctf/</link><description>Recent content in CTF on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Sun, 22 Oct 2023 23:58:32 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/categories/ctf/index.xml" rel="self" type="application/rss+xml"/><item><title>工具汇总</title><link>https://blog.nrevery.cn/p/%E5%B7%A5%E5%85%B7%E6%B1%87%E6%80%BB/</link><pubDate>Sun, 22 Oct 2023 23:58:32 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E5%B7%A5%E5%85%B7%E6%B1%87%E6%80%BB/</guid><description>&lt;h1 id="misc">MISC&lt;/h1>
+&lt;ol>
+&lt;li>条形码/二维码等识别
+&lt;a class="link" href="https://online-barcode-reader.inliteresearch.com/" target="_blank" rel="noopener"
+>链接&lt;/a>&lt;/li>
+&lt;li>Stegsolve图片隐写解析
+打开方式:命令行&lt;code>java -jar d:\edgedownload\Stegsolve.jar&lt;/code>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>名称&lt;/th>
+&lt;th>功能&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>File Format&lt;/td>
+&lt;td>文件格式&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Data Extract&lt;/td>
+&lt;td>数据提取&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Steregram Solve&lt;/td>
+&lt;td>立体试图 可以左右控制偏移&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Frame Browser&lt;/td>
+&lt;td>帧浏览器&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Image Combiner&lt;/td>
+&lt;td>图片拼接&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;/li>
+&lt;li>010editor&lt;/li>
+&lt;li>WinHex&lt;/li>
+&lt;li>pyc是一种二进制文件，是由py文件经过编译后，生成的文件&lt;/li>
+&lt;/ol></description></item><item><title>CTF战队招新赛</title><link>https://blog.nrevery.cn/p/ctf%E6%88%98%E9%98%9F%E6%8B%9B%E6%96%B0%E8%B5%9B/</link><pubDate>Wed, 11 Oct 2023 07:58:34 +0800</pubDate><guid>https://blog.nrevery.cn/p/ctf%E6%88%98%E9%98%9F%E6%8B%9B%E6%96%B0%E8%B5%9B/</guid><description>&lt;h1 id="ctf战队招新赛">CTF战队招新赛&lt;/h1>
 &lt;h2 id="misc">Misc&lt;/h2>
 &lt;h3 id="signin">Signin&lt;/h3>
 &lt;p>略&lt;/p>
