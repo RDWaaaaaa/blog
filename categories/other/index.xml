@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>other on nRevery's Blog</title><link>https://blog.nrevery.cn/categories/other/</link><description>Recent content in other on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Mon, 25 Mar 2024 22:13:53 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/categories/other/index.xml" rel="self" type="application/rss+xml"/><item><title>日常笔记</title><link>https://blog.nrevery.cn/p/%E6%97%A5%E5%B8%B8%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 25 Mar 2024 22:13:53 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E6%97%A5%E5%B8%B8%E7%AC%94%E8%AE%B0/</guid><description>&lt;h1 id="gef的使用">gef的使用&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>other on nRevery's Blog</title><link>https://blog.nrevery.cn/categories/other/</link><description>Recent content in other on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Mon, 25 Mar 2024 22:13:53 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/categories/other/index.xml" rel="self" type="application/rss+xml"/><item><title>日常笔记</title><link>https://blog.nrevery.cn/p/%E6%97%A5%E5%B8%B8%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 25 Mar 2024 22:13:53 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E6%97%A5%E5%B8%B8%E7%AC%94%E8%AE%B0/</guid><description>&lt;h2 id="gef的使用">gef的使用&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">info functions
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">b main
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">info breakpoints
@@ -7,4 +7,11 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">si &lt;span class="c1"># 会进入子函数&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">n &lt;span class="c1">#源代码级别的&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">s
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="compilesh编译链接">compile.sh编译链接&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;[+] Assembling with Nasm ...&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nasm -f elf32 -o &lt;span class="nv">$1&lt;/span>.o &lt;span class="nv">$1&lt;/span>.asm
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;[+] Linking ...&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ld -o &lt;span class="nv">$1&lt;/span> &lt;span class="nv">$1&lt;/span>.o
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;[+]Done!&amp;#39;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>
