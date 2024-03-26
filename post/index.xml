@@ -1,19 +1,115 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on nRevery's Blog</title><link>https://blog.nrevery.cn/post/</link><description>Recent content in Posts on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Mon, 25 Mar 2024 22:13:53 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/post/index.xml" rel="self" type="application/rss+xml"/><item><title>日常笔记</title><link>https://blog.nrevery.cn/p/%E6%97%A5%E5%B8%B8%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 25 Mar 2024 22:13:53 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E6%97%A5%E5%B8%B8%E7%AC%94%E8%AE%B0/</guid><description>&lt;h2 id="gef的使用">gef的使用&lt;/h2>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">info functions
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on nRevery's Blog</title><link>https://blog.nrevery.cn/post/</link><description>Recent content in Posts on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Mon, 25 Mar 2024 22:13:53 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/post/index.xml" rel="self" type="application/rss+xml"/><item><title>笔记</title><link>https://blog.nrevery.cn/p/%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 25 Mar 2024 22:13:53 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E7%AC%94%E8%AE%B0/</guid><description>&lt;h2 id="gdb的使用">GDB的使用&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">info fun
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">b main
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">info breakpoints
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">info b
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">r aaa &lt;span class="c1"># 提交参数aaa&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ni &lt;span class="c1"># 不进入子函数&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">si &lt;span class="c1"># 会进入子函数&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">n &lt;span class="c1">#源代码级别的&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">s
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">display /x &lt;span class="nv">$eax&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">info reg
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">info all-reg
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">x/10x &lt;span class="nv">$eax&lt;/span> &lt;span class="c1"># 以十六进制格式显示 $eax 寄存器中的内容，并显示它后面的 10 个地址单元的内容。&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">disas &lt;span class="c1">#或disassemble&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">disas main
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">info proc mappings &lt;span class="c1"># 用于在 GDB 中查看当前正在调试的进程的内存映射信息。&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="虚拟内存">虚拟内存&lt;/h2>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240326102449.png" alt="Image" width="450" height="300">
+&lt;h2 id="进程">进程&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ps &lt;span class="c1"># 命令显示当前系统中正在运行的进程信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 包括每个进程的进程号（PID）、终端号（TTY）、运行时间以及命令名称（CMD）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /proc/cpuinfo
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /proc/70331/maps
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 每行格式如下&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># address perms offset dev inode pathname&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 5639c6e5c000-5639c6e73000 r--p 00000000 08:05 917627 /usr/bin/zsh&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># address：内存区域的起始地址和结束地址，以十六进制表示。&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># perms：内存区域的权限标志，表示该区域的访问权限。常见的权限标志包括：&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># r：可读&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># w：可写&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># x：可执行&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># p：私有，即该区域是进程私有的，不与其他进程共享&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># s：共享，即该区域是与其他进程共享的&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># offset：该内存区域在文件中的偏移量，如果不是从文件映射而来，则为 0。&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># dev：文件所在的设备号。&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># inode：文件的索引节点号，如果不是从文件映射而来，则为 0。&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># pathname：文件的路径名，如果不是从文件映射而来，则为一个空字符串或 [stack]、[heap] 等特殊标记。&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pmap -d &lt;span class="m">70331&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="compilesh编译链接">compile.sh编译链接&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;[+] Assembling with Nasm ...&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nasm -f elf32 -o &lt;span class="nv">$1&lt;/span>.o &lt;span class="nv">$1&lt;/span>.asm
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nasm -f elf64 -o &lt;span class="nv">$1&lt;/span>.o &lt;span class="nv">$1&lt;/span>.nasm
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;[+] Linking ...&amp;#39;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ld -o &lt;span class="nv">$1&lt;/span> &lt;span class="nv">$1&lt;/span>.o
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;[+]Done!&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="其他">其他&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">man &lt;span class="m">2&lt;/span> write
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#用于查看 Linux 系统调用 write 的手册页(manual)。在 Linux 的手册页中，系统调用通常被分为不同的节（sections），而 write 是位于第 2 节（System Calls）中的一个系统调用。&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">global _start
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">section .text
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">_start:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mov eax,0x4
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mov ebx,0x1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mov ecx,message
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mov edx,mlen
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">int 0x80
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mov eax,0x1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mov ebx,0x5
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">int 0x80
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">section .data
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">message: db &amp;#34;Hello world!&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mlen equ $-message
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>eax 寄存器：存储系统调用号。
+ebx 寄存器：存储第一个参数。
+ecx 寄存器：存储第二个参数。
+edx 寄存器：存储第三个参数。
+esi 寄存器：存储第四个参数。
+edi 寄存器：存储第五个参数。
+超过5个栈传递
+下面改成64位版本的&lt;/p>
+&lt;ol>
+&lt;li>ax是系统调用号，从&lt;code>/usr/include/x86_64-linux-gnu/asm/unistd_64.h&lt;/code>看到write对应1号&lt;/li>
+&lt;/ol>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240326223443.png" alt="Image" width="650" height="470">
+&lt;ol start="2">
+&lt;li>&lt;code>man 2 write&lt;/code>用于查看 Linux 系统调用 write 的手册页(manual)。在 Linux 的手册页中，系统调用通常被分为不同的节（sections），而 write 是位于第 2 节（System Calls）中的一个系统调用。如果不知道在哪一节，&lt;code>man -k write&lt;/code>或&lt;code>apropos write&lt;/code>能查看所有。&lt;/li>
+&lt;/ol>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240326224023.png" alt="Image" width="650" height="470">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;unistd.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span> &lt;span class="kt">ssize_t&lt;/span> &lt;span class="nf">write&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">fd&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">const&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">buf&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">size_t&lt;/span> &lt;span class="n">count&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>参数
+rax 寄存器：存储系统调用号。
+rdi 寄存器：存储第一个参数。
+rsi 寄存器：存储第二个参数。
+rdx 寄存器：存储第三个参数。
+r10 寄存器：存储第四个参数。
+r8 寄存器：存储第五个参数。
+r9 寄存器：存储第六个参数。
+超过6个栈传递&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">section .data
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> message db &amp;#34;Hello world!&amp;#34;, 0xA
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> mlen equ $ - message
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">section .text
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> global _start
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">_start:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ; 输出字符串到标准输出（stdout）
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> mov rax, 1 ; syscall number for sys_write
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> mov rdi, 1 ; file descriptor 1 (stdout)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> mov rsi, message ; pointer to the message
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> mov rdx, mlen ; message length
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> syscall ; invoke syscall
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ; 退出程序
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> mov rax, 60 ; syscall number for sys_exit
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> xor rdi, rdi ; exit code 0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> syscall ; invoke syscall
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>工具汇总</title><link>https://blog.nrevery.cn/p/%E5%B7%A5%E5%85%B7%E6%B1%87%E6%80%BB/</link><pubDate>Sun, 22 Oct 2023 23:58:32 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E5%B7%A5%E5%85%B7%E6%B1%87%E6%80%BB/</guid><description>&lt;h1 id="misc">MISC&lt;/h1>
 &lt;ol>
 &lt;li>条形码/二维码等识别
