@@ -9,6 +9,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">si &lt;span class="c1"># 会进入子函数&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">n &lt;span class="c1">#源代码级别的&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">s
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">c &lt;span class="c1">#到下一个断点&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">info fun
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">info b
@@ -22,7 +23,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">x/s 0x11111111 &lt;span class="c1"># 字符串&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">x/d
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">x/xw &lt;span class="c1"># 注意是4字节&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">print &lt;span class="nv">$eflags&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">p &lt;span class="nv">$eflags&lt;/span> &lt;span class="c1"># print $eflags&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">disas &lt;span class="c1">#或disassemble&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">disas main
@@ -138,8 +139,6 @@ double quad word - 128 bits&lt;/p>
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nl">worvar:&lt;/span> &lt;span class="nf">resw&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="c1">;reserve a word 数字表示length不是size
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nl">zerobuf:&lt;/span> &lt;span class="nf">times&lt;/span> &lt;span class="mi">64&lt;/span> &lt;span class="no">db&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="c1">;(和db 64 dup(0)差不多)
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nf">times&lt;/span> &lt;span class="mi">100&lt;/span> &lt;span class="no">movsb&lt;/span> &lt;span class="c1">;movsb将单个字节从源地址复制到目标地址，并递增源和目标指针。
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="na">rep&lt;/span> &lt;span class="nf">movsb&lt;/span> &lt;span class="c1">;次数在ecx中
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">;rep通常与 movsb、movsw、movsd、scasb、scasw、scasd、cmpsb、cmpsw、cmpsd 等指令一起使用。
 &lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;span style="color: #ccc;">
 &lt;p>TF (Trap Flag)：陷阱标志位，用于单步调试。
 IF (Interrupt Enable Flag)：中断允许标志位，指示是否允许中断。&lt;br>
@@ -153,4 +152,68 @@ VIF (Virtual Interrupt Flag)：虚拟中断标志位，用于虚拟化环境中�
 VIP (Virtual Interrupt Pending)：虚拟中断挂起标志位，指示虚拟中断是否挂起。&lt;br>
 ID (Identification Flag)：标识标志位，指示处理器是否支持 CPUID 指令。&lt;/p>
 &lt;/span>
-&lt;p>无符号数高一半为0，有符号数高一半是第一半符号扩展：OF=CF=0（否则CF=OF=1）&lt;/p></description></item></channel></rss>
+&lt;p>无符号数高一半为0，有符号数高一半是第一半符号扩展：OF=CF=0（否则CF=OF=1）&lt;/p>
+&lt;p>栈&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-asm" data-lang="asm">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">pushad&lt;/span> &lt;span class="c1">;将所有通用寄存器的值依次压入栈中，包括 eax、ecx、edx、ebx、esp、ebp、esi 和 edi。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nf">pushfd&lt;/span> &lt;span class="c1">;将标志寄存器 eflags 的值压入栈中。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">push&lt;/span> &lt;span class="no">ebp&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">mov&lt;/span> &lt;span class="no">ebp&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="no">esp&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">leave&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">;mov esp,ebp
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">;pop ebp
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>字符串&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-asm" data-lang="asm">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">cld&lt;/span> &lt;span class="c1">;DF清零
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nf">std&lt;/span> &lt;span class="c1">;DF设置为1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nf">movs&lt;/span> &lt;span class="c1">;或movsb,movs 指令将 ds:[esi] 处的数据复制到 es:[edi] 处，然后根据方向标志位（DF）的设置，递增或递减 esi 和 edi 寄存器的值，以便下一次复制操作。这个过程会重复执行，直到 cx 寄存器的值变为 0 或者直到遇到重复前缀 rep。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nf">movsw&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">movsd&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">;b,w,d下同
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nf">cmps&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">scas&lt;/span> &lt;span class="c1">;如果 scas 指令在字符串中找到了与 al 寄存器相等的字符，则 ZF 标志位会被设置为 1。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nf">lods&lt;/span> &lt;span class="c1">;将 ds:[esi]处的字节加载到 al 寄存器中
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>scas的一个例子&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-asm" data-lang="asm">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">mov&lt;/span> &lt;span class="no">edi&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="no">destination_address&lt;/span> &lt;span class="c1">; 设置目的地址
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nf">mov&lt;/span> &lt;span class="no">al&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="no">search_value&lt;/span> &lt;span class="c1">; 设置要搜索的值
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nf">mov&lt;/span> &lt;span class="no">ecx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="no">length&lt;/span> &lt;span class="c1">; 设置要比较的数据的数量
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="na">rep&lt;/span> &lt;span class="nf">scasb&lt;/span> &lt;span class="c1">; 从目的地址开始扫描字符串，查找与 AL 寄存器中的值相等的字符
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="na">repz&lt;/span> &lt;span class="c1">;类比loop与loopz
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="na">rep&lt;/span>&lt;span class="nf">e&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;span style="color: #ccc;">
+&lt;p>在 x86 架构的汇编语言中，计数器的名称取决于当前使用的操作模式。&lt;br>
+16 位模式下： 在 16 位实模式或保护模式下，计数器的名称是 cx，它是 16 位的。这意味着它可以存储 16 位的值，范围是 0 到 65535。&lt;br>
+32 位模式下： 在 32 位保护模式下，计数器的名称是 ecx，它是 32 位的。这意味着它可以存储 32 位的值，范围是 0 到 4294967295。&lt;/p>
+&lt;/span>
+&lt;h2 id="调用libc的函数">调用libc的函数&lt;/h2>
+&lt;ol>
+&lt;li>extern&lt;/li>
+&lt;li>调用函数fun(a,b,c,d),要依次push d~a&lt;/li>
+&lt;li>平衡栈&lt;/li>
+&lt;li>用GCC链接而非LD -&amp;gt; 用mian而非_start&lt;/li>
+&lt;/ol>
+&lt;p>示例&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-asm" data-lang="asm">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">extern&lt;/span> &lt;span class="no">printf&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">extern&lt;/span> &lt;span class="no">exit&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">global&lt;/span> &lt;span class="no">main&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">section&lt;/span> &lt;span class="no">.text&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nl">main:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">push&lt;/span> &lt;span class="no">message&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">call&lt;/span> &lt;span class="no">printf&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">add&lt;/span> &lt;span class="no">esp&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0x4&lt;/span> &lt;span class="c1">;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">mov&lt;/span> &lt;span class="no">eax&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0xa&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">call&lt;/span> &lt;span class="no">exit&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">section&lt;/span> &lt;span class="no">.data&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nl">message:&lt;/span> &lt;span class="nf">db&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="no">Hello&lt;/span> &lt;span class="no">world&lt;/span>&lt;span class="p">!&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0xA&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0x00&lt;/span> &lt;span class="c1">;0xa换行 0x00 null字节 字符串结尾
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">mlen&lt;/span> &lt;span class="no">equ&lt;/span> &lt;span class="no">$-message&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>compile.sh(仅ld变成gcc)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;[+]Assembling with Nasm ...&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nasm -f elf32 -o &lt;span class="nv">$1&lt;/span>.o &lt;span class="nv">$1&lt;/span>.nasm
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;[+]Linking ...&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gcc -o &lt;span class="nv">$1&lt;/span> &lt;span class="nv">$1&lt;/span>.o
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;[+]Done!&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>
