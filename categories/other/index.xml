@@ -1,24 +1,38 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>other on nRevery's Blog</title><link>https://blog.nrevery.cn/categories/other/</link><description>Recent content in other on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Mon, 25 Mar 2024 22:13:53 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/categories/other/index.xml" rel="self" type="application/rss+xml"/><item><title>笔记</title><link>https://blog.nrevery.cn/p/%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 25 Mar 2024 22:13:53 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E7%AC%94%E8%AE%B0/</guid><description>&lt;h2 id="gdb的使用">GDB的使用&lt;/h2>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">info fun
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">b main
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">info b
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">delete &lt;span class="m">1&lt;/span> &lt;span class="c1"># 断点编号&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">delete *0x12345678 &lt;span class="c1"># 断点地址&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">r aaa &lt;span class="c1"># 提交参数aaa&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ni &lt;span class="c1"># 不进入子函数&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">si &lt;span class="c1"># 会进入子函数&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">n &lt;span class="c1">#源代码级别的&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">s
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">display /x &lt;span class="nv">$eax&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">info fun
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">info b
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">info reg
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">info all-reg
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">info proc mappings &lt;span class="c1"># 用于在 GDB 中查看当前正在调试的进程的内存映射信息。&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">info var
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">display /x &lt;span class="nv">$eax&lt;/span> &lt;span class="c1">#持续，每次程序停止时自动显示该值&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">x/10x &lt;span class="nv">$eax&lt;/span> &lt;span class="c1"># 以十六进制格式显示 $eax 寄存器中的内容，并显示它后面的 10 个地址单元的内容。&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">x/s 0x80490a4 &lt;span class="c1"># 字符串&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">x/s 0x11111111 &lt;span class="c1"># 字符串&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">x/d 0x11111111
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">x/xw &lt;span class="c1"># 注意是4字节&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">disas &lt;span class="c1">#或disassemble&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">disas main
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">info proc mappings &lt;span class="c1"># 用于在 GDB 中查看当前正在调试的进程的内存映射信息。&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">set&lt;/span> disassembly-flavor intel &lt;span class="c1"># 设置为 Intel 语法&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">set&lt;/span> disassembly-flavor att &lt;span class="c1"># 设置为 AT&amp;amp;T 语法&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">delete &lt;span class="m">1&lt;/span> &lt;span class="c1"># 断点编号&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">delete *0x12345678 &lt;span class="c1"># 断点地址&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">shell readelf -h &lt;span class="nb">test&lt;/span> &lt;span class="c1"># 查看一个文件的ELF头部信息,-a查全部&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">define hook-stop &lt;span class="c1"># 定义程序停止时执行的命令&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="虚拟内存">虚拟内存&lt;/h2>
 &lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240326102449.png" alt="Image" width="450" height="300">
 &lt;h2 id="进程">进程&lt;/h2>
@@ -51,28 +65,28 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ld -o &lt;span class="nv">$1&lt;/span> &lt;span class="nv">$1&lt;/span>.o
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;[+]Done!&amp;#39;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="hello-world">Hello World!&lt;/h2>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">global _start
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">section .text
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">_start:
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mov eax,0x4
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mov ebx,0x1
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mov ecx,message
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mov edx,mlen
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">int 0x80
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mov eax,0x1
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mov ebx,0x5
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">int 0x80
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">section .data
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">message: db &amp;#34;Hello world!&amp;#34;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mlen equ $-message
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>eax 寄存器：存储系统调用号。&lt;/p>
-&lt;p>ebx 寄存器：存储第一个参数。&lt;/p>
-&lt;p>ecx 寄存器：存储第二个参数。&lt;/p>
-&lt;p>edx 寄存器：存储第三个参数。&lt;/p>
-&lt;p>esi 寄存器：存储第四个参数。&lt;/p>
-&lt;p>edi 寄存器：存储第五个参数。&lt;/p>
-&lt;p>超过5个栈传递&lt;/p>
-&lt;p>下面改成x86_64的&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-asm" data-lang="asm">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">global&lt;/span> &lt;span class="no">_start&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">section&lt;/span> &lt;span class="no">.text&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nl">_start:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">mov&lt;/span> &lt;span class="no">eax&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0x4&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">mov&lt;/span> &lt;span class="no">ebx&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0x1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">mov&lt;/span> &lt;span class="no">ecx&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="no">message&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">mov&lt;/span> &lt;span class="no">edx&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="no">mlen&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">int&lt;/span> &lt;span class="mi">0x80&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">mov&lt;/span> &lt;span class="no">eax&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0x1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">mov&lt;/span> &lt;span class="no">ebx&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0x5&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">int&lt;/span> &lt;span class="mi">0x80&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">section&lt;/span> &lt;span class="no">.data&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nl">message:&lt;/span> &lt;span class="nf">db&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="no">Hello&lt;/span> &lt;span class="no">world&lt;/span>&lt;span class="p">!&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">mlen&lt;/span> &lt;span class="no">equ&lt;/span> &lt;span class="no">$-message&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>eax 寄存器：存储系统调用号。&lt;br>
+ebx 寄存器：存储第一个参数。&lt;br>
+ecx 寄存器：存储第二个参数。&lt;br>
+edx 寄存器：存储第三个参数。&lt;br>
+esi 寄存器：存储第四个参数。&lt;br>
+edi 寄存器：存储第五个参数。&lt;br>
+超过5个栈传递&lt;br>
+下面改成x86_64的&lt;/p>
 &lt;ol>
 &lt;li>ax是系统调用号，从&lt;code>/usr/include/x86_64-linux-gnu/asm/unistd_64.h&lt;/code>看到write对应1号&lt;/li>
 &lt;/ol>
@@ -86,31 +100,43 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
 &lt;li>参数&lt;/li>
 &lt;/ol>
-&lt;p>rax 寄存器：存储系统调用号。&lt;/p>
-&lt;p>rdi 寄存器：存储第一个参数。&lt;/p>
-&lt;p>rsi 寄存器：存储第二个参数。&lt;/p>
-&lt;p>rdx 寄存器：存储第三个参数。&lt;/p>
-&lt;p>r10 寄存器：存储第四个参数。&lt;/p>
-&lt;p>r8 寄存器：存储第五个参数。&lt;/p>
-&lt;p>r9 寄存器：存储第六个参数。&lt;/p>
-&lt;p>超过6个栈传递&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">section .data
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> message db &amp;#34;Hello world!&amp;#34;, 0xA
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> mlen equ $ - message
+&lt;p>rax 寄存器：存储系统调用号。&lt;br>
+rdi 寄存器：存储第一个参数。&lt;br>
+rsi 寄存器：存储第二个参数。&lt;br>
+rdx 寄存器：存储第三个参数。&lt;br>
+r10 寄存器：存储第四个参数。&lt;br>
+r8 寄存器：存储第五个参数。&lt;br>
+r9 寄存器：存储第六个参数。&lt;br>
+超过6个栈传递&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-asm" data-lang="asm">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">section&lt;/span> &lt;span class="no">.data&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">message&lt;/span> &lt;span class="no">db&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="no">Hello&lt;/span> &lt;span class="no">world&lt;/span>&lt;span class="p">!&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0xA&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">mlen&lt;/span> &lt;span class="no">equ&lt;/span> &lt;span class="no">$&lt;/span> &lt;span class="p">-&lt;/span> &lt;span class="no">message&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">section .text
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> global _start
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">section&lt;/span> &lt;span class="no">.text&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">global&lt;/span> &lt;span class="no">_start&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">_start:
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ; 输出字符串到标准输出（stdout）
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> mov rax, 1 ; syscall number for sys_write
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> mov rdi, 1 ; file descriptor 1 (stdout)
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> mov rsi, message ; pointer to the message
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> mov rdx, mlen ; message length
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> syscall ; invoke syscall
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ; 退出程序
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> mov rax, 60 ; syscall number for sys_exit
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> xor rdi, rdi ; exit code 0
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> syscall ; invoke syscall
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nl">_start:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">; 输出字符串到标准输出（stdout）
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">mov&lt;/span> &lt;span class="no">rax&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="c1">; syscall number for sys_write
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">mov&lt;/span> &lt;span class="no">rdi&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="c1">; file descriptor 1 (stdout)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">mov&lt;/span> &lt;span class="no">rsi&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="no">message&lt;/span> &lt;span class="c1">; pointer to the message
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">mov&lt;/span> &lt;span class="no">rdx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="no">mlen&lt;/span> &lt;span class="c1">; message length
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">syscall&lt;/span> &lt;span class="c1">; invoke syscall
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">; 退出程序
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">mov&lt;/span> &lt;span class="no">rax&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">60&lt;/span> &lt;span class="c1">; syscall number for sys_exit
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">xor&lt;/span> &lt;span class="no">rdi&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="no">rdi&lt;/span> &lt;span class="c1">; exit code 0
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">syscall&lt;/span> &lt;span class="c1">; invoke syscall
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="其他">其他&lt;/h2>
+&lt;p>quad word - 64 bits&lt;br>
+double quad word - 128 bits&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-asm" data-lang="asm">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">dd&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="no">.234567e20&lt;/span> &lt;span class="c1">;floating-point constant
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nf">dq&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="no">.234567e20&lt;/span> &lt;span class="c1">;double-precision float
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nf">dt&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="no">.234567e20&lt;/span> &lt;span class="c1">;extended-precision float(ten bytes10个字节)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nl">buffer:&lt;/span> &lt;span class="nf">resb&lt;/span> &lt;span class="mi">64&lt;/span> &lt;span class="c1">;reserve 64 bytes
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nl">worvar:&lt;/span> &lt;span class="nf">resw&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="c1">;reserve a word 数字表示length不是size
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nl">zerobuf:&lt;/span> &lt;span class="nf">times&lt;/span> &lt;span class="mi">64&lt;/span> &lt;span class="no">db&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="c1">;(和db 64 dup(0)差不多)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nf">times&lt;/span> &lt;span class="mi">100&lt;/span> &lt;span class="no">movsb&lt;/span> &lt;span class="c1">;movsb将单个字节从源地址复制到目标地址，并递增源和目标指针。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="na">rep&lt;/span> &lt;span class="nf">movsb&lt;/span> &lt;span class="c1">;次数在ecx中
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">;rep通常与 movsb、movsw、movsd、scasb、scasw、scasd、cmpsb、cmpsw、cmpsd 等指令一起使用。
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>
