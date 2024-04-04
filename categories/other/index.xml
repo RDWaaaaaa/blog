@@ -228,7 +228,7 @@ ID (Identification Flag)：标识标志位，指示处理器是否支持 CPUID �
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gcc -o &lt;span class="nv">$1&lt;/span> &lt;span class="nv">$1&lt;/span>.o
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;[+]Done!&amp;#39;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="shellcode基础">shellcode基础&lt;/h2>
-&lt;p>exploit的一部分-size越小越好，bad characters 0x00等&lt;br>
+&lt;p>exploit的一部分-size越小越好，避免0x00
 加入可执行文件-独立线程，替换可执行文件功能，无需关心size&lt;/p>
 &lt;p>资源&lt;br>
 &lt;a class="link" href="http://www.shell-storm.org" target="_blank" rel="noopener"
@@ -241,7 +241,7 @@ ID (Identification Flag)：标识标志位，指示处理器是否支持 CPUID �
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span>&lt;span class="cpf">&amp;lt;stdio.h&amp;gt;&lt;/span>&lt;span class="cp">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span>&lt;span class="cpf">&amp;lt;string.h&amp;gt;&lt;/span>&lt;span class="cp">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">char&lt;/span> &lt;span class="n">code&lt;/span>&lt;span class="p">[]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;Shellcode&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">//“Shellcode”处换成机器码
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Shellcode length: %d&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nf">strlen&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">code&lt;/span>&lt;span class="p">));&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">ret&lt;/span>&lt;span class="p">)()&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="p">)())&lt;/span>&lt;span class="n">code&lt;/span>&lt;span class="p">;&lt;/span>
@@ -250,7 +250,7 @@ ID (Identification Flag)：标识标志位，指示处理器是否支持 CPUID �
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">gcc -fno-stack-protector -z execstack shellcode.c -o shellcode
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 禁用栈溢保护，允许代码在堆栈上执行&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="示例1">示例1&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="示例1-启动shell">示例1-启动shell&lt;/h3>
 &lt;p>x86_64上的一个示例，来源 &lt;a class="link" href="https://shell-storm.org/shellcode/files/shellcode-106.html" target="_blank" rel="noopener"
 >https://shell-storm.org/shellcode/files/shellcode-106.html&lt;/a>&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span>&lt;span class="cpf">&amp;lt;stdio.h&amp;gt;&lt;/span>&lt;span class="cp">
@@ -267,12 +267,56 @@ ID (Identification Flag)：标识标志位，指示处理器是否支持 CPUID �
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="s">&amp;#34;&lt;/span>&lt;span class="se">\x52&lt;/span>&lt;span class="s">&amp;#34;&lt;/span> &lt;span class="c1">// push %rdx
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="s">&amp;#34;&lt;/span>&lt;span class="se">\x48\x89\xe6&lt;/span>&lt;span class="s">&amp;#34;&lt;/span> &lt;span class="c1">// mov %rsp,%rsi
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="s">&amp;#34;&lt;/span>&lt;span class="se">\x0f\x05&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// syscall
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Shellcode length: %ld&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nf">strlen&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">code&lt;/span>&lt;span class="p">));&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">ret&lt;/span>&lt;span class="p">)()&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="p">)())&lt;/span>&lt;span class="n">code&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">ret&lt;/span>&lt;span class="p">();&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="示例2">示例2&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl"> objdump -d -M intel &lt;span class="nb">exit&lt;/span> &lt;span class="c1"># 反汇编exit&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="示例2-退出">示例2-退出&lt;/h3>
+&lt;ol>
+&lt;li>汇编文件&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-asm" data-lang="asm">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">global&lt;/span> &lt;span class="no">_start&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nl">_start:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">mov&lt;/span> &lt;span class="no">rax&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">60&lt;/span> &lt;span class="c1">; syscall number for exit
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">mov&lt;/span> &lt;span class="no">edi&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">10&lt;/span> &lt;span class="c1">; exit status (10 for example)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">syscall&lt;/span> &lt;span class="c1">; invoke syscall
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>编译执行检查&lt;/li>
+&lt;li>&lt;code>objdump -d -M intel exit&lt;/code>对exit文件以Intel格式反汇编&lt;/li>
+&lt;li>shellcode就是显示的机器码，复制到shellcode.c文件&lt;/li>
+&lt;li>&lt;code>gcc -fno-stack-protector -z execstack shellcode.c -o shellcode&lt;/code>&lt;/li>
+&lt;li>执行shellcode后，&lt;code>echo $?&lt;/code>查看最后退出的状态码，预期为10&lt;/li>
+&lt;li>注意到shellcode有很多\x00这导致字符串错误截断，以下方式可避免
+用&lt;code>cp a b&lt;/code>把a复制到b&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-asm" data-lang="asm">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">global&lt;/span> &lt;span class="no">_start&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">section&lt;/span> &lt;span class="no">.text&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nl">_start:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">xor&lt;/span> &lt;span class="no">rax&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="no">rax&lt;/span> &lt;span class="c1">; 将 rax 清零
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">mov&lt;/span> &lt;span class="no">al&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">60&lt;/span> &lt;span class="c1">; 将 60 存入 rax 中，即 syscall number for exit
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">xor&lt;/span> &lt;span class="no">rdi&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="no">rdi&lt;/span> &lt;span class="c1">; 清空 rdi 寄存器
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">mov&lt;/span> &lt;span class="no">dil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">10&lt;/span> &lt;span class="c1">; 将 10 存入 dil 中，即 exit status
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">syscall&lt;/span> &lt;span class="c1">; 调用系统调用
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="8">
+&lt;li>获得格式化的 shellcodehttp://www.commandlinefu.com/commands/view/6501/get-all-shellcode-on-binary-file-from-objdump&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">objdump -d ./PROGRAM&lt;span class="p">|&lt;/span>grep &lt;span class="s1">&amp;#39;[0-9a-f]:&amp;#39;&lt;/span>&lt;span class="p">|&lt;/span>grep -v &lt;span class="s1">&amp;#39;file&amp;#39;&lt;/span>&lt;span class="p">|&lt;/span>cut -f2 -d:&lt;span class="p">|&lt;/span>cut -f1-6 -d&lt;span class="s1">&amp;#39; &amp;#39;&lt;/span>&lt;span class="p">|&lt;/span>tr -s &lt;span class="s1">&amp;#39; &amp;#39;&lt;/span>&lt;span class="p">|&lt;/span>tr &lt;span class="s1">&amp;#39;\t&amp;#39;&lt;/span> &lt;span class="s1">&amp;#39; &amp;#39;&lt;/span>&lt;span class="p">|&lt;/span>sed &lt;span class="s1">&amp;#39;s/ $//g&amp;#39;&lt;/span>&lt;span class="p">|&lt;/span>sed &lt;span class="s1">&amp;#39;s/ /\\x/g&amp;#39;&lt;/span>&lt;span class="p">|&lt;/span>paste -d &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span> -s &lt;span class="p">|&lt;/span>sed &lt;span class="s1">&amp;#39;s/^/&amp;#34;/&amp;#39;&lt;/span>&lt;span class="p">|&lt;/span>sed &lt;span class="s1">&amp;#39;s/$/&amp;#34;/g&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;span style="color: #ccc;">
+&lt;p>objdump -d ./PROGRAM：使用 objdump 命令反汇编指定的程序文件，生成反汇编代码。&lt;br>
+grep &amp;lsquo;[0-9a-f]:&amp;rsquo;：使用 grep 过滤出包含十六进制地址的行。&lt;br>
+grep -v &amp;lsquo;file&amp;rsquo;：使用 grep 过滤掉包含 &amp;ldquo;file&amp;rdquo; 字符串的行。&lt;br>
+cut -f2 -d:：使用 cut 命令提取出每行的第二个字段，即反汇编指令部分。&lt;br>
+cut -f1-6 -d&amp;rsquo; &amp;lsquo;：使用 cut 命令提取出每行的前 6 个字段，即每条指令的十六进制机器码。&lt;br>
+tr -s &amp;rsquo; &amp;lsquo;：使用 tr 命令将多个空格字符压缩成一个空格字符。&lt;br>
+tr &amp;lsquo;\t&amp;rsquo; &amp;rsquo; &amp;lsquo;：使用 tr 命令将制表符替换为空格字符。&lt;br>
+sed &amp;rsquo;s/ $//g&amp;rsquo;：使用 sed 命令去除行末的空格字符。&lt;br>
+sed &amp;rsquo;s/ /\x/g&amp;rsquo;：使用 sed 命令将空格字符替换为 &amp;ldquo;\x&amp;rdquo;，这是 shellcode 格式的一部分。&lt;br>
+paste -d &amp;rsquo;&amp;rsquo; -s：使用 paste 命令将每行的机器码拼接成一行。&lt;br>
+sed &amp;rsquo;s/^/&amp;quot;/&amp;rsquo;：使用 sed 命令在每行开头添加双引号。&lt;br>
+sed &amp;rsquo;s/$/&amp;quot;/g&amp;rsquo;：使用 sed 命令在每行末尾添加双引号。&lt;/p>
+&lt;/span>
+&lt;p>qqq&lt;/p></description></item></channel></rss>
