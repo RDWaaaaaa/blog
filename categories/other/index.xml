@@ -230,7 +230,7 @@ ID (Identification Flag)：标识标志位，指示处理器是否支持 CPUID �
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="shellcode基础">shellcode基础&lt;/h2>
 &lt;p>exploit的一部分-size越小越好，bad characters 0x00等&lt;br>
 加入可执行文件-独立线程，替换可执行文件功能，无需关心size&lt;/p>
-&lt;p>资源
+&lt;p>资源&lt;br>
 &lt;a class="link" href="http://www.shell-storm.org" target="_blank" rel="noopener"
 >http://www.shell-storm.org&lt;/a>&lt;br>
 &lt;a class="link" href="http://exploit-db.com" target="_blank" rel="noopener"
