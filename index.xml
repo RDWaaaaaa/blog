@@ -250,7 +250,8 @@ ID (Identification Flag)：标识标志位，指示处理器是否支持 CPUID �
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">gcc -fno-stack-protector -z execstack shellcode.c -o shellcode
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 禁用栈溢保护，允许代码在堆栈上执行&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>x86_64上的一个示例，来源 &lt;a class="link" href="https://shell-storm.org/shellcode/files/shellcode-106.html" target="_blank" rel="noopener"
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="示例1">示例1&lt;/h3>
+&lt;p>x86_64上的一个示例，来源 &lt;a class="link" href="https://shell-storm.org/shellcode/files/shellcode-106.html" target="_blank" rel="noopener"
 >https://shell-storm.org/shellcode/files/shellcode-106.html&lt;/a>&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span>&lt;span class="cpf">&amp;lt;stdio.h&amp;gt;&lt;/span>&lt;span class="cp">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span>&lt;span class="cpf">&amp;lt;string.h&amp;gt;&lt;/span>&lt;span class="cp">
@@ -272,7 +273,8 @@ ID (Identification Flag)：标识标志位，指示处理器是否支持 CPUID �
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">ret&lt;/span>&lt;span class="p">)()&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="p">)())&lt;/span>&lt;span class="n">code&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">ret&lt;/span>&lt;span class="p">();&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl"> objdump -d -M intel &lt;span class="nb">exit&lt;/span> &lt;span class="c1"># 反汇编exit&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="示例2">示例2&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl"> objdump -d -M intel &lt;span class="nb">exit&lt;/span> &lt;span class="c1"># 反汇编exit&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>工具汇总</title><link>https://blog.nrevery.cn/p/%E5%B7%A5%E5%85%B7%E6%B1%87%E6%80%BB/</link><pubDate>Sun, 22 Oct 2023 23:58:32 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E5%B7%A5%E5%85%B7%E6%B1%87%E6%80%BB/</guid><description>&lt;h1 id="misc">MISC&lt;/h1>
 &lt;ol>
 &lt;li>条形码/二维码等识别
