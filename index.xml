@@ -237,7 +237,7 @@ ID (Identification Flag)：标识标志位，指示处理器是否支持 CPUID �
 >http://exploit-db.com&lt;/a>&lt;br>
 &lt;a class="link" href="http://www.projectshellcode.com" target="_blank" rel="noopener"
 >http://www.projectshellcode.com&lt;/a>&lt;/p>
-&lt;h2 id="基本用法">基本用法&lt;/h2>
+&lt;h3 id="基本用法">基本用法&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span>&lt;span class="cpf">&amp;lt;stdio.h&amp;gt;&lt;/span>&lt;span class="cp">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span>&lt;span class="cpf">&amp;lt;string.h&amp;gt;&lt;/span>&lt;span class="cp">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">char&lt;/span> &lt;span class="n">code&lt;/span>&lt;span class="p">[]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;Shellcode&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">//“Shellcode”处换成机器码
