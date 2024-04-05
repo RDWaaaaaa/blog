@@ -420,7 +420,7 @@ sed &amp;rsquo;s/$/&amp;quot;/g&amp;rsquo;：使用 sed 命令在每行末尾添
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">encoded&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">encoded2&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="metasploits-encoders">metasploit&amp;rsquo;s encoders&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">msfvenom -l payloads &lt;span class="p">|&lt;/span> grep &lt;span class="s2">&amp;#34;linux/x86&amp;#34;&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">msfvenom -l payloads &lt;span class="p">|&lt;/span> grep &lt;span class="s2">&amp;#34;linux/x86&amp;#34;&lt;/span> &lt;span class="c1"># step1&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 列出所有可用的Linux/x86 Payload&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> -ne &lt;span class="s2">&amp;#34;\x32..\x80&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> sudo msfencode -a x86 -t c -e x86/jmp_call_additive
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 指定jmp_call_additive编码器，并输出 C 语言格式的编码结果&lt;/span>
@@ -447,4 +447,44 @@ Shikata_ga_nai 有时有用，但是自定义的未公开的更好&lt;/p>
 &lt;p>代码不一样，功能相同
 思路：等价代换，垃圾指令
 &lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/d41a6fcf5b397b2bc7fb2b376ae7620.jpg" alt="Image" width="650" height="450">&lt;/p>
-&lt;h3 id="分析第三方shellcode">分析第三方shellcode&lt;/h3></description></item></channel></rss>
+&lt;h3 id="分析shellcode">分析shellcode&lt;/h3>
+&lt;p>step1-4
+gdb,ndisasm
+&lt;a class="link" href="http://libemu.carnivore.it" target="_blank" rel="noopener"
+>http://libemu.carnivore.it&lt;/a>
+&lt;a class="link" href="https://github.com/buffer/libemu" target="_blank" rel="noopener"
+>https://github.com/buffer/libemu&lt;/a>&lt;/p>
+&lt;p>shell_bind_tcp&lt;/p>
+&lt;span style="color: #ccc;">
+&lt;p>绑定（Bind）Shell：&lt;/p>
+&lt;p>绑定Shell是一种攻击者在受害者系统上启动并监听特定端口，等待另一方连接的一种攻击方式。
+当攻击者的程序在受害者系统上以绑定模式运行时，它会监听指定端口，等待外部用户连接。一旦有用户连接到这个端口，它会建立一个与受害者系统之间的通信通道，使得攻击者可以通过这个通道执行命令、操控系统等操作。
+绑定Shell通常用于内网渗透测试、横向移动以及远程控制受感染系统等攻击场景。
+反向（Reverse）Shell：&lt;/p>
+&lt;p>反向Shell是一种攻击者在自己的机器上启动程序，以反向连接的方式与受害者系统建立连接的一种攻击方式。
+在反向Shell攻击中，受害者系统上的恶意代码会尝试连接到攻击者的机器，并在成功连接后建立一个与攻击者之间的通信通道。通过这个通道，攻击者可以执行命令、控制受害者系统等操作。
+反向Shell通常用于防火墙或入侵检测系统的规则限制了外部对内部系统的访问，或者受害者系统处于受控网络之后，无法直接访问。&lt;/p>
+&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">msfvenom -p linux/x86/shell_bind_tcp -f raw &lt;span class="p">|&lt;/span> ndisasm -u - &lt;span class="c1"># step2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 使用 msfvenom 生成一个 Linux x86 的 bind shell 的原始二进制格式的 payload，并使用 ndisasm 反汇编该二进制文件。&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># https://www.doyler.net/security-not-included/libemu-installation&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#在/home/pwn/Software/libemu/tools/sctest下：&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">msfvenom -p linux/x86/shell_bind_tcp -f raw &lt;span class="p">|&lt;/span> ./sctest -vvv -Ss &lt;span class="m">100000&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;span style="color: #ccc;">
+&lt;p>msfvenom: 这是 Metasploit 框架提供的一个用于生成各种类型 payload（包括 shellcode）的工具。
+-p linux/x86/shell_bind_tcp: 这个参数指定了要生成的 payload 类型。在这种情况下，linux/x86/shell_bind_tcp 表示生成一个绑定到 TCP 端口的反弹 shell 的 payload，适用于 Linux 平台的 x86 架构。
+-f raw: 这个参数指定了输出格式为原始的二进制数据，而不是标准的 Metasploit 格式。
+|: 这是 Linux 命令行中的管道操作符，它将 msfvenom 的输出发送到后面的命令中作为输入。
+./sctest: 这是要运行的 sctest 工具的路径。
+-vvv: 这个参数指定了 sctest 工具的详细输出级别，-vvv 表示非常详细的输出，有助于调试和跟踪问题。
+-Ss 100000: 这个参数指定了 sctest 工具对 shellcode 的测试设置。-S 参数表示开始测试，s 参数表示 shellcode，100000 参数指定了 shellcode 的大小为 100000 字节。&lt;/p>
+&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">sudo msfvenom -p linux/x86/shell_bind_tcp -f raw &lt;span class="p">|&lt;/span> ./sctest -vvv -Ss &lt;span class="m">100000&lt;/span> -G Shell_bind_tcp.dot &lt;span class="c1"># step3&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dot Shell_bind_tcp.dot -Tpng -o Shell_bind_tcp.png &lt;span class="c1"># step4&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="custom-crypters">custom crypters&lt;/h3>
+&lt;p>&lt;a class="link" href="https://en.wikipedia.org/wiki/RC4" target="_blank" rel="noopener"
+>https://en.wikipedia.org/wiki/RC4&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">gcc rc4.c -o rc4
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./rc4 securitytube-slae
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>
