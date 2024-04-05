@@ -250,7 +250,7 @@ ID (Identification Flag)：标识标志位，指示处理器是否支持 CPUID �
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">gcc -fno-stack-protector -z execstack shellcode.c -o shellcode
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 禁用栈溢保护，允许代码在堆栈上执行&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="示例1-启动shell">示例1-启动shell&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="启动shell">启动shell&lt;/h3>
 &lt;p>x86_64上的一个示例，来源 &lt;a class="link" href="https://shell-storm.org/shellcode/files/shellcode-106.html" target="_blank" rel="noopener"
 >https://shell-storm.org/shellcode/files/shellcode-106.html&lt;/a>&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span>&lt;span class="cpf">&amp;lt;stdio.h&amp;gt;&lt;/span>&lt;span class="cp">
@@ -273,7 +273,7 @@ ID (Identification Flag)：标识标志位，指示处理器是否支持 CPUID �
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">ret&lt;/span>&lt;span class="p">)()&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="p">)())&lt;/span>&lt;span class="n">code&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">ret&lt;/span>&lt;span class="p">();&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="示例2-退出-避免赋值时的0x00">示例2-退出-避免赋值时的0x00&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="退出-避免赋值时的0x00">退出-避免赋值时的0x00&lt;/h3>
 &lt;ol>
 &lt;li>汇编文件&lt;/li>
 &lt;/ol>
@@ -319,7 +319,7 @@ paste -d &amp;rsquo;&amp;rsquo; -s：使用 paste 命令将每行的机器码拼
 sed &amp;rsquo;s/^/&amp;quot;/&amp;rsquo;：使用 sed 命令在每行开头添加双引号。&lt;br>
 sed &amp;rsquo;s/$/&amp;quot;/g&amp;rsquo;：使用 sed 命令在每行末尾添加双引号。&lt;/p>
 &lt;/span>
-&lt;h3 id="示例3-jmp-call-pop-避免硬编码地址">示例3-jmp-call-pop-避免硬编码地址&lt;/h3>
+&lt;h3 id="hello-world---jmp-call-pop">hello world -&amp;gt; jmp-call-pop&lt;/h3>
 &lt;p>&lt;code>mov rsi, message&lt;/code>指令中message的地址可能有0x00，改进的基本格式如下：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-asm" data-lang="asm">&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">jmp&lt;/span> &lt;span class="no">short&lt;/span> &lt;span class="no">call_2&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nl">call_1:&lt;/span>
@@ -356,7 +356,7 @@ sed &amp;rsquo;s/$/&amp;quot;/g&amp;rsquo;：使用 sed 命令在每行末尾添
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">call&lt;/span> &lt;span class="no">call_1&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">message&lt;/span> &lt;span class="no">db&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="no">Hello&lt;/span> &lt;span class="no">world&lt;/span>&lt;span class="p">!&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0xA&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">mlen&lt;/span> &lt;span class="no">equ&lt;/span> &lt;span class="no">$&lt;/span> &lt;span class="p">-&lt;/span> &lt;span class="no">message&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="示例4-用栈储存字符串">示例4-用栈储存字符串&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="hello-world---stack">hello world -&amp;gt; stack&lt;/h3>
 &lt;p>字符串顺序从低字节到高字节，结合栈的特点，要逆序push
 获得字符串的16进制&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="n">code&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;Hello World!&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>
@@ -392,11 +392,28 @@ sed &amp;rsquo;s/$/&amp;quot;/g&amp;rsquo;：使用 sed 命令在每行末尾添
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">neg&lt;/span> &lt;span class="no">rax&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">xor&lt;/span> &lt;span class="no">rdi&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="no">rdi&lt;/span> &lt;span class="c1">; exit code 0
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">syscall&lt;/span> &lt;span class="c1">; invoke syscall
-&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="示例5-execve">示例5-execve&lt;/h3>
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="execve---jmp-call-pop">execve -&amp;gt; jmp-call-pop&lt;/h3>
 &lt;p>&lt;code>man execve&lt;/code>查看此函数&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;unistd.h&amp;gt;&lt;/span>&lt;span class="cp">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="nf">execve&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="kt">char&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">pathname&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">char&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="n">argv&lt;/span>&lt;span class="p">[],&lt;/span>&lt;span class="kt">char&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="n">envp&lt;/span>&lt;span class="p">[]);&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/ea8503653311ea0c037bb6253269d08.jpg" alt="Image" width="650" height="450"></description></item><item><title>工具汇总</title><link>https://blog.nrevery.cn/p/%E5%B7%A5%E5%85%B7%E6%B1%87%E6%80%BB/</link><pubDate>Sun, 22 Oct 2023 23:58:32 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E5%B7%A5%E5%85%B7%E6%B1%87%E6%80%BB/</guid><description>&lt;h1 id="misc">MISC&lt;/h1>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/ea8503653311ea0c037bb6253269d08.jpg" alt="Image" width="650" height="450">
+&lt;h3 id="execve---stack">execve -&amp;gt; stack&lt;/h3>
+&lt;p>把字符串放到栈里即可&lt;/p>
+&lt;h3 id="xor-encoder--decoder">XOR encoder &amp;amp; decoder&lt;/h3>
+&lt;p>思路：在本来的机器码的基础上逐字节异或0xAA，将新的机器码存到数组message里，逐个异或0xAA进行解码，利用jmp-call-pop方法得到数组位置，jmp到该位置即可&lt;/p>
+&lt;h3 id="metasploits-encoders">metasploit&amp;rsquo;s encoders&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">msfvenom -l payloads &lt;span class="p">|&lt;/span> grep &lt;span class="s2">&amp;#34;linux/x86&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 列出所有可用的Linux/x86 Payload&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> -ne &lt;span class="s2">&amp;#34;\x32..\x80&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> sudo msfencode -a x86 -t c -e x86/jmp_call_additive
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 指定jmp_call_additive编码器，并输出 C 语言格式的编码结果&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> -ne &lt;span class="s2">&amp;#34;\x32..\x80&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> sudo msfencode -a x86 -t elf -e x86/shikata_ga_nai -c &lt;span class="m">10&lt;/span> &amp;gt; demo
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 编码10次，输出到demo&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>AV（Antivirus）
+IDS（Intrusion Detection System）
+AV and IDS Evasion
+Shikata_ga_nai 有时有用，但是自定义的未公开的更好&lt;/p>
+&lt;h3 id="not">not&lt;/h3>
+&lt;p>取负数即可&lt;/p></description></item><item><title>工具汇总</title><link>https://blog.nrevery.cn/p/%E5%B7%A5%E5%85%B7%E6%B1%87%E6%80%BB/</link><pubDate>Sun, 22 Oct 2023 23:58:32 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E5%B7%A5%E5%85%B7%E6%B1%87%E6%80%BB/</guid><description>&lt;h1 id="misc">MISC&lt;/h1>
 &lt;ol>
 &lt;li>条形码/二维码等识别
 &lt;a class="link" href="https://online-barcode-reader.inliteresearch.com/" target="_blank" rel="noopener"
