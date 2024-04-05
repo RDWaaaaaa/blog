@@ -273,7 +273,7 @@ ID (Identification Flag)：标识标志位，指示处理器是否支持 CPUID �
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">ret&lt;/span>&lt;span class="p">)()&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="p">)())&lt;/span>&lt;span class="n">code&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">ret&lt;/span>&lt;span class="p">();&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="退出-避免赋值时的0x00">退出-避免赋值时的0x00&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="退出-用xor避免mov时的0x00">退出-用xor避免mov时的0x00&lt;/h3>
 &lt;ol>
 &lt;li>汇编文件&lt;/li>
 &lt;/ol>
@@ -400,8 +400,26 @@ sed &amp;rsquo;s/$/&amp;quot;/g&amp;rsquo;：使用 sed 命令在每行末尾添
 &lt;h3 id="execve---stack">execve -&amp;gt; stack&lt;/h3>
 &lt;p>把字符串放到栈里即可&lt;/p>
 &lt;h3 id="xor-encoder--decoder">XOR encoder &amp;amp; decoder&lt;/h3>
-&lt;p>思路：在本来的机器码的基础上逐字节异或0xAA，将新的机器码存到数组message里，逐个异或0xAA进行解码，利用jmp-call-pop方法得到数组位置，jmp到该位置即可&lt;/p>
-&lt;h3 id="metasploits-encoders">metasploit&amp;rsquo;s encoders&lt;/h3>
+&lt;p>思路：在本来的机器码的基础上逐字节异或0xAA，将新的机器码存到数组message里，逐个异或0xAA进行解码，利用jmp-call-pop方法得到数组位置，jmp到该位置即可
+自定义的编码：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="ch">#!/usr/bin/python&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">random&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">shellcode&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">encoded&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">encoded&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Encoded shellcode...&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">x&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">bytearray&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">shellcode&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">encoded&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\\&lt;/span>&lt;span class="s1">x&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">encoded&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="si">%02x&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span> &lt;span class="o">%&lt;/span>&lt;span class="n">x&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">encoded&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\\&lt;/span>&lt;span class="s1">x&lt;/span>&lt;span class="si">%02x&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="mh">0xAA&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#encoded += &amp;#39;\\x%02x&amp;#39; random.randint(1,255)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">encoded2&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="s1">&amp;#39;0x&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">encoded2&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="si">%02x&lt;/span>&lt;span class="s1">,&amp;#39;&lt;/span> &lt;span class="o">%&lt;/span>&lt;span class="n">x&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">encoded2&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="s1">&amp;#39;0x&lt;/span>&lt;span class="si">%02x&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="mh">0xAA&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#encoded2 += &amp;#39;0x%02x&amp;#39;,%random.randint(1,255)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">encoded&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">encoded2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="metasploits-encoders">metasploit&amp;rsquo;s encoders&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">msfvenom -l payloads &lt;span class="p">|&lt;/span> grep &lt;span class="s2">&amp;#34;linux/x86&amp;#34;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 列出所有可用的Linux/x86 Payload&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> -ne &lt;span class="s2">&amp;#34;\x32..\x80&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> sudo msfencode -a x86 -t c -e x86/jmp_call_additive
@@ -412,5 +430,21 @@ sed &amp;rsquo;s/$/&amp;quot;/g&amp;rsquo;：使用 sed 命令在每行末尾添
 IDS（Intrusion Detection System）
 AV and IDS Evasion
 Shikata_ga_nai 有时有用，但是自定义的未公开的更好&lt;/p>
-&lt;h3 id="not">not&lt;/h3>
-&lt;p>取负数即可&lt;/p></description></item></channel></rss>
+&lt;h3 id="not-encoder">not encoder&lt;/h3>
+&lt;p>取负数即可&lt;/p>
+&lt;h3 id="insertion-encoders">insertion encoders&lt;/h3>
+&lt;p>原始0x01,0x02,0x03
+插入后0x01,0xaa,0x02,0xaa,0x03,0xaa&lt;/p>
+&lt;h3 id="xor--mmx">xor &amp;amp; mmx&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-asm" data-lang="asm">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">;x86
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">;每次都能操作64位
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nf">movq&lt;/span> &lt;span class="no">mm0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="no">qword&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="no">esi&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">movq&lt;/span> &lt;span class="no">mm1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="no">qword&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="no">edi&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">pxor&lt;/span> &lt;span class="no">mm0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="no">mm1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">movq&lt;/span> &lt;span class="no">qword&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="no">esi&lt;/span>&lt;span class="p">],&lt;/span>&lt;span class="no">mm0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">add&lt;/span> &lt;span class="no">esi&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0x8&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="polymorphism">polymorphism&lt;/h3>
+&lt;p>代码不一样，功能相同
+思路：等价代换，垃圾指令
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/d41a6fcf5b397b2bc7fb2b376ae7620.jpg" alt="Image" width="650" height="450">&lt;/p>
+&lt;h3 id="分析第三方shellcode">分析第三方shellcode&lt;/h3></description></item></channel></rss>
