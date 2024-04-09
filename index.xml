@@ -294,9 +294,28 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">conn&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cmd&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">encode&lt;/span>&lt;span class="p">())&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">resp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">conn&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">recv&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">32768&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decode&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">resp&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Other</title><link>https://blog.nrevery.cn/p/other/</link><pubDate>Fri, 29 Mar 2024 17:02:18 +0800</pubDate><guid>https://blog.nrevery.cn/p/other/</guid><description>&lt;p>github信息查看
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Other</title><link>https://blog.nrevery.cn/p/other/</link><pubDate>Fri, 29 Mar 2024 17:02:18 +0800</pubDate><guid>https://blog.nrevery.cn/p/other/</guid><description>&lt;ol>
+&lt;li>github信息查看
 &lt;a class="link" href="https://api.github.com/users/" target="_blank" rel="noopener"
->https://api.github.com/users/&lt;/a>名字&lt;/p></description></item><item><title>Shellcode学习笔记</title><link>https://blog.nrevery.cn/p/shellcode%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 25 Mar 2024 22:13:53 +0800</pubDate><guid>https://blog.nrevery.cn/p/shellcode%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid><description>&lt;h2 id="gdb的使用">GDB的使用&lt;/h2>
+>https://api.github.com/users/&lt;/a>名字&lt;/li>
+&lt;li>命令行编译
+假设项目结构如下：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">project_folder&lt;/span>&lt;span class="o">/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">src&lt;/span>&lt;span class="o">/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">file1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nc">c&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">file2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nc">c&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">include&lt;/span>&lt;span class="o">/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">header&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nc">h&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编译命令&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">gcc -c -I../include file1.c -o file1.o
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gcc -c -I../include file2.c -o file2.o
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gcc file1.o file2.o -o my_executable
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>对拍
+&lt;a class="link" href="https://www.cnblogs.com/EdisonBa/p/13509379.html" target="_blank" rel="noopener"
+>https://www.cnblogs.com/EdisonBa/p/13509379.html&lt;/a>&lt;/li>
+&lt;/ol></description></item><item><title>Shellcode学习笔记</title><link>https://blog.nrevery.cn/p/shellcode%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 25 Mar 2024 22:13:53 +0800</pubDate><guid>https://blog.nrevery.cn/p/shellcode%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid><description>&lt;h2 id="gdb的使用">GDB的使用&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">b main
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">delete &lt;span class="m">1&lt;/span> &lt;span class="c1"># 断点编号&lt;/span>
