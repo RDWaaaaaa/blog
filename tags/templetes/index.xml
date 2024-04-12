@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>templetes on nRevery's Blog</title><link>https://blog.nrevery.cn/tags/templetes/</link><description>Recent content in templetes on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Fri, 12 Apr 2024 21:44:19 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/tags/templetes/index.xml" rel="self" type="application/rss+xml"/><item><title>易错点</title><link>https://blog.nrevery.cn/p/%E6%98%93%E9%94%99%E7%82%B9/</link><pubDate>Fri, 12 Apr 2024 21:44:19 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E6%98%93%E9%94%99%E7%82%B9/</guid><description>&lt;ol>
+&lt;li>没有输入输出&lt;/li>
+&lt;li>调试后提交，输出没有注释掉&lt;/li>
+&lt;li>变量重名&lt;/li>
+&lt;li>没开long long&lt;/li>
+&lt;li>double有时候需要改成long double，long double输出时为%Lf&lt;/li>
+&lt;li>有多个测试点时，数组等要初始化，队列等要清空&lt;/li>
+&lt;li>&lt;code>1&amp;lt;&amp;lt;k&lt;/code>只能是int型，必要时应写或者&lt;code>1ll&amp;lt;&amp;lt;k&lt;/code>&lt;/li>
+&lt;li>符号优先级，&lt;code>if(((i&amp;gt;&amp;gt;j)&amp;amp;1)==0)&lt;/code>正确,&lt;code>if((i&amp;gt;&amp;gt;j)&amp;amp;1==0)&lt;/code>错误&lt;/li>
+&lt;li>矩形的n和m都写成n&lt;/li>
+&lt;li>有图的题注意重边和自环&lt;/li>
+&lt;li>数据并未按照顺序给出,例如模拟题中的时间顺序&lt;/li>
+&lt;li>……&lt;/li>
+&lt;/ol></description></item></channel></rss>
