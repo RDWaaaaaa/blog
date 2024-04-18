@@ -1,4 +1,65 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>notes on nRevery's Blog</title><link>https://blog.nrevery.cn/tags/notes/</link><description>Recent content in notes on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Fri, 05 Apr 2024 22:52:17 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/tags/notes/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux Malware Development</title><link>https://blog.nrevery.cn/p/linux-malware-development/</link><pubDate>Fri, 05 Apr 2024 22:52:17 +0800</pubDate><guid>https://blog.nrevery.cn/p/linux-malware-development/</guid><description>&lt;h2 id="malware">Malware&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>notes on nRevery's Blog</title><link>https://blog.nrevery.cn/tags/notes/</link><description>Recent content in notes on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Thu, 18 Apr 2024 21:48:15 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/tags/notes/index.xml" rel="self" type="application/rss+xml"/><item><title>Offensive Shellcode from Scratch</title><link>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</link><pubDate>Thu, 18 Apr 2024 21:48:15 +0800</pubDate><guid>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</guid><description/></item><item><title>An Intro to C for Windows</title><link>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</link><pubDate>Wed, 17 Apr 2024 22:58:23 +0800</pubDate><guid>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</guid><description>&lt;ol>
+&lt;li>int __cdecl&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">int&lt;/span> &lt;span class="kr">__cdecl&lt;/span> &lt;span class="nf">myFunction&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>int __cdecl&lt;/code> 是在函数声明中指定函数使用 C 调用约定的一种方式。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>int&lt;/code>：表示函数的返回类型为整数型。&lt;/li>
+&lt;li>&lt;code>__cdecl&lt;/code>：是一种调用约定，它指定函数参数从右向左入栈，由调用方清理堆栈的方式。&lt;/li>
+&lt;/ul>
+&lt;p>在 C 和 C++ 中，默认的调用约定通常是 &lt;code>__cdecl&lt;/code>。因此，即使不显式地指定 &lt;code>__cdecl&lt;/code>，函数也会默认采用这种调用约定。在一些情况下，特别是在 Windows 平台上，显式地声明函数采用 &lt;code>__cdecl&lt;/code> 调用约定可以增加代码的可读性和可移植性，尤其是在与其他语言或者在动态链接库（DLL）中进行交互时。&lt;/p>
+&lt;p>因此，&lt;code>int __cdecl&lt;/code> 意味着函数返回一个整数值，并使用 &lt;code>__cdecl&lt;/code> 调用约定。&lt;/p>
+&lt;ol start="2">
+&lt;li>#ifdef&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="k">typedef&lt;/span> &lt;span class="k">struct&lt;/span> &lt;span class="n">_STRING_EX&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">USHORT&lt;/span> &lt;span class="n">Length&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">USHORT&lt;/span> &lt;span class="n">MaximumLength&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#ifdef UNICODE
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span> &lt;span class="n">PWSTER&lt;/span> &lt;span class="n">Buffer&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#else
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span> &lt;span class="n">PSTR&lt;/span> &lt;span class="n">Buffer&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#endif
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span> &lt;span class="n">STRING_EX&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">PSTRING_EX&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这段代码定义了一个名为 &lt;code>STRING_EX&lt;/code> 的结构体，用于表示一个字符串。它包含了字符串的长度、最大长度以及指向字符串缓冲区的指针。&lt;/p>
+&lt;p>具体来说：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>Length&lt;/code>：是一个无符号短整型 (&lt;code>USHORT&lt;/code>)，表示字符串的实际长度。&lt;/li>
+&lt;li>&lt;code>MaximumLength&lt;/code>：也是一个无符号短整型 (&lt;code>USHORT&lt;/code>)，表示字符串缓冲区的最大容量。&lt;/li>
+&lt;li>&lt;code>Buffer&lt;/code>：是一个指针，根据是否定义了 &lt;code>UNICODE&lt;/code> 宏，可以是指向宽字符 (&lt;code>PWCHAR&lt;/code>) 或者窄字符 (&lt;code>PCHAR&lt;/code>) 的指针。&lt;/li>
+&lt;/ul>
+&lt;p>这个结构体的设计允许在不同的字符集下使用不同的字符串类型，当定义了 &lt;code>UNICODE&lt;/code> 宏时，&lt;code>Buffer&lt;/code> 将会是一个指向宽字符的指针；否则，它将会是一个指向窄字符的指针。&lt;/p>
+&lt;p>最后，&lt;code>STRING_EX&lt;/code> 被定义为 &lt;code>struct _STRING_EX&lt;/code> 的别名，同时定义了一个指向 &lt;code>STRING_EX&lt;/code> 结构体的指针类型 &lt;code>PSTRING_EX&lt;/code>。&lt;/p>
+&lt;ol start="3">
+&lt;li>PTSTR和__T()&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="n">PTSTR&lt;/span> &lt;span class="n">s&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">__T&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;HELLO&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>PTSTR&lt;/code> 是一个宏定义，通常在 Windows 平台的 C 或 C++ 代码中使用。它是指向 TCHAR 类型（即字符类型的泛型）的指针，根据编译器设置的字符集，TCHAR 可以是 char 或 wchar_t 类型。&lt;/p>
+&lt;p>&lt;code>__T()&lt;/code> 也是一个宏定义，它用于在不同字符集（ANSI 或 Unicode）之间进行转换。如果在代码中使用了 &lt;code>UNICODE&lt;/code> 宏定义（或者 &lt;code>_UNICODE&lt;/code> 宏定义），则 &lt;code>__T()&lt;/code> 会将字符串转换为宽字符（wchar_t），否则它会保持字符串不变。&lt;/p>
+&lt;p>因此，&lt;code>PTSTR s = __T(&amp;quot;HELLO&amp;quot;);&lt;/code> 的含义如下：&lt;/p>
+&lt;ul>
+&lt;li>如果在编译时定义了 &lt;code>UNICODE&lt;/code> 宏（或者 &lt;code>_UNICODE&lt;/code> 宏），那么 &lt;code>s&lt;/code> 将被定义为指向宽字符（wchar_t）的指针，并指向一个包含字符串 &amp;ldquo;HELLO&amp;rdquo; 的宽字符数组。&lt;/li>
+&lt;li>如果没有定义 &lt;code>UNICODE&lt;/code> 宏（或者 &lt;code>_UNICODE&lt;/code> 宏），那么 &lt;code>s&lt;/code> 将被定义为指向字符（char）的指针，并指向一个包含字符串 &amp;ldquo;HELLO&amp;rdquo; 的字符数组。&lt;/li>
+&lt;/ul>
+&lt;p>这种方式可以使代码在不同的字符集设置下保持兼容性，同时支持 ANSI 和 Unicode 字符串。
+(项目-&amp;gt;工程的属性-&amp;gt;高级-&amp;gt;字符集)
+4. void WINAPI
+&lt;code>void WINAPI&lt;/code> 是函数声明中的一部分，它指定了函数的返回类型和调用约定。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>void&lt;/code> 表示函数不返回任何值。这意味着该函数执行完毕后不会返回任何数据给调用方。&lt;/li>
+&lt;li>&lt;code>WINAPI&lt;/code> 是一种调用约定，它指定了函数参数从右向左入栈，由调用方清理堆栈的方式。在 Windows 平台上，&lt;code>WINAPI&lt;/code> 调用约定通常用于声明 Windows API 函数。&lt;/li>
+&lt;/ul>
+&lt;p>因此，&lt;code>void WINAPI&lt;/code> 声明的函数是一个不返回值的 Windows API 函数。这样的函数通常用于执行某些操作而不需要返回结果给调用方，比如执行系统级别的任务或者修改系统状态。&lt;/p>
+&lt;ol start="5">
+&lt;li>&lt;em>IN&lt;/em>
+&lt;code>_IN_&lt;/code> 是一种通常用于函数参数声明的标记，用于指示参数是一个输入参数。这种标记通常在函数声明中与参数一起使用，以便更清晰地表明参数的用途。&lt;/li>
+&lt;/ol>
+&lt;p>例如，考虑以下函数声明：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">void&lt;/span> &lt;span class="nf">SomeFunction&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_IN_&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">inputParam&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在这个声明中，&lt;code>_IN_&lt;/code> 标记指示参数 &lt;code>inputParam&lt;/code> 是一个输入参数。这意味着在调用 &lt;code>SomeFunction&lt;/code> 函数时，它不会修改 &lt;code>inputParam&lt;/code> 的值，而是只使用它作为输入来执行某些操作。&lt;/p>
+&lt;p>&lt;code>_IN_&lt;/code> 是一种约定俗成的标记，不是 C 或 C++ 标准中定义的，它的作用主要是为了提高代码的可读性和可维护性。通常，这种标记可能会与其他标记一起使用，例如 &lt;code>_OUT_&lt;/code> 用于指示输出参数。&lt;/p></description></item><item><title>Linux Malware Development</title><link>https://blog.nrevery.cn/p/linux-malware-development/</link><pubDate>Fri, 05 Apr 2024 22:52:17 +0800</pubDate><guid>https://blog.nrevery.cn/p/linux-malware-development/</guid><description>&lt;h2 id="malware">Malware&lt;/h2>
 &lt;h3 id="plan">plan&lt;/h3>
 &lt;ul>
 &lt;li>connect back to the c2 server&lt;/li>
