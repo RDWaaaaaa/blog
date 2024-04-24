@@ -1,4 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CTF on nRevery's Blog</title><link>https://blog.nrevery.cn/categories/ctf/</link><description>Recent content in CTF on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Sun, 22 Oct 2023 23:58:32 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/categories/ctf/index.xml" rel="self" type="application/rss+xml"/><item><title>工具汇总</title><link>https://blog.nrevery.cn/p/%E5%B7%A5%E5%85%B7%E6%B1%87%E6%80%BB/</link><pubDate>Sun, 22 Oct 2023 23:58:32 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E5%B7%A5%E5%85%B7%E6%B1%87%E6%80%BB/</guid><description>&lt;h1 id="misc">MISC&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CTF on nRevery's Blog</title><link>https://blog.nrevery.cn/categories/ctf/</link><description>Recent content in CTF on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Fri, 19 Apr 2024 15:54:02 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/categories/ctf/index.xml" rel="self" type="application/rss+xml"/><item><title>Xmcve</title><link>https://blog.nrevery.cn/p/xmcve/</link><pubDate>Fri, 19 Apr 2024 15:54:02 +0800</pubDate><guid>https://blog.nrevery.cn/p/xmcve/</guid><description>&lt;p>磁盘中-节
+内存中-段-rwx权限&lt;/p>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240419155917.png" alt="Image" width="550" height="380">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 看节&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">objdump -s test.elf
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 看某进程的段&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /proc/pid/maps
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 看某进程的段&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gdb test.elf
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">b main
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">r
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">vmmap
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>64位-虚拟内存空间&lt;/p>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240419162148.png" alt="Image" width="450" height="360">
+&lt;p>elf文件各节的作用：
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240419164102.png" alt="Image" width="400" height="360">
+.text 节：存储程序的机器码指令，即可执行代码。当程序被加载到内存中时，操作系统会将 .text 节中的指令加载到内存中，并开始执行这些指令。&lt;/p>
+&lt;p>.plt 节：存储过程链接表（Procedure Linkage Table），用于动态链接库中的函数调用。这些代码段中的指令用于进行函数调用的跳转。&lt;/p>
+&lt;p>.plt.got （或者.got.plt）节：存储过程链接表的全局偏移表（Global Offset Table），用于动态链接时获取函数地址。这些代码段中的指令用于获取函数地址并存储到 .plt.got 节中。&lt;/p>
+&lt;p>.bss 节：存储程序的未初始化的全局和静态变量。这些变量在程序加载时不需要初始化，而是在运行时在内存的数据段中分配空间并初始化为零。&lt;/p></description></item><item><title>工具汇总</title><link>https://blog.nrevery.cn/p/%E5%B7%A5%E5%85%B7%E6%B1%87%E6%80%BB/</link><pubDate>Sun, 22 Oct 2023 23:58:32 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E5%B7%A5%E5%85%B7%E6%B1%87%E6%80%BB/</guid><description>&lt;h1 id="misc">MISC&lt;/h1>
 &lt;ol>
 &lt;li>条形码/二维码等识别
 &lt;a class="link" href="https://online-barcode-reader.inliteresearch.com/" target="_blank" rel="noopener"
