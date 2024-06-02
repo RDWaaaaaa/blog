@@ -1,28 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>nRevery's Blog</title><link>https://blog.nrevery.cn/</link><description>Recent content on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Sun, 02 Jun 2024 19:20:28 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Web</title><link>https://blog.nrevery.cn/p/web/</link><pubDate>Sun, 02 Jun 2024 19:20:28 +0800</pubDate><guid>https://blog.nrevery.cn/p/web/</guid><description>&lt;h2 id="环境">环境&lt;/h2>
 &lt;h3 id="burp-suite">burp suite&lt;/h3>
-&lt;p>吾爱破解&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://www.52pojie.cn/thread-1544866-1-1.html
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="容器">容器&lt;/h3>
-&lt;p>小皮、dvwa&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://blog.csdn.net/Stupid__Angel/article/details/127060860
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">https://blog.csdn.net/m0_60884805/article/details/127086871
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>若小皮的mysql和本机mysql冲突，可用如下方法解决：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://blog.csdn.net/weixin_46104490/article/details/121036597
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="一些问题">一些问题&lt;/h3>
+&lt;p>吾爱破解
+&lt;a class="link" href="https://www.52pojie.cn/thread-1544866-1-1.html" target="_blank" rel="noopener"
+>https://www.52pojie.cn/thread-1544866-1-1.html&lt;/a>&lt;/p>
+&lt;h3 id="容器">容器&lt;/h3>
+&lt;p>小皮、dvwa
+&lt;a class="link" href="https://blog.csdn.net/Stupid__Angel/article/details/127060860" target="_blank" rel="noopener"
+>https://blog.csdn.net/Stupid__Angel/article/details/127060860&lt;/a>
+&lt;a class="link" href="https://blog.csdn.net/m0_60884805/article/details/127086871" target="_blank" rel="noopener"
+>https://blog.csdn.net/m0_60884805/article/details/127086871&lt;/a>
+若小皮的mysql和本机mysql冲突，可用如下方法解决：
+&lt;a class="link" href="https://blog.csdn.net/weixin_46104490/article/details/121036597" target="_blank" rel="noopener"
+>https://blog.csdn.net/weixin_46104490/article/details/121036597&lt;/a>&lt;/p>
+&lt;h3 id="一些问题">一些问题&lt;/h3>
 &lt;p>（firefox上）&lt;/p>
 &lt;ol>
 &lt;li>burp抓不到包
-解决burp浏览器抓包提示有软件正在阻止 Firefox 安全地连接至此网站，PortSwigger CA 造成……的问题&lt;/li>
+解决burp浏览器抓包提示有软件正在阻止 Firefox 安全地连接至此网站，PortSwigger CA 造成……的问题
+&lt;a class="link" href="https://blog.csdn.net/htsssss/article/details/128469844" target="_blank" rel="noopener"
+>https://blog.csdn.net/htsssss/article/details/128469844&lt;/a>&lt;/li>
+&lt;li>抓不到本地的包，其他正常
+&lt;a class="link" href="https://blog.csdn.net/songling515010475/article/details/107269583" target="_blank" rel="noopener"
+>https://blog.csdn.net/songling515010475/article/details/107269583&lt;/a>&lt;/li>
 &lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://blog.csdn.net/htsssss/article/details/128469844
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
-&lt;li>抓不到本地的包，其他正常&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://blog.csdn.net/songling515010475/article/details/107269583
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="学习记录">学习记录&lt;/h2>
+&lt;h2 id="学习记录">学习记录&lt;/h2>
 &lt;h3 id="暴力破解">暴力破解&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">http://ip/DVWA-master/setup.php
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>ip可以写127.0.0.1，如果抓包不成功改成本机ip
+&lt;p>http://ip/DVWA-master/setup.php
+ip可以写127.0.0.1，如果抓包不成功改成本机ip
 DVWA Security改成low，Brute Force里登录
 &lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602192914.png"
 loading="lazy"
