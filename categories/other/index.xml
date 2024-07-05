@@ -220,7 +220,20 @@ loading="lazy"
 &lt;p>内存不足：当系统需要的内存超过了可用的物理内存时，内核会将内存中不常使用的内存页交换到磁盘上为当前进程让出内存，保证正在执行的进程的可用性，这个内存回收的过程是强制的直接内存回收（Direct Page Reclaim）。直接内存回收是同步的过程，会阻塞当前申请内存的进程。&lt;br>
 内存闲置：应用程序在启动阶段使用的大量内存在启动后往往都不会使用，通过后台运行的守护进程（kSwapd），我们可以将这部分只使用一次的内存交换到磁盘上为其他内存的申请预留空间。kSwapd 是 Linux 负责页面置换（Page replacement）的守护进程，它也是负责交换闲置内存的主要进程，它会在空闲内存低于一定水位 (opens new window)时，回收内存页中的空闲内存保证系统中的其他进程可以尽快获得申请的内存。kSwapd 是后台进程，所以回收内存的过程是异步的，不会阻塞当前申请内存的进程。&lt;/p>
 &lt;p>Linux 提供了两种不同的方法启用 Swap，分别是 Swap 分区（Swap Partition）和 Swap 文件（Swapfile），开启方法可以看这个资料https://support.huaweicloud.com/trouble-ecs/ecs_trouble_0322.html：&lt;/p>
-&lt;p>&lt;code>tail -n 2 /var/log/messages&lt;/code>tail 命令用于显示文件的最后几行。-n 2 参数指定要显示最后的两行。在 Linux 系统中，/var/log/messages 文件通常是一个系统日志文件，记录了系统启动过程、内核事件、服务和应用程序的信息。&lt;/p></description></item><item><title>Offensive Shellcode from Scratch</title><link>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</link><pubDate>Thu, 18 Apr 2024 21:48:15 +0800</pubDate><guid>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</guid><description/></item><item><title>An Intro to C for Windows</title><link>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</link><pubDate>Wed, 17 Apr 2024 22:58:23 +0800</pubDate><guid>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</guid><description>&lt;ol>
+&lt;p>&lt;code>tail -n 2 /var/log/messages&lt;/code>tail 命令用于显示文件的最后几行。-n 2 参数指定要显示最后的两行。在 Linux 系统中，/var/log/messages 文件通常是一个系统日志文件，记录了系统启动过程、内核事件、服务和应用程序的信息。&lt;/p>
+&lt;h3 id="如何避免预读失效和缓存污染的问题">如何避免预读失效和缓存污染的问题&lt;/h3>
+&lt;p>传统的 LRU 算法预读失效和缓存污染的问题。&lt;br>
+“预读失效”（Prefetching Failures）是指在预读机制中，系统预先加载到缓存中的数据并没有被实际使用，从而导致缓存空间被不需要的数据占用，进而影响缓存命中率。-&amp;gt;Redis 的缓存淘汰算法则是通过实现 LFU 算法来避免「缓存污染」而导致缓存命中率下降的问题（Redis 没有预读机制）。&lt;br>
+缓存污染：短期大量数据访问、访问模式变化等-&amp;gt;MySQL 和 Linux 操作系统是通过改进 LRU 算法来避免「预读失效和缓存污染」而导致缓存命中率下降的问题。&lt;/p>
+&lt;p>Linux 操作系统实现两个了 LRU 链表：活跃 LRU 链表（active_list）和非活跃 LRU 链表（inactive_list）；&lt;br>
+MySQL 的 Innodb 存储引擎是在一个 LRU 链表上划分来 2 个区域：young 区域 和 old 区域。&lt;/p>
+&lt;p>但是如果还是使用「只要数据被访问一次，就将数据加入到活跃 LRU 链表头部（或者 young 区域）」这种方式的话，那么还存在缓存污染的问题。&lt;/p>
+&lt;p>为了避免「缓存污染」造成的影响，Linux 操作系统和 MySQL Innodb 存储引擎分别提高了升级为热点数据的门槛：&lt;/p>
+&lt;p>Linux 操作系统：在内存页被访问第二次的时候，才将页从 inactive list 升级到 active list 里。
+MySQL Innodb：在内存页被访问第二次的时候，并不会马上将该页从 old 区域升级到 young 区域，因为还要进行停留在 old 区域的时间判断：
+如果第二次的访问时间与第一次访问的时间在 1 秒内（默认值），那么该页就不会被从 old 区域升级到 young 区域；
+如果第二次的访问时间与第一次访问的时间超过 1 秒，那么该页就会从 old 区域升级到 young 区域；
+通过提高了进入 active list （或者 young 区域）的门槛后，就很好了避免缓存污染带来的影响。&lt;/p></description></item><item><title>Offensive Shellcode from Scratch</title><link>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</link><pubDate>Thu, 18 Apr 2024 21:48:15 +0800</pubDate><guid>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</guid><description/></item><item><title>An Intro to C for Windows</title><link>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</link><pubDate>Wed, 17 Apr 2024 22:58:23 +0800</pubDate><guid>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</guid><description>&lt;ol>
 &lt;li>int __cdecl&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">int&lt;/span> &lt;span class="kr">__cdecl&lt;/span> &lt;span class="nf">myFunction&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">);&lt;/span>
