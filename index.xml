@@ -1,4 +1,64 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>nRevery's Blog</title><link>https://blog.nrevery.cn/</link><description>Recent content on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Sun, 02 Jun 2024 19:20:28 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Web</title><link>https://blog.nrevery.cn/p/web/</link><pubDate>Sun, 02 Jun 2024 19:20:28 +0800</pubDate><guid>https://blog.nrevery.cn/p/web/</guid><description>&lt;h2 id="环境">环境&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>nRevery's Blog</title><link>https://blog.nrevery.cn/</link><description>Recent content on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Fri, 05 Jul 2024 10:58:59 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Xiaolincoding-Os</title><link>https://blog.nrevery.cn/p/xiaolincoding-os/</link><pubDate>Fri, 05 Jul 2024 10:58:59 +0800</pubDate><guid>https://blog.nrevery.cn/p/xiaolincoding-os/</guid><description>&lt;h2 id="硬件结构">硬件结构&lt;/h2>
+&lt;h3 id="缓存一致性">缓存一致性&lt;/h3>
+&lt;p>MESI 协议其实是 4 个状态单词的开头字母缩写，分别是：
+Modified，已修改
+Exclusive，独占
+Shared，共享
+Invalidated，已失效&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240705110433.png"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="cpu如何执行任务">CPU如何执行任务&lt;/h3>
+&lt;p>因为多个线程同时读写同一个 Cache Line 的不同变量时，而导致 CPU Cache 失效的现象称为伪共享（False Sharing）
+解决：&lt;/p>
+&lt;ol>
+&lt;li>宏定义将b设置为对齐地址，使得a、b两个变量不在同一块&lt;/li>
+&lt;li>Disruptor 中有一个 RingBuffer 类会经常被多个线程使用-前置填充和后置填充&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240705110744.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>在 Linux 里面，实现了一个基于 CFS 的调度算法，也就是完全公平调度（Completely Fair Scheduling）。这个算法的理念是想让分配给每个任务的 CPU 时间是一样，于是它为每个任务安排一个虚拟运行时间 vruntime，在 CFS 算法调度的时候，会优先选择 vruntime 少的任务。高权重任务的 vruntime 比低权重任务的 vruntime 少。&lt;/p>
+&lt;p>nice 调整的是普通任务的优先级，用命令行调整&lt;/p>
+&lt;h3 id="软中断">软中断&lt;/h3>
+&lt;p>Linux 系统为了解决中断处理程序执行过长和中断丢失的问题，将中断过程分成了两个阶段，分别是「上半部和下半部分」。
+上半部用来快速处理中断，也就是硬中断，一般会暂时关闭中断请求，主要负责处理跟硬件紧密相关或者时间敏感的事情。耗时短，特点是快速执行。会打断 CPU 正在执行的任务
+下半部用来延迟处理上半部未完成的工作，也就说软中断，一般以「内核线程」的方式运行。耗时比较长，特点是延迟执行。每一个 CPU 都对应一个软中断内核线程，名字通常为「ksoftirqd/CPU 编号」，比如 0 号 CPU 对应的软中断内核线程的名字是 ksoftirqd/0。
+软中断不只是包括硬件设备中断处理程序的下半部，一些内核自定义事件也属于软中断，比如内核调度等、RCU 锁（内核里常用的一种锁）等。
+&lt;code>cat /proc/softirqs&lt;/code>查软中断，&lt;code>cat /proc/interrupts&lt;/code>查硬中断。&lt;/p>
+&lt;p>系统的中断次数的变化速率才是我们要关注的，我们可以使用&lt;code>watch -d cat /proc/softirqs&lt;/code>命令查看中断次数的变化速率。
+watch：定期执行命令并刷新屏幕显示结果。
+-d：高亮显示输出中的变化部分。
+cat /proc/softirqs：显示 /proc/softirqs 文件的内容，包含内核软中断的统计信息。&lt;/p>
+&lt;p>&lt;code>ps aux | grep softirq&lt;/code>软中断内核线程
+ps aux：
+ps：显示当前系统中正在运行的进程。
+a：显示所有用户的进程，包括其他用户的进程。
+u：以用户友好的格式显示进程信息，包括用户、CPU 使用率、内存使用率等。
+x：显示没有控制终端的进程。
+grep softirq：
+grep：用于搜索文本，查找包含指定模式的行。
+softirq：指定的搜索模式，这里指包含 softirq 的行。
+可以发现，内核线程的名字外面都有有中括号，这说明 ps 无法获取它们的命令行参数，所以一般来说，名字在中括号里的都可以认为是内核线程。&lt;/p>
+&lt;p>定位软中断 CPU 使用率过高的问题
+-&amp;gt;如果在&lt;code>top&lt;/code>命令发现，CPU 在软中断上的使用率比较高，而且 CPU 使用率最高的进程也是软中断 ksoftirqd 的时候，这种一般可以认为系统的开销被软中断占据了
+-&amp;gt;&lt;code>watch -d cat /proc/softirqs&lt;/code>命令查看中断次数的变化速率
+-&amp;gt;如果发现 NET_RX 网络接收中断次数的变化速率过快,&lt;code>sar -n DEV&lt;/code> 查看网卡的网络包接收速率情况，然后分析是哪个网卡有大量的网络包进来
+-&amp;gt;接着，在通过 tcpdump 抓包，分析这些包的来源，如果是非法的地址，可以考虑加防火墙，如果是正常流量，则要考虑硬件升级等。&lt;/p>
+&lt;h2 id="操作系统结构">操作系统结构&lt;/h2>
+&lt;h3 id="linux-内核-vs-windows-内核">Linux 内核 vs Windows 内核&lt;/h3>
+&lt;p>现代操作系统，内核一般会提供 4 个基本能力：
+管理进程、线程，决定哪个进程、线程使用 CPU，也就是进程调度的能力；
+管理内存，决定内存的分配和回收，也就是内存管理的能力；
+管理硬件设备，为进程与硬件设备之间提供通信能力，也就是硬件通信能力；
+提供系统调用，如果应用程序要运行更高权限运行的服务，那么就需要有系统调用，它是用户程序与操作系统之间的接口。&lt;/p>
+&lt;p>用户空间的代码只能访问一个局部的内存空间，而内核空间的代码可以访问所有内存空间。因此，当程序使用用户空间时，我们常说该程序在用户态执行，而当程序使内核空间时，程序则在内核态执行。
+应用程序如果需要进入内核空间，就需要通过系统调用。&lt;/p>
+&lt;p>inux 内核设计的理念主要有这几个点：
+MultiTask，多任务
+SMP，对称多处理
+ELF，可执行文件链接格式
+Monolithic Kernel，宏内核&lt;/p></description></item><item><title>Web</title><link>https://blog.nrevery.cn/p/web/</link><pubDate>Sun, 02 Jun 2024 19:20:28 +0800</pubDate><guid>https://blog.nrevery.cn/p/web/</guid><description>&lt;h2 id="环境">环境&lt;/h2>
 &lt;h3 id="burp-suite">burp suite&lt;/h3>
 &lt;p>吾爱破解
 &lt;a class="link" href="https://www.52pojie.cn/thread-1544866-1-1.html" target="_blank" rel="noopener"
