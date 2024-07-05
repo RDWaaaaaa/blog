@@ -213,7 +213,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Graph</title><link>https://blog.nrevery.cn/p/graph/</link><pubDate>Thu, 25 Apr 2024 10:15:18 +0800</pubDate><guid>https://blog.nrevery.cn/p/graph/</guid><description>&lt;h1 id="图论">图论&lt;/h1>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>图论</title><link>https://blog.nrevery.cn/p/%E5%9B%BE%E8%AE%BA/</link><pubDate>Thu, 25 Apr 2024 10:15:18 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E5%9B%BE%E8%AE%BA/</guid><description>&lt;h1 id="图论">图论&lt;/h1>
 &lt;p>[TOC]&lt;/p>
 &lt;div STYLE="page-break-after: always;">&lt;/div>
 &lt;h2 id="最短路问题">最短路问题&lt;/h2>
@@ -688,7 +688,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;%d&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">res&lt;/span>&lt;span class="p">);&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Search</title><link>https://blog.nrevery.cn/p/search/</link><pubDate>Fri, 12 Apr 2024 21:59:52 +0800</pubDate><guid>https://blog.nrevery.cn/p/search/</guid><description>&lt;h1 id="搜索">搜索&lt;/h1>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>搜索</title><link>https://blog.nrevery.cn/p/%E6%90%9C%E7%B4%A2/</link><pubDate>Fri, 12 Apr 2024 21:59:52 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E6%90%9C%E7%B4%A2/</guid><description>&lt;h1 id="搜索">搜索&lt;/h1>
 &lt;p>[TOC]&lt;/p>
 &lt;div STYLE="page-break-after: always;">&lt;/div>
 &lt;h2 id="双向bfs">双向BFS&lt;/h2>
