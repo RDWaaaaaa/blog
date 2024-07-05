@@ -156,7 +156,29 @@ malloc 通过 brk() 方式申请的内存，free 释放内存的时候，并不�
 malloc 通过 mmap() 方式申请的内存，free 释放内存的时候，会把内存归还给操作系统，内存得到真正的释放。&lt;/p>
 &lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240705173001.png"
 loading="lazy"
->&lt;/p></description></item><item><title>Offensive Shellcode from Scratch</title><link>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</link><pubDate>Thu, 18 Apr 2024 21:48:15 +0800</pubDate><guid>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</guid><description/></item><item><title>An Intro to C for Windows</title><link>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</link><pubDate>Wed, 17 Apr 2024 22:58:23 +0800</pubDate><guid>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</guid><description>&lt;ol>
+>&lt;/p>
+&lt;h3 id="如果内存满了">如果内存满了&lt;/h3>
+&lt;p>后台内存回收（kswapd）：在物理内存紧张的时候，会唤醒 kswapd 内核线程来回收内存，这个回收内存的过程异步的，不会阻塞进程的执行。&lt;br>
+直接内存回收（direct reclaim）：如果后台异步回收跟不上进程内存申请的速度，就会开始直接回收，这个回收内存的过程是同步的，会阻塞进程的执行。&lt;br>
+如果直接内存回收后，空闲的物理内存仍然无法满足此次物理内存的申请，那么内核就会放最后的大招了 ——触发 OOM （Out of Memory）机制。&lt;/p>
+&lt;p>主要有两类内存可以被回收，而且它们的回收方式也不同。&lt;br>
+文件页（File-backed Page）：内核缓存的磁盘数据（Buffer）和内核缓存的文件数据（Cache）都叫作文件页。大部分文件页，都可以直接释放内存，以后有需要时，再从磁盘重新读取就可以了。而那些被应用程序修改过，并且暂时还没写入磁盘的数据（也就是脏页），就得先写入磁盘，然后才能进行内存释放。所以，回收干净页的方式是直接释放内存，回收脏页的方式是先写回磁盘后再释放内存。&lt;br>
+匿名页（Anonymous Page）：这部分内存没有实际载体，不像文件缓存有硬盘文件这样一个载体，比如堆、栈数据等。这部分内存很可能还要再次被访问，所以不能直接释放内存，它们回收的方式是通过 Linux 的 Swap 机制，Swap 会把不常访问的内存先写到磁盘中，然后释放这些内存，给其他更需要的进程使用。再次访问这些内存时，重新从磁盘读入内存就可以了。&lt;br>
+文件页和匿名页的回收都是基于 LRU 算法，也就是优先回收不常访问的内存。LRU 回收算法，实际上维护着 active 和 inactive 两个双向链表，其中：&lt;br>
+active_list 活跃内存页链表，这里存放的是最近被访问过（活跃）的内存页；&lt;br>
+inactive_list 不活跃内存页链表，这里存放的是很少被访问（非活跃）的内存页；&lt;/p>
+&lt;p>&lt;code>cat /proc/meminfo | grep -i active | sort&lt;/code>查看活跃和非活跃的内存页&lt;br>
+Linux 提供了一个 /proc/sys/vm/swappiness 选项，用来调整文件页和匿名页的回收倾向。&lt;br>
+swappiness 的范围是 0-100，数值越大，越积极使用 Swap，也就是更倾向于回收匿名页；数值越小，越消极使用 Swap，也就是更倾向于回收文件页。&lt;/p>
+&lt;p>&lt;code>sar -B 1&lt;/code>查看系统的直接内存回收和后台内存回收的指标&lt;br>
+pgscank/s : kswapd(后台回收线程) 每秒扫描的 page 个数。&lt;br>
+pgscand/s: 应用程序在内存申请过程中每秒直接扫描的 page 个数。&lt;br>
+pgsteal/s: 扫描的 page 中每秒被回收的个数（pgscank+pgscand）。&lt;/p>
+&lt;p>如果系统时不时发生抖动，并且在抖动的时间段里如果通过 sar -B 观察到 pgscand 数值很大，那大概率是因为「直接内存回收」导致的。通过尽早的触发「后台内存回收」来避免应用程序进行直接内存回收。&lt;/p>
+&lt;p>内核定义了三个内存阈值（watermark，也称为水位），用来衡量当前剩余内存（pages_free）是否充裕或者紧张，分别是：&lt;br>
+页最小阈值（pages_min）；&lt;br>
+页低阈值（pages_low）；&lt;br>
+页高阈值（pages_high）；&lt;/p></description></item><item><title>Offensive Shellcode from Scratch</title><link>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</link><pubDate>Thu, 18 Apr 2024 21:48:15 +0800</pubDate><guid>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</guid><description/></item><item><title>An Intro to C for Windows</title><link>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</link><pubDate>Wed, 17 Apr 2024 22:58:23 +0800</pubDate><guid>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</guid><description>&lt;ol>
 &lt;li>int __cdecl&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">int&lt;/span> &lt;span class="kr">__cdecl&lt;/span> &lt;span class="nf">myFunction&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">);&lt;/span>
