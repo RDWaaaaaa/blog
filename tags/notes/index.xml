@@ -178,7 +178,39 @@ pgsteal/s: 扫描的 page 中每秒被回收的个数（pgscank+pgscand）。&lt
 &lt;p>内核定义了三个内存阈值（watermark，也称为水位），用来衡量当前剩余内存（pages_free）是否充裕或者紧张，分别是：&lt;br>
 页最小阈值（pages_min）；&lt;br>
 页低阈值（pages_low）；&lt;br>
-页高阈值（pages_high）；&lt;/p></description></item><item><title>Web</title><link>https://blog.nrevery.cn/p/web/</link><pubDate>Sun, 02 Jun 2024 19:20:28 +0800</pubDate><guid>https://blog.nrevery.cn/p/web/</guid><description>&lt;h2 id="环境">环境&lt;/h2>
+页高阈值（pages_high）；&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240705191317.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>橙色部分 kswapd0 会执行内存回收，直到剩余内存大于高阈值（pages_high）为止。&lt;br>
+红色部分触发直接内存回收。&lt;/p>
+&lt;p>可以通过内核选项 /proc/sys/vm/min_free_kbytes （该参数代表系统所保留空闲内存的最低限）设置。&lt;br>
+抖动-&amp;gt;增大 min_free_kbytes&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="n">pages_min&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">min_free_kbytes&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">pages_low&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">pages_min&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="mi">4&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">pages_high&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">pages_min&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="mi">2&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>SMP 指的是一种多个 CPU 处理器共享资源的电脑硬件架构，也就是说每个 CPU 地位平等，它们共享相同的物理资源，包括总线、内存、IO、操作系统等。每个 CPU 访问内存所用时间都是相同的，因此，这种系统也被称为一致存储访问结构（UMA，Uniform Memory Access）。&lt;br>
+随着 CPU 处理器核数的增多，多个 CPU 都通过一个总线访问内存，这样总线的带宽压力会越来越大，同时每个 CPU 可用带宽会减少，这也就是 SMP 架构的问题。&lt;/p>
+&lt;p>为了解决 SMP 架构的问题，就研制出了 NUMA 结构，即非一致存储访问结构（Non-uniform memory access，NUMA）。&lt;br>
+NUMA 架构将每个 CPU 进行了分组，每一组 CPU 用 Node 来表示，一个 Node 可能包含多个 CPU 。&lt;br>
+每个 Node 有自己独立的资源，包括内存、IO 等，每个 Node 之间可以通过互联模块总线（QPI）进行通信，所以，也就意味着每个 Node 上的 CPU 都可以访问到整个系统中的所有内存。但是，访问远端 Node 的内存比访问本地内存要耗时很多。&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240705192812.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>在 NUMA 架构下，当某个 Node 内存不足时，系统可以从其他 Node 寻找空闲内存，也可以从本地内存中回收内存。&lt;/p>
+&lt;p>具体选哪种模式，可以通过 /proc/sys/vm/zone_reclaim_mode 来控制。它支持以下几个选项：&lt;/p>
+&lt;p>0 （默认值）：在回收本地内存之前，在其他 Node 寻找空闲内存；&lt;br>
+1：只回收本地内存；&lt;br>
+2：只回收本地内存，在本地回收内存时，可以将文件页中的脏页写回硬盘，以回收内存。&lt;br>
+4：只回收本地内存，在本地回收内存时，可以用 swap 方式回收内存。&lt;/p>
+&lt;p>在使用 NUMA 架构的服务器，如果系统出现还有一半内存的时候，却发现系统频繁触发「直接内存回收」，导致了影响了系统性能，那么大概率是因为 zone_reclaim_mode 没有设置为 0&lt;/p>
+&lt;p>在 Linux 内核里有一个 oom_badness() 函数，它会把系统中可以被杀掉的进程扫描一遍，并对每个进程打分，得分最高的进程就会被首先杀掉。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// points 代表打分的结果
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// process_pages 代表进程已经使用的物理内存页面数
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// oom_score_adj 代表 OOM 校准值,通过 /proc/[pid]/oom_score_adj 来配置, -1000 到 1000
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// totalpages 代表系统总的可用页面数
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="n">points&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">process_pages&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">oom_score_adj&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">totalpages&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="mi">1000&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="在-4gb-物理内存的机器上申请-8g-内存会怎么样">在 4GB 物理内存的机器上，申请 8G 内存会怎么样？&lt;/h3></description></item><item><title>Web</title><link>https://blog.nrevery.cn/p/web/</link><pubDate>Sun, 02 Jun 2024 19:20:28 +0800</pubDate><guid>https://blog.nrevery.cn/p/web/</guid><description>&lt;h2 id="环境">环境&lt;/h2>
 &lt;h3 id="burp-suite">burp suite&lt;/h3>
 &lt;p>吾爱破解
 &lt;a class="link" href="https://www.52pojie.cn/thread-1544866-1-1.html" target="_blank" rel="noopener"
