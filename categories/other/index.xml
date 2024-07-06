@@ -233,7 +233,178 @@ MySQL 的 Innodb 存储引擎是在一个 LRU 链表上划分来 2 个区域：y
 MySQL Innodb：在内存页被访问第二次的时候，并不会马上将该页从 old 区域升级到 young 区域，因为还要进行停留在 old 区域的时间判断：
 如果第二次的访问时间与第一次访问的时间在 1 秒内（默认值），那么该页就不会被从 old 区域升级到 young 区域；
 如果第二次的访问时间与第一次访问的时间超过 1 秒，那么该页就会从 old 区域升级到 young 区域；
-通过提高了进入 active list （或者 young 区域）的门槛后，就很好了避免缓存污染带来的影响。&lt;/p></description></item><item><title>Offensive Shellcode from Scratch</title><link>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</link><pubDate>Thu, 18 Apr 2024 21:48:15 +0800</pubDate><guid>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</guid><description/></item><item><title>An Intro to C for Windows</title><link>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</link><pubDate>Wed, 17 Apr 2024 22:58:23 +0800</pubDate><guid>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</guid><description>&lt;ol>
+通过提高了进入 active list （或者 young 区域）的门槛后，就很好了避免缓存污染带来的影响。&lt;/p>
+&lt;h3 id="深入理解-linux-虚拟内存管理">深入理解 Linux 虚拟内存管理&lt;/h3>
+&lt;p>&lt;strong>用户态虚拟内存空间的布局&lt;/strong>
+内核中使用 start_brk 标识堆的起始位置，brk 标识堆当前的结束位置。&lt;br>
+&lt;code>cat /proc/pid/maps&lt;/code>或&lt;code>pmap pid&lt;/code>查看某个进程的实际虚拟内存布局。&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240706214450.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240706214518.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>64位：在代码段跟数据段的中间还有一段不可以读写的保护段，它的作用是防止程序在读写数据段的时候越界访问到代码段，这个保护段可以让越界访问行为直接崩溃，防止它继续往下运行。&lt;br>
+&lt;strong>进程在内核中的描述符 task_struct 结构&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="k">struct&lt;/span> &lt;span class="n">task_struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 进程id
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kt">pid_t&lt;/span> &lt;span class="n">pid&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 用于标识线程所属的进程 pid
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kt">pid_t&lt;/span> &lt;span class="n">tgid&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 进程打开的文件信息
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">struct&lt;/span> &lt;span class="n">files_struct&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">files&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 内存描述符表示进程虚拟地址空间
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">struct&lt;/span> &lt;span class="n">mm_struct&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">mm&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">//重点，父进程与子进程的区别，进程与线程的区别，以及内核线程与用户态线程的区别其实都是围绕着这个 mm_struct 展开的。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">..........&lt;/span> &lt;span class="err">省略&lt;/span> &lt;span class="p">.......&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>通过 fork() 函数创建出的子进程，它的虚拟内存空间以及相关页表相当于父进程虚拟内存空间的一份拷贝，直接从父进程中拷贝到子进程中。&lt;br>
+通过 vfork 或者 clone 系统调用创建出的子进程，首先会设置 CLONE_VM 标识，父子进程之间使用的虚拟内存空间是一样的，并不是一份拷贝。&lt;br>
+子进程共享了父进程的虚拟内存空间，这样子进程就变成了我们熟悉的线程，是否共享地址空间几乎是进程和线程之间的本质区别。Linux 内核并不区别对待它们，线程对于内核来说仅仅是一个共享特定资源的进程而已。&lt;/p>
+&lt;p>64 位系统中的 TASK_SIZE 为 0x00007FFFFFFFF000,64 位虚拟内存空间的布局是和物理内存页 page 的大小有关的，物理内存页 page 默认大小 PAGE_SIZE 为 4K。&lt;br>
+&lt;strong>内核如何布局进程虚拟内存空间&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="k">struct&lt;/span> &lt;span class="n">mm_struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">long&lt;/span> &lt;span class="n">task_size&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">long&lt;/span> &lt;span class="n">start_code&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">end_code&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">start_data&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">end_data&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">long&lt;/span> &lt;span class="n">start_brk&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">brk&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">start_stack&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// brk堆的开始和结束
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">long&lt;/span> &lt;span class="n">arg_start&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">arg_end&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">env_start&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">env_end&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="c1">//参数列表、环境变量
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">long&lt;/span> &lt;span class="n">mmap_base&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="c1">//内存映射区的起始地址
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">long&lt;/span> &lt;span class="n">total_vm&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="cm">/* Total pages mapped */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">long&lt;/span> &lt;span class="n">locked_vm&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="cm">/* Pages that have PG_mlocked set 不能被换出*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">long&lt;/span> &lt;span class="n">pinned_vm&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="cm">/* Refcount permanently increased 既不能换出，也不能移动*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">long&lt;/span> &lt;span class="n">data_vm&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="cm">/* VM_WRITE &amp;amp; ~VM_SHARED &amp;amp; ~VM_STACK 数据段中映射的内存页数目*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">long&lt;/span> &lt;span class="n">exec_vm&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="cm">/* VM_EXEC &amp;amp; ~VM_WRITE &amp;amp; ~VM_STACK 存放可执行文件的内存页数目*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">long&lt;/span> &lt;span class="n">stack_vm&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="cm">/* VM_STACK 栈中所映射的内存页数目*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">struct&lt;/span> &lt;span class="n">vm_area_struct&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">mmap&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="c1">//VMAs的双向链表的头指针
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">struct&lt;/span> &lt;span class="n">rb_root&lt;/span> &lt;span class="n">mm_rb&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="c1">//红黑树的根节点
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">......&lt;/span> &lt;span class="err">省略&lt;/span> &lt;span class="p">........&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240706214550.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>内核如何管理虚拟内存区域&lt;/strong>&lt;br>
+vm_area_struc这个结构体描述了这些虚拟内存区域 VMA（virtual memory area）。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="k">struct&lt;/span> &lt;span class="n">vm_area_struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">struct&lt;/span> &lt;span class="n">vm_area_struct&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">vm_next&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">vm_prev&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="c1">//双向链表串联VMA
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">struct&lt;/span> &lt;span class="n">rb_node&lt;/span> &lt;span class="n">vm_rb&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">struct&lt;/span> &lt;span class="n">list_head&lt;/span> &lt;span class="n">anon_vma_chain&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">struct&lt;/span> &lt;span class="n">mm_struct&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">vm_mm&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="cm">/* The address space we belong to. */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">long&lt;/span> &lt;span class="n">vm_start&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="cm">/* Our start address within vm_mm. */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">long&lt;/span> &lt;span class="n">vm_end&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="cm">/* The first byte after our end address
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> within vm_mm. 左闭右开[vm_start，vm_end) */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cm">/*
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * Access permissions of this VMA.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//通过 vma-&amp;gt;vm_page_prot = vm_get_page_prot(vma-&amp;gt;vm_flags) 实现到具体页面访问权限 vm_page_prot 的转换
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kt">pgprot_t&lt;/span> &lt;span class="n">vm_page_prot&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="c1">//页级别的访问权限和行为规范
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">long&lt;/span> &lt;span class="n">vm_flags&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">//整体的访问权限和行为规范
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">struct&lt;/span> &lt;span class="n">anon_vma&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">anon_vma&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="cm">/* Serialized by page_table_lock */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//non_vma，vm_file，vm_pgoff 分别和虚拟内存映射相关，虚拟内存区域可以映射到物理内存上，也可以映射到文件中，映射到物理内存上我们称之为匿名映射，映射到文件中我们称之为文件映射。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">struct&lt;/span> &lt;span class="n">file&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">vm_file&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="cm">/* File we map to (can be NULL). */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">long&lt;/span> &lt;span class="n">vm_pgoff&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="cm">/* Offset (within vm_file) in PAGE_SIZE
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> units */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">void&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">vm_private_data&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="cm">/* was vm_pte (shared mem) */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//vm_private_data 则用于存储 VMA 中的私有数据。具体的存储内容和内存映射的类型有关。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="cm">/* Function pointers to deal with this struct. */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">const&lt;/span> &lt;span class="k">struct&lt;/span> &lt;span class="n">vm_operations_struct&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">vm_ops&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>针对虚拟内存区域的相关操作&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="k">struct&lt;/span> &lt;span class="n">vm_operations_struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">void&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">open&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="k">struct&lt;/span> &lt;span class="n">vm_area_struct&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">area&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//当指定的虚拟内存区域被加入到进程虚拟内存空间中时，open 函数会被调用
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">close&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="k">struct&lt;/span> &lt;span class="n">vm_area_struct&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">area&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//当虚拟内存区域 VMA 从进程虚拟内存空间中被删除时，close 函数会被调用
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kt">vm_fault_t&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">fault&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="k">struct&lt;/span> &lt;span class="n">vm_fault&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">vmf&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//缺页异常，fault 函数就会被调用。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kt">vm_fault_t&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">page_mkwrite&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="k">struct&lt;/span> &lt;span class="n">vm_fault&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">vmf&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//当一个只读的页面将要变为可写时，page_mkwrite 函数会被调用。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">.....&lt;/span> &lt;span class="err">省略&lt;/span> &lt;span class="p">.......&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>cat /proc/pid/maps&lt;/code> 或者 &lt;code>pmap pid&lt;/code>命令背后的实现原理就是通过遍历内核中的这个 vm_area_struct 双向链表获取的。&lt;/p>
+&lt;p>尤其在进程虚拟内存空间中包含的内存区域 VMA 比较多的情况下，使用红黑树查找特定虚拟内存区域的时间复杂度是 O( logN ) ，可以显著减少查找所需的时间。&lt;/p>
+&lt;p>&lt;strong>程序编译后的二进制文件如何映射到虚拟内存空间中&lt;/strong>&lt;br>
+磁盘文件中的段我们叫做 Section，内存中的段我们叫做 Segment，也就是内存区域。&lt;br>
+多个section-&amp;gt;一个segment，内核中完成这个映射过程的函数是load_elf_binary ，这个函数的作用很大，加载内核的是它，启动第一个用户态进程 init 的是它，fork 完了以后，调用 exec 运行一个二进制程序的也是它。当 exec 运行一个二进制程序的时候，除了解析 ELF 的格式之外，另外一个重要的事情就是建立上述提到的内存映射。&lt;br>
+.text,.rodata -&amp;gt; CODE&lt;br>
+.data,.bss -&amp;gt; BSS&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="k">static&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="nf">load_elf_binary&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">struct&lt;/span> &lt;span class="n">linux_binprm&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">bprm&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">......&lt;/span> &lt;span class="err">省略&lt;/span> &lt;span class="p">........&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 设置虚拟内存空间中的内存映射区域起始地址 mmap_base
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">setup_new_exec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bprm&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">......&lt;/span> &lt;span class="err">省略&lt;/span> &lt;span class="p">........&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 创建并初始化栈对应的 vm_area_struct 结构。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 设置 mm-&amp;gt;start_stack 就是栈的起始地址也就是栈底，并将 mm-&amp;gt;arg_start 是指向栈底的。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="n">retval&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">setup_arg_pages&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bprm&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nf">randomize_stack_top&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">STACK_TOP&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">executable_stack&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">......&lt;/span> &lt;span class="err">省略&lt;/span> &lt;span class="p">........&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 将二进制文件中的代码部分映射到虚拟内存空间中
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="n">error&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">elf_map&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bprm&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">file&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">load_bias&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">vaddr&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">elf_ppnt&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">elf_prot&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">elf_flags&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">total_size&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">......&lt;/span> &lt;span class="err">省略&lt;/span> &lt;span class="p">........&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 创建并初始化堆对应的的 vm_area_struct 结构
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 设置 current-&amp;gt;mm-&amp;gt;start_brk = current-&amp;gt;mm-&amp;gt;brk，设置堆的起始地址 start_brk，结束地址 brk。 起初两者相等表示堆是空的
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="n">retval&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">set_brk&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">elf_bss&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">elf_brk&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">bss_prot&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">......&lt;/span> &lt;span class="err">省略&lt;/span> &lt;span class="p">........&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 将进程依赖的动态链接库 .so 文件映射到虚拟内存空间中的内存映射区域
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="n">elf_entry&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">load_elf_interp&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">loc&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">interp_elf_ex&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">interpreter&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">interp_map_addr&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">load_bias&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">interp_elf_phdata&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">......&lt;/span> &lt;span class="err">省略&lt;/span> &lt;span class="p">........&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 初始化内存描述符 mm_struct
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="n">current&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">mm&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">end_code&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">end_code&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">current&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">mm&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">start_code&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">start_code&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">current&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">mm&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">start_data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">start_data&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">current&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">mm&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">end_data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">end_data&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">current&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">mm&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">start_stack&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">bprm&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">......&lt;/span> &lt;span class="err">省略&lt;/span> &lt;span class="p">........&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>内核虚拟内存空间&lt;/strong>&lt;/p>
+&lt;p>在总共大小 1G 的内核虚拟内存空间中，位于最前边有一块 896M 大小的区域，我们称之为直接映射区或者线性映射区，地址范围为 3G &amp;ndash; 3G + 896m 。这块连续的虚拟内存地址会映射到 0 - 896M 这块连续的物理内存上。这块区域中的虚拟内存地址直接减去 0xC000 0000 (3G) 就得到了物理内存地址。&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240706214722.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>在这段 896M 大小的物理内存中，前 1M 已经在系统启动的时候被系统占用，1M 之后的物理内存存放的是内核代码段，数据段，BSS 段（这些信息起初存放在 ELF格式的二进制文件中，在系统启动的时候被加载进内存）&lt;/p>
+&lt;p>我们可以通过&lt;code>cat /proc/iomem&lt;/code>命令查看具体物理内存布局情况。&lt;/p>
+&lt;p>当我们使用 fork 系统调用创建进程的时候，内核会创建一系列进程相关的描述符，比如之前提到的进程的核心数据结构 task_struct，进程的内存空间描述符 mm_struct，以及虚拟内存区域描述符 vm_area_struct 等。这些进程相关的数据结构也会存放在物理内存前 896M 的这段区域中，当然也会被直接映射至内核态虚拟内存空间中的 3G &amp;ndash; 3G + 896m 这段直接映射区域中。&lt;/p>
+&lt;p>当进程被创建完毕之后，在内核运行的过程中，会涉及内核栈的分配，内核会为每个进程分配一个固定大小的内核栈（一般是两个页大小，依赖具体的体系结构），每个进程的整个调用链必须放在自己的内核栈中，内核栈也是分配在直接映射区。&lt;/p>
+&lt;p>在 X86 体系结构下，ISA 总线的 DMA （直接内存存取）控制器，只能对内存的前16M 进行寻址，这就导致了 ISA 设备不能在整个 32 位地址空间中执行 DMA，只能使用物理内存的前 16M 进行 DMA 操作。&lt;/p>
+&lt;p>因此直接映射区的前 16M 专门让内核用来为 DMA 分配内存，这块 16M 大小的内存区域我们称之为 ZONE_DMA。&lt;/p>
+&lt;p>用于 DMA 的内存必须从 ZONE_DMA 区域中分配。&lt;/p>
+&lt;p>高端内存区域为 4G - 896M = 3200M，内核剩余可用的虚拟内存空间1G - 896M = 128M&lt;/p>
+&lt;p>内核虚拟内存空间中的 3G + 896M 这块地址在内核中定义为 high_memory，high_memory 往上有一段 8M 大小的内存空洞。空洞范围为：high_memory 到 VMALLOC_START 。&lt;/p>
+&lt;p>VMALLOC_START 定义在内核源码 /arch/x86/include/asm/pgtable_32_areas.h 文件中：&lt;/p>
+&lt;p>接下来 VMALLOC_START 到 VMALLOC_END 之间的这块区域成为动态映射区。采用动态映射的方式映射物理内存中的高端内存。&lt;/p>
+&lt;p>和用户态进程使用 malloc 申请内存一样，在这块动态映射区内核是使用 vmalloc 进行内存分配。由于之前介绍的动态映射的原因，vmalloc 分配的内存在虚拟内存上是连续的，但是物理内存是不连续的。通过页表来建立物理内存与虚拟内存之间的映射关系，从而可以将不连续的物理内存映射到连续的虚拟内存上。&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240706214749.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>内核通过 alloc_pages() 函数在物理内存的高端内存中申请获取到的物理内存页，这些物理内存页可以通过调用 kmap 映射到永久映射区中。&lt;/p>
+&lt;p>LAST_PKMAP 表示永久映射区可以映射的页数限制。&lt;/p>
+&lt;p>FIXADDR_START 和 FIXADDR_TOP 定义在内核源码 /arch/x86/include/asm/fixmap.h 文件中&lt;/p>
+&lt;p>在固定映射区中虚拟地址是固定的，而被映射的物理地址是可以改变的&lt;/p>
+&lt;p>那为什么会有固定映射这个概念呢 ? 比如：在内核的启动过程中，有些模块需要使用虚拟内存并映射到指定的物理地址上，而且这些模块也没有办法等待完整的内存管理模块初始化之后再进行地址映射。因此，内核固定分配了一些虚拟地址，这些地址有固定的用途，使用该地址的模块在初始化的时候，将这些固定分配的虚拟地址映射到指定的物理地址上去。&lt;/p>
+&lt;p>总结：&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240706214810.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240706214824.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>总线上传输的地址均为物理内存地址。&lt;/p>
+&lt;h3 id="深入理解-linux-物理内存管理">深入理解 Linux 物理内存管理&lt;/h3>
+&lt;p>为了快速索引到具体的物理内存页，内核为每个物理页 struct page 结构体定义了一个索引编号：PFN（Page Frame Number）。PFN 与 struct page 是一一对应的关系。&lt;/p>
+&lt;p>&lt;strong>FLATMEM 平坦内存模型&lt;/strong>
+&lt;strong>DISCONTIGMEM 非连续内存模型&lt;/strong>&lt;/p></description></item><item><title>Offensive Shellcode from Scratch</title><link>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</link><pubDate>Thu, 18 Apr 2024 21:48:15 +0800</pubDate><guid>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</guid><description/></item><item><title>An Intro to C for Windows</title><link>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</link><pubDate>Wed, 17 Apr 2024 22:58:23 +0800</pubDate><guid>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</guid><description>&lt;ol>
 &lt;li>int __cdecl&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">int&lt;/span> &lt;span class="kr">__cdecl&lt;/span> &lt;span class="nf">myFunction&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">);&lt;/span>
