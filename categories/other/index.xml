@@ -1,4 +1,58 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>other on nRevery's Blog</title><link>https://blog.nrevery.cn/categories/other/</link><description>Recent content in other on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Thu, 18 Apr 2024 21:48:15 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/categories/other/index.xml" rel="self" type="application/rss+xml"/><item><title>Offensive Shellcode from Scratch</title><link>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</link><pubDate>Thu, 18 Apr 2024 21:48:15 +0800</pubDate><guid>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</guid><description/></item><item><title>An Intro to C for Windows</title><link>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</link><pubDate>Wed, 17 Apr 2024 22:58:23 +0800</pubDate><guid>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</guid><description>&lt;ol>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>other on nRevery's Blog</title><link>https://blog.nrevery.cn/categories/other/</link><description>Recent content in other on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Mon, 22 Jul 2024 10:49:13 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/categories/other/index.xml" rel="self" type="application/rss+xml"/><item><title>Training</title><link>https://blog.nrevery.cn/p/training/</link><pubDate>Mon, 22 Jul 2024 10:49:13 +0800</pubDate><guid>https://blog.nrevery.cn/p/training/</guid><description>&lt;h2 id="day1-渗透测试环境部署">day1 渗透测试环境部署&lt;/h2>
+&lt;h3 id="安装kali2022">安装kali2022&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>下载安装&lt;br>
+&lt;a class="link" href="https://www.cnblogs.com/603115lh/p/12349908.html" target="_blank" rel="noopener"
+>https://www.cnblogs.com/603115lh/p/12349908.html&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>优化&lt;br>
+见&lt;code>kali2022的安装和优化.pdf&lt;/code>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">su root &lt;span class="c1"># 切换root用户&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">vim /etc/apt/sources.list &lt;span class="c1"># 修改镜像源&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>问题&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>一些奇怪的错误
+-&amp;gt;杀掉进程并重开&lt;/li>
+&lt;li>VMware Workstation 不可恢复错误: (vmx)&lt;br>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240722114605.png"
+loading="lazy"
+>&lt;br>
+-&amp;gt;可尝试以管理员身份运行安装包并选择修复&lt;br>
+-&amp;gt;可尝试以管理员身份运行vmware&lt;/li>
+&lt;li>突然所有虚拟机都不能联网了(以前可以连)&lt;br>
+-&amp;gt;https://cloud.tencent.com/developer/article/1536422&lt;br>
+对着看了感觉没有问题&lt;br>
+-&amp;gt;卸载了vmmare，重新下了17.5.x版本的还是不行&lt;br>
+-&amp;gt;重新启动了虚拟机也不行&lt;br>
+-&amp;gt;重新启动本机成功&lt;/li>
+&lt;/ul>
+&lt;h3 id="kali部署dvwa靶场">kali部署DVWA靶场&lt;/h3>
+&lt;p>见&lt;code>kali部署DVWA靶场.pdf&lt;/code>&lt;/p>
+&lt;h3 id="vulfocus和vulhub的基本使用">vulfocus和vulhub的基本使用&lt;/h3>
+&lt;p>见&lt;code>vulfocus和vulhub的基本使用.pdf&lt;/code>&lt;/p>
+&lt;h2 id="day2-信息收集">day2 信息收集&lt;/h2>
+&lt;ol>
+&lt;li>whois信息查询、whois反查&lt;/li>
+&lt;li>子域名查询、暴破&lt;/li>
+&lt;li>DNS解析&lt;/li>
+&lt;li>IP查询，查询旁站和C段&lt;/li>
+&lt;/ol>
+&lt;p>问题：&lt;/p>
+&lt;ul>
+&lt;li>windows server 2016不能拖动来复制主机文件，但是kali可以
+-&amp;gt;共享文件夹&lt;/li>
+&lt;li>提示错误如下：
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240723100300.png"
+loading="lazy"
+>
+-&amp;gt;暂未解决&lt;/li>
+&lt;/ul></description></item><item><title>Offensive Shellcode from Scratch</title><link>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</link><pubDate>Thu, 18 Apr 2024 21:48:15 +0800</pubDate><guid>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</guid><description/></item><item><title>An Intro to C for Windows</title><link>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</link><pubDate>Wed, 17 Apr 2024 22:58:23 +0800</pubDate><guid>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</guid><description>&lt;ol>
 &lt;li>int __cdecl&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">int&lt;/span> &lt;span class="kr">__cdecl&lt;/span> &lt;span class="nf">myFunction&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">);&lt;/span>

@@ -1,4 +1,58 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>notes on nRevery's Blog</title><link>https://blog.nrevery.cn/tags/notes/</link><description>Recent content in notes on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Tue, 09 Jul 2024 00:57:48 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/tags/notes/index.xml" rel="self" type="application/rss+xml"/><item><title>Xiaolincoding-Os-5~11</title><link>https://blog.nrevery.cn/p/xiaolincoding-os-5~11/</link><pubDate>Tue, 09 Jul 2024 00:57:48 +0800</pubDate><guid>https://blog.nrevery.cn/p/xiaolincoding-os-5~11/</guid><description>&lt;p>[TOC]&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>notes on nRevery's Blog</title><link>https://blog.nrevery.cn/tags/notes/</link><description>Recent content in notes on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Mon, 22 Jul 2024 10:49:13 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/tags/notes/index.xml" rel="self" type="application/rss+xml"/><item><title>Training</title><link>https://blog.nrevery.cn/p/training/</link><pubDate>Mon, 22 Jul 2024 10:49:13 +0800</pubDate><guid>https://blog.nrevery.cn/p/training/</guid><description>&lt;h2 id="day1-渗透测试环境部署">day1 渗透测试环境部署&lt;/h2>
+&lt;h3 id="安装kali2022">安装kali2022&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>下载安装&lt;br>
+&lt;a class="link" href="https://www.cnblogs.com/603115lh/p/12349908.html" target="_blank" rel="noopener"
+>https://www.cnblogs.com/603115lh/p/12349908.html&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>优化&lt;br>
+见&lt;code>kali2022的安装和优化.pdf&lt;/code>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">su root &lt;span class="c1"># 切换root用户&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">vim /etc/apt/sources.list &lt;span class="c1"># 修改镜像源&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>问题&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>一些奇怪的错误
+-&amp;gt;杀掉进程并重开&lt;/li>
+&lt;li>VMware Workstation 不可恢复错误: (vmx)&lt;br>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240722114605.png"
+loading="lazy"
+>&lt;br>
+-&amp;gt;可尝试以管理员身份运行安装包并选择修复&lt;br>
+-&amp;gt;可尝试以管理员身份运行vmware&lt;/li>
+&lt;li>突然所有虚拟机都不能联网了(以前可以连)&lt;br>
+-&amp;gt;https://cloud.tencent.com/developer/article/1536422&lt;br>
+对着看了感觉没有问题&lt;br>
+-&amp;gt;卸载了vmmare，重新下了17.5.x版本的还是不行&lt;br>
+-&amp;gt;重新启动了虚拟机也不行&lt;br>
+-&amp;gt;重新启动本机成功&lt;/li>
+&lt;/ul>
+&lt;h3 id="kali部署dvwa靶场">kali部署DVWA靶场&lt;/h3>
+&lt;p>见&lt;code>kali部署DVWA靶场.pdf&lt;/code>&lt;/p>
+&lt;h3 id="vulfocus和vulhub的基本使用">vulfocus和vulhub的基本使用&lt;/h3>
+&lt;p>见&lt;code>vulfocus和vulhub的基本使用.pdf&lt;/code>&lt;/p>
+&lt;h2 id="day2-信息收集">day2 信息收集&lt;/h2>
+&lt;ol>
+&lt;li>whois信息查询、whois反查&lt;/li>
+&lt;li>子域名查询、暴破&lt;/li>
+&lt;li>DNS解析&lt;/li>
+&lt;li>IP查询，查询旁站和C段&lt;/li>
+&lt;/ol>
+&lt;p>问题：&lt;/p>
+&lt;ul>
+&lt;li>windows server 2016不能拖动来复制主机文件，但是kali可以
+-&amp;gt;共享文件夹&lt;/li>
+&lt;li>提示错误如下：
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240723100300.png"
+loading="lazy"
+>
+-&amp;gt;暂未解决&lt;/li>
+&lt;/ul></description></item><item><title>Xiaolincoding-Os-5~11</title><link>https://blog.nrevery.cn/p/xiaolincoding-os-5~11/</link><pubDate>Tue, 09 Jul 2024 00:57:48 +0800</pubDate><guid>https://blog.nrevery.cn/p/xiaolincoding-os-5~11/</guid><description>&lt;p>[TOC]&lt;/p>
 &lt;h2 id="进程管理">进程管理&lt;/h2>
 &lt;h3 id="进程线程基础知识">进程、线程基础知识&lt;/h3>
 &lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240709093945.png"
@@ -276,11 +330,86 @@ CAS 函数就把这两个步骤合并成一条硬件级指令，形成原子指�
 那针对 SCAN 算法的优化则叫 LOOK 算法，它的工作方式，磁头在每个方向上仅仅移动到最远的请求位置，然后立即反向移动，而不需要移动到磁盘的最始端或最末端，反向移动的途中会响应请求。&lt;br>
 而针 C-SCAN 算法的优化则叫 C-LOOK，它的工作方式，磁头在每个方向上仅仅移动到最远的请求位置，然后立即反向移动，而不需要移动到磁盘的最始端或最末端，反向移动的途中不会响应请求。&lt;/li>
 &lt;/ul>
-&lt;h3 id="文件系统">文件系统&lt;/h3>
+&lt;h2 id="文件系统">文件系统&lt;/h2>
 &lt;p>Linux 最经典的一句话是：「一切皆文件」，不仅普通的文件和目录，就连块设备、管道、socket 等，也都是统一交给文件系统管理的。&lt;/p>
 &lt;p>Linux 文件系统会为每个文件分配两个数据结构：&lt;strong>索引节点（index node）和目录项（directory entry）&lt;/strong>，它们主要用来记录文件的元信息和目录层次结构。&lt;br>
 &lt;strong>索引节点&lt;/strong>，也就是 inode，用来记录文件的元信息，比如 inode 编号、文件大小、访问权限、创建时间、修改时间、数据在磁盘的位置等等。索引节点是文件的唯一标识，它们之间一一对应，也同样都会被存储在硬盘中，所以索引节点同样占用磁盘空间。&lt;br>
 &lt;strong>目录项&lt;/strong>，也就是 dentry，用来记录文件的名字、索引节点指针以及与其他目录项的层级关联关系。多个目录项关联起来，就会形成目录结构，但它与索引节点不同的是，目录项是由内核维护的一个数据结构，不存放于磁盘，而是缓存在内存。&lt;/p>
+&lt;p>磁盘读写的最小单位是扇区，扇区的大小只有 512B 大小。Linux 中的逻辑块大小为 4KB，也就是一次性读写 8 个扇区，这将大大提高了磁盘的读写的效率。&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240721085932.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>磁盘进行格式化的时候，会被分成三个存储区域，分别是超级块、索引节点区和数据块区。&lt;/p>
+&lt;p>超级块，用来存储文件系统的详细信息，比如块个数、块大小、空闲块等等。&lt;br>
+索引节点区，用来存储索引节点；&lt;br>
+数据块区，用来存储文件或目录数据；&lt;/p>
+&lt;p>虚拟文件系统（Virtual File System，VFS）&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240721090437.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>Linux 支持的文件系统也不少，根据存储位置的不同，可以把文件系统分为三类：&lt;/p>
+&lt;p>磁盘的文件系统，它是直接把数据存储在磁盘中，比如 Ext 2/3/4、XFS 等都是这类文件系统。&lt;br>
+内存的文件系统，这类文件系统的数据不是存储在硬盘的，而是占用内存空间，我们经常用到的 /proc 和 /sys 文件系统都属于这一类，读写这类文件，实际上是读写内核中相关的数据。&lt;br>
+网络的文件系统，用来访问其他计算机主机数据的文件系统，比如 NFS、SMB 等等。&lt;/p>
+&lt;p>我们打开了一个文件后，操作系统会跟踪进程打开的所有文件，所谓的跟踪呢，就是操作系统为每个进程维护一个打开文件表，文件表里的每一项代表「文件描述符」，所以说文件描述符是打开文件的标识。&lt;/p>
+&lt;p>用户和操作系统对文件的读写操作是有差异的，用户习惯以字节的方式读写文件，而操作系统则是以数据块来读写文件，那屏蔽掉这种差异的工作就是文件系统了。&lt;/p>
+&lt;p>文件的数据是要存储在硬盘上面的，数据在磁盘上的存放方式，就像程序在内存中存放的方式那样，有以下两种：&lt;/p>
+&lt;p>连续空间存放方式，文件头里需要指定「起始块的位置」和「长度」。有「磁盘空间碎片」和「文件长度不易扩展」的缺陷。 &lt;br>
+非连续空间存放方式，又可以分为「链表方式」和「索引方式」。&lt;br>
+「隐式链表」：文件头要包含「第一块」和「最后一块」的位置，并且每个数据块里面留出一个指针空间，用来存放下一个数据块的位置。稳定性较差，系统在运行过程中由于软件或者硬件错误导致链表中的指针丢失或损坏，会导致文件数据的丢失。&lt;br>
+「显式链接」：把用于链接文件各数据块的指针，显式地存放在内存的一张链接表中，该表在整个磁盘仅设置一张，每个表项中存放链接指针，指向下一个数据块号。&lt;/p>
+&lt;p>链表 + 索引的组合，这种组合称为「链式索引块」，它的实现方式是在索引数据块留出一个存放下一个索引数据块的指针，于是当一个索引数据块的索引信息用完了，就可以通过指针的方式，找到下一个索引数据块的信息。&lt;br>
+索引的方式，这种组合称为「多级索引块」，实现方式是通过一个索引块来存放多个索引数据块。&lt;/p>
+&lt;p>空闲空间管理：空闲表法，空闲链表法，位图法&lt;br>
+空闲表法&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240721100659.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>空闲链表法&lt;br>
+每一个空闲块里有一个指针指向下一个空闲块&lt;/p>
+&lt;p>位图法&lt;br>
+位图是利用二进制的一位来表示磁盘中一个盘块的使用情况，磁盘上所有的盘块都有一个二进制位与之对应。&lt;br>
+当值为 0 时，表示对应的盘块空闲，值为 1 时，表示对应的盘块已分配。&lt;br>
+在 Linux 文件系统就采用了位图的方式来管理空闲空间&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240721101238.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>最前面的第一个块是引导块，在系统启动时用于启用引导，接着后面就是一个一个连续的块组了，块组的内容如下：&lt;/p>
+&lt;p>超级块，包含的是文件系统的重要信息，比如 inode 总个数、块总个数、每个块组的 inode 个数、每个块组的块个数等等。&lt;br>
+块组描述符，包含文件系统中各个块组的状态，比如块组中空闲块和 inode 的数目等，每个块组都包含了文件系统中「所有块组的组描述符信息」。&lt;br>
+数据位图和 inode 位图， 用于表示对应的数据块或 inode 是空闲的，还是被使用中。&lt;br>
+inode 列表，包含了块组中所有的 inode，inode 用于保存文件系统中与各个文件和目录相关的所有元数据。&lt;br>
+数据块，包含文件的有用数据。&lt;br>
+你可以会发现每个块组里有很多重复的信息，比如超级块和块组描述符表，这两个都是全局信息，而且非常的重要，这么做是有两个原因：&lt;/p>
+&lt;p>如果系统崩溃破坏了超级块或块组描述符，有关文件系统结构和内容的所有信息都会丢失。如果有冗余的副本，该信息是可能恢复的。&lt;br>
+通过使文件和管理数据尽可能接近，减少了磁头寻道和旋转，这可以提高文件系统的性能。&lt;br>
+不过，Ext2 的后续版本采用了稀疏技术。该做法是，超级块和块组描述符表不再存储到文件系统的每个块组中，而是只写入到块组 0、块组 1 和其他 ID 可以表示为 3、 5、7 的幂的块组中。&lt;/p>
+&lt;p>软链接和硬链接&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240721103830.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240721103852.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>文件的读写方式各有千秋，对于文件的 I/O 分类也非常多，常见的有&lt;/p>
+&lt;p>缓冲与非缓冲 I/O&lt;br>
+直接与非直接 I/O&lt;br>
+阻塞与非阻塞 I/O VS 同步与异步 I/O&lt;/p>
+&lt;p>根据「是否利用标准库缓冲」，可以把文件 I/O 分为缓冲 I/O 和非缓冲 I/O：&lt;br>
+缓冲 I/O，利用的是标准库的缓存实现文件的加速访问，而标准库再通过系统调用访问文件。&lt;br>
+非缓冲 I/O，直接通过系统调用访问文件，不经过标准库缓存。&lt;/p>
+&lt;p>根据是「否利用操作系统的缓存」，可以把文件 I/O 分为直接 I/O 与非直接 I/O：&lt;br>
+直接 I/O，不会发生内核缓存和用户程序之间数据复制，而是直接经过文件系统访问磁盘。&lt;br>
+非直接 I/O，读操作时，数据从内核缓存中拷贝给用户程序，写操作时，数据从用户程序拷贝给内核缓存，再由内核决定什么时候写入数据到磁盘。&lt;/p>
+&lt;p>先来看看阻塞 I/O，当用户程序执行 read ，线程会被阻塞，一直等到内核数据准备好，并把数据从内核缓冲区拷贝到应用程序的缓冲区中，当拷贝过程完成，read 才会返回。&lt;br>
+注意，阻塞等待的是「内核数据准备好」和「数据从内核态拷贝到用户态」这两个过程。&lt;br>
+非阻塞的 read 请求在数据未准备好的情况下立即返回，可以继续往下执行，此时应用程序不断轮询内核，直到数据准备好，内核将数据拷贝到应用程序缓冲区，read 调用才可以获取到结果。&lt;br>
+为了解决这种傻乎乎轮询方式，于是 I/O 多路复用技术就出来了，如 select、poll，它是通过 I/O 事件分发，当内核数据准备好时，再以事件通知应用程序进行操作。&lt;br>
+整个流程要比阻塞 IO 要复杂，似乎也更浪费性能。但 I/O 多路复用接口最大的优势在于，用户可以在一个线程内同时处理多个 socket 的 IO 请求。用户可以注册多个 socket，然后不断地调用 I/O 多路复用接口读取被激活的 socket，即可达到在同一个线程内同时处理多个 IO 请求的目的。而在同步阻塞模型中，必须通过多线程的方式才能达到这个目的。&lt;/p>
+&lt;p>实际上，无论是阻塞 I/O、非阻塞 I/O，还是基于非阻塞 I/O 的多路复用都是同步调用。因为它们在 read 调用时，内核将数据从内核空间拷贝到应用程序空间，过程都是需要等待的，也就是说这个过程是同步的，如果内核实现的拷贝效率不高，read 调用就会在这个同步过程中等待比较长的时间。&lt;/p>
+&lt;p>而真正的异步 I/O 是「内核数据准备好」和「数据从内核态拷贝到用户态」这两个过程都不用等待。&lt;/p>
+&lt;p>&lt;code>cat /proc/meminfo&lt;/code>实时获取系统内存情况
+Page Cache = Buffers + Cached + SwapCached&lt;/p>
 &lt;h2 id="设备管理">设备管理&lt;/h2>
 &lt;h3 id="键盘敲入-a-字母时操作系统期间发生了什么">键盘敲入 A 字母时，操作系统期间发生了什么？&lt;/h3>
 &lt;p>为了屏蔽设备之间的差异，每个设备都有一个叫设备控制器（Device Control） 的组件，比如硬盘有硬盘控制器、显示器有视频控制器等。&lt;br>
