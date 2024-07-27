@@ -1,21 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>notes on nRevery's Blog</title><link>https://blog.nrevery.cn/tags/notes/</link><description>Recent content in notes on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Mon, 22 Jul 2024 10:49:13 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/tags/notes/index.xml" rel="self" type="application/rss+xml"/><item><title>实训</title><link>https://blog.nrevery.cn/p/%E5%AE%9E%E8%AE%AD/</link><pubDate>Mon, 22 Jul 2024 10:49:13 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E5%AE%9E%E8%AE%AD/</guid><description>&lt;h2 id="day1-渗透测试环境部署">day1 渗透测试环境部署&lt;/h2>
-&lt;h3 id="安装kali2022">安装kali2022&lt;/h3>
-&lt;ol>
-&lt;li>
-&lt;p>下载安装&lt;br>
+&lt;p>下载安装安装kali2022
 &lt;a class="link" href="https://www.cnblogs.com/603115lh/p/12349908.html" target="_blank" rel="noopener"
 >https://www.cnblogs.com/603115lh/p/12349908.html&lt;/a>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>优化&lt;br>
-见&lt;code>kali2022的安装和优化.pdf&lt;/code>&lt;/p>
-&lt;/li>
-&lt;/ol>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">su root &lt;span class="c1"># 切换root用户&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">vim /etc/apt/sources.list &lt;span class="c1"># 修改镜像源&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
-&lt;li>问题&lt;/li>
-&lt;/ol>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>问题:&lt;/p>
 &lt;ul>
 &lt;li>一些奇怪的错误
 -&amp;gt;杀掉进程并重开&lt;/li>
@@ -25,17 +14,19 @@ loading="lazy"
 >&lt;br>
 -&amp;gt;可尝试以管理员身份运行安装包并选择修复&lt;br>
 -&amp;gt;可尝试以管理员身份运行vmware&lt;/li>
-&lt;li>突然所有虚拟机都不能联网了(以前可以连)&lt;br>
+&lt;li>突然虚拟机不能联网了(以前可以连)&lt;br>
 -&amp;gt;https://cloud.tencent.com/developer/article/1536422&lt;br>
 对着看了感觉没有问题&lt;br>
 -&amp;gt;卸载了vmmare，重新下了17.5.x版本的还是不行&lt;br>
--&amp;gt;重新启动了虚拟机也不行&lt;br>
--&amp;gt;重新启动本机成功&lt;/li>
+-&amp;gt;重新启动了虚拟机也不行 &lt;br>
+-&amp;gt;重新启动本机成功&lt;br>
+-&amp;gt;后来发现多个虚拟机同时开启导致不能联网,仍然不能彻底解决&lt;br>
+有效避免方式：桥接、静态ip、虚拟机克隆&lt;br>
+&lt;a class="link" href="https://blog.csdn.net/Ti__iT/article/details/121196868" target="_blank" rel="noopener"
+>https://blog.csdn.net/Ti__iT/article/details/121196868&lt;/a>&lt;br>
+&lt;a class="link" href="https://blog.csdn.net/qq_23727497/article/details/81737164" target="_blank" rel="noopener"
+>https://blog.csdn.net/qq_23727497/article/details/81737164&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h3 id="kali部署dvwa靶场">kali部署DVWA靶场&lt;/h3>
-&lt;p>见&lt;code>kali部署DVWA靶场.pdf&lt;/code>&lt;/p>
-&lt;h3 id="vulfocus和vulhub的基本使用">vulfocus和vulhub的基本使用&lt;/h3>
-&lt;p>见&lt;code>vulfocus和vulhub的基本使用.pdf&lt;/code>&lt;/p>
 &lt;h2 id="day2-信息收集">day2 信息收集&lt;/h2>
 &lt;ol>
 &lt;li>whois信息查询、whois反查&lt;/li>
@@ -45,13 +36,78 @@ loading="lazy"
 &lt;/ol>
 &lt;p>问题：&lt;/p>
 &lt;ul>
-&lt;li>windows server 2016不能拖动来复制主机文件，但是kali可以
+&lt;li>windows server 2016不能拖动来复制主机文件，但是kali可以&lt;br>
 -&amp;gt;共享文件夹&lt;/li>
-&lt;li>提示错误如下：
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240723100300.png"
-loading="lazy"
->
+&lt;/ul>
+&lt;h2 id="day3-漏洞扫描技术">day3 漏洞扫描技术&lt;/h2>
+&lt;p>问题：&lt;/p>
+&lt;ul>
+&lt;li>在虚拟机2016中从share文件夹移动到桌面时异常&lt;br>
+-&amp;gt;可能是文件太大？直接在share文件夹操作没有问题&lt;/li>
+&lt;li>Nessus安装后重启电脑不能正常打开&lt;br>
 -&amp;gt;暂未解决&lt;/li>
+&lt;/ul>
+&lt;h2 id="day4-xss综合攻防">day4 XSS综合攻防&lt;/h2>
+&lt;p>dvwa之xss漏洞详解&lt;br>
+&lt;a class="link" href="https://saucer-man.com/information_security/44.html" target="_blank" rel="noopener"
+>https://saucer-man.com/information_security/44.html&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">img&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;任意图片名&amp;#34;&lt;/span> &lt;span class="na">onerror&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;alert&amp;amp;#40;1&amp;amp;#41;&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="nx">alert&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="err">#&lt;/span>&lt;span class="mi">40&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="err">#&lt;/span>&lt;span class="mi">41&lt;/span>&lt;span class="p">;&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&amp;lt;!-- 第一行可以第二行不行，html实体编码不可用于js --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="day5-sql-注入综合攻防第一天">day5 SQL 注入综合攻防（第一天）&lt;/h2>
+&lt;p>sqlilabs源码&lt;br>
+&lt;a class="link" href="https://blog.csdn.net/qq_28921653/article/details/60866920" target="_blank" rel="noopener"
+>https://blog.csdn.net/qq_28921653/article/details/60866920&lt;/a>&lt;/p>
+&lt;p>问题：&lt;/p>
+&lt;ul>
+&lt;li>phpstudy出现错误如下&lt;br>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240724212942.png"
+loading="lazy"
+>&lt;br>
+-&amp;gt;参考&lt;br>
+&lt;a class="link" href="https://www.ruletree.club/archives/62/" target="_blank" rel="noopener"
+>https://www.ruletree.club/archives/62/&lt;/a>&lt;br>
+把所有php.ini的内存限制都扩大了，虚拟机的内存也扩大，重启后有效&lt;/li>
+&lt;/ul>
+&lt;h2 id="day6-sql-注入综合攻防第二天">day6 SQL 注入综合攻防（第二天）&lt;/h2>
+&lt;p>无&lt;/p>
+&lt;h2 id="day7-文件上传漏洞">day7 文件上传漏洞&lt;/h2>
+&lt;p>问题：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>如下图&lt;br>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/f76c0513949caea8a6385aa6fac77359.png"
+loading="lazy"
+>&lt;br>
+-&amp;gt;https://bbs.huaweicloud.com/forum/thread-92163-1-1.html&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>南方数据企业网站管理系统登录失败
+-&amp;gt; &lt;a class="link" href="https://blog.csdn.net/kelonsen/article/details/9181793" target="_blank" rel="noopener"
+>https://blog.csdn.net/kelonsen/article/details/9181793&lt;/a>
+无效，发现换成火狐就没问题了&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>南方数据企业网站管理系统文件上传漏洞.pdf中，备份后出现不符合预期的结果&lt;br>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240726214522.png"
+loading="lazy"
+>&lt;br>
+-&amp;gt;暂未解决&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="day8-文件包含漏洞">day8 文件包含漏洞&lt;/h2>
+&lt;p>无&lt;/p>
+&lt;h2 id="day9-ssrf漏洞与反序列化漏洞">day9 SSRF漏洞与反序列化漏洞&lt;/h2>
+&lt;p>问题：&lt;/p>
+&lt;ul>
+&lt;li>无法在共享文件夹所在磁盘的根目录创建文件&lt;br>
+-&amp;gt;暂未解决&lt;/li>
+&lt;/ul>
+&lt;h2 id="day10-rce命令注入">day10 RCE命令注入&lt;/h2>
+&lt;p>问题：&lt;/p>
+&lt;ul>
+&lt;li>网络问题
+-&amp;gt;打开/etc/network/interfaces发现只写了lo，&lt;code>ip link show&lt;/code>查找可用的网络接口，或者&lt;code>ls /sys/class/net&lt;/code>发现网卡没有eth0，而与之对应的是ens33。&lt;/li>
 &lt;/ul></description></item><item><title>Xiaolincoding-Os-5~11</title><link>https://blog.nrevery.cn/p/xiaolincoding-os-5~11/</link><pubDate>Tue, 09 Jul 2024 00:57:48 +0800</pubDate><guid>https://blog.nrevery.cn/p/xiaolincoding-os-5~11/</guid><description>&lt;p>[TOC]&lt;/p>
 &lt;h2 id="进程管理">进程管理&lt;/h2>
 &lt;h3 id="进程线程基础知识">进程、线程基础知识&lt;/h3>
@@ -960,7 +1016,9 @@ loading="lazy"
 >https://blog.csdn.net/htsssss/article/details/128469844&lt;/a>&lt;/li>
 &lt;li>抓不到本地的包，其他正常
 &lt;a class="link" href="https://blog.csdn.net/songling515010475/article/details/107269583" target="_blank" rel="noopener"
->https://blog.csdn.net/songling515010475/article/details/107269583&lt;/a>&lt;/li>
+>https://blog.csdn.net/songling515010475/article/details/107269583&lt;/a>&lt;br>
+&lt;a class="link" href="https://blog.csdn.net/m0_47470899/article/details/119298514" target="_blank" rel="noopener"
+>https://blog.csdn.net/m0_47470899/article/details/119298514&lt;/a>&lt;/li>
 &lt;li>不能翻墙
 代理链条
 查看clash代理端口（clash-general-port）,如7890
