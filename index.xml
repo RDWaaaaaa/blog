@@ -3933,13 +3933,11 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">conn&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cmd&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">encode&lt;/span>&lt;span class="p">())&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">resp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">conn&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">recv&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">32768&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decode&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">resp&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Other</title><link>https://blog.nrevery.cn/p/other/</link><pubDate>Fri, 29 Mar 2024 17:02:18 +0800</pubDate><guid>https://blog.nrevery.cn/p/other/</guid><description>&lt;ol>
-&lt;li>github信息查看
-&lt;a class="link" href="https://api.github.com/users/" target="_blank" rel="noopener"
->https://api.github.com/users/&lt;/a>名字&lt;/li>
-&lt;li>命令行编译
-假设项目结构如下：&lt;/li>
-&lt;/ol>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>其他</title><link>https://blog.nrevery.cn/p/%E5%85%B6%E4%BB%96/</link><pubDate>Fri, 29 Mar 2024 17:02:18 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E5%85%B6%E4%BB%96/</guid><description>&lt;h2 id="github信息查看">github信息查看&lt;/h2>
+&lt;p>&lt;a class="link" href="https://api.github.com/users/" target="_blank" rel="noopener"
+>https://api.github.com/users/&lt;/a>名字&lt;/p>
+&lt;h2 id="命令行编译">命令行编译&lt;/h2>
+&lt;p>假设项目结构如下：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">project_folder&lt;/span>&lt;span class="o">/&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">src&lt;/span>&lt;span class="o">/&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">file1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nc">c&lt;/span>
@@ -3950,12 +3948,10 @@ loading="lazy"
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">gcc -c -I../include file1.c -o file1.o
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gcc -c -I../include file2.c -o file2.o
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gcc file1.o file2.o -o my_executable
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
-&lt;li>对拍
-&lt;a class="link" href="https://www.cnblogs.com/EdisonBa/p/13509379.html" target="_blank" rel="noopener"
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="对拍">对拍&lt;/h2>
+&lt;p>&lt;a class="link" href="https://www.cnblogs.com/EdisonBa/p/13509379.html" target="_blank" rel="noopener"
 >https://www.cnblogs.com/EdisonBa/p/13509379.html&lt;/a>
-一段出题代码&lt;/li>
-&lt;/ol>
+一段出题代码&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span>&lt;span class="cpf">&amp;lt;bits/stdc++.h&amp;gt;&lt;/span>&lt;span class="cp">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="k">using&lt;/span> &lt;span class="k">namespace&lt;/span> &lt;span class="n">std&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">const&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">N&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">100000&lt;/span>&lt;span class="p">;&lt;/span>
@@ -3982,7 +3978,57 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Shellcode学习笔记</title><link>https://blog.nrevery.cn/p/shellcode%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 25 Mar 2024 22:13:53 +0800</pubDate><guid>https://blog.nrevery.cn/p/shellcode%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid><description>&lt;h2 id="gdb的使用">GDB的使用&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="linux命令">linux命令&lt;/h2>
+&lt;ol>
+&lt;li>用户&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">adduser -M -d /dev/null -s /sbin/nologin testuser
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>adduser：这是添加新用户的命令。&lt;/p>
+&lt;p>-M：不为用户创建主目录。这意味着在添加用户时，不会在默认的 /home 目录下创建 testuser 的主目录。&lt;/p>
+&lt;p>-d /dev/null：指定用户的主目录为 /dev/null。由于 /dev/null 是一个特殊的设备文件，可以丢弃所有写入它的数据，这意味着 testuser 没有实际的主目录。&lt;/p>
+&lt;p>-s /sbin/nologin：指定用户的登录 shell 为 /sbin/nologin。这会阻止用户通过常规方式登录到系统。尝试登录时，系统会显示一条信息，表明登录被禁止。&lt;/p>
+&lt;p>testuser：这是要添加的用户的用户名。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">adduser -d /home/user01 -m user01
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>-m：创建用户的主目录。如果指定的主目录不存在，-m 选项将创建它。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl"> tail -n &lt;span class="m">1&lt;/span> /etc/passwd
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">passwd -l user01 命令用于锁定用户账号 user01。以下是该命令的详细解释：
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>-l：表示锁定用户账号（lock）。
+user01:!$6$abcdefgh$wqe7r8yK3QH.DRTfEr1:19000:0:99999:7:::
+/etc/passwd最后一行会多一个感叹号&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">passwd -u user01 &lt;span class="c1"># 解除锁定&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">usermod -l user02 user01 &lt;span class="c1"># 修改用户名，更改用户名不会自动更改用户的主目录名称。若要同时更改用户的主目录名称，需要使用 -d 选项&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">usermod -l user02 -d /home/user02 -m user01
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">groupadd student
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 组名:密码:组ID:组成员&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># developers:x:1001:alice,bob,charlie&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tail -n &lt;span class="m">1&lt;/span> /etc/group
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">useradd -g student -G developers,wheel user02
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 这个命令会创建一个名为 user02 的新用户，默认组（初始组）为 student，并且还属于 developers 和 wheel 这两个附加组。&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gpasswd student
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gpasswd -d user02 student
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">usermod -a -G developers,admins user02 &lt;span class="c1"># 将现有用户添加到一个或多个附加组中，并且保留用户之前所属的组。如果不使用 -a 选项，用户将被从原有的附加组中删除，只保留在新指定的附加组中。&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>/etc/passwd&lt;br>
+用户名:密码:UID:GID:用户信息:主目录:登录 shell&lt;br>
+user01:x:1001:1001::/home/user01:/bin/bash&lt;/p>
+&lt;p>/etc/shadow&lt;br>
+用户名:密码:上次更改日期:最小间隔天数:最大间隔天数:警告天数:禁用天数:账号过期日期:保留字段&lt;br>
+user01:$6$abcdefg$&amp;hellip;.:19000:0:99999:7:::&lt;/p>
+&lt;p>所有用户对passwd文件均可读取，只有root用户对shadow文件可读，因此密码存放在shadow文件中更安全。&lt;/p>
+&lt;p>/etc/group
+组名:密码:组ID:组成员
+root:x:0:
+daemon:x:1:
+bin:x:2:
+sys:x:3:
+adm:x:4:syslog
+users:x:100:alice,bob,charlie
+developers:x:101:alice,bob&lt;/p>
+&lt;p>/etc/gshadow
+组名:组密码:管理员:组成员
+root:!:root:daemon
+admins:!:alice,bob
+users::alice,bob,charlie&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Shellcode学习笔记</title><link>https://blog.nrevery.cn/p/shellcode%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 25 Mar 2024 22:13:53 +0800</pubDate><guid>https://blog.nrevery.cn/p/shellcode%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid><description>&lt;h2 id="gdb的使用">GDB的使用&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">b main
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">delete &lt;span class="m">1&lt;/span> &lt;span class="c1"># 断点编号&lt;/span>
