@@ -1,4 +1,167 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on nRevery's Blog</title><link>https://blog.nrevery.cn/post/</link><description>Recent content in Posts on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Tue, 13 Aug 2024 22:28:20 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/post/index.xml" rel="self" type="application/rss+xml"/><item><title>机密计算 -> ARM CCA</title><link>https://blog.nrevery.cn/p/%E6%9C%BA%E5%AF%86%E8%AE%A1%E7%AE%97-arm-cca/</link><pubDate>Tue, 13 Aug 2024 22:28:20 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E6%9C%BA%E5%AF%86%E8%AE%A1%E7%AE%97-arm-cca/</guid><description>&lt;p>简单介绍：&lt;br>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on nRevery's Blog</title><link>https://blog.nrevery.cn/post/</link><description>Recent content in Posts on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Wed, 21 Aug 2024 10:35:49 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/post/index.xml" rel="self" type="application/rss+xml"/><item><title>Introducing-Arm-Confidential-Compute-Architecture.pdf</title><link>https://blog.nrevery.cn/p/introducing-arm-confidential-compute-architecture.pdf/</link><pubDate>Wed, 21 Aug 2024 10:35:49 +0800</pubDate><guid>https://blog.nrevery.cn/p/introducing-arm-confidential-compute-architecture.pdf/</guid><description>&lt;h2 id="前置知识">前置知识&lt;/h2>
+&lt;h3 id="aarch64-异常模型">AArch64 异常模型&lt;/h3>
+&lt;h4 id="privilege-and-exception-levels特权和异常级别">Privilege and Exception levels特权和异常级别&lt;/h4>
+&lt;p>&lt;a class="link" href="https://developer.arm.com/documentation/102412/latest" target="_blank" rel="noopener"
+>https://developer.arm.com/documentation/102412/latest&lt;/a>&lt;/p>
+&lt;p>Exception level -&amp;gt; EL&lt;br>
+&lt;strong>有四种异常级别：EL0、EL1、EL2 和 EL3。&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240821110229.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>The architecture does not specify what software uses which Exception level. A common usage model is application code running at EL0, with a rich Operating System (OS) such as Linux running at EL1. EL2 may be used by a hypervisor, with EL3 used by firmware and security gateway code. For example, Linux can call firmware functions at EL3, using software interface standards, to abstract the intent from the lower-level details for powering on or off a core. This model means the bulk of PE processing typically occurs at EL0/1.&lt;/p>
+&lt;p>Processing Element -&amp;gt; PE&lt;/p>
+&lt;p>&lt;strong>the Exception level can only change when any of the following occur:&lt;/strong>&lt;br>
+&lt;strong>仅当发生以下任一情况时，异常级别才会更改：&lt;/strong>&lt;/p>
+&lt;p>Taking an exception 例外&lt;br>
+Returning from an exception 从异常中返回&lt;br>
+Processor reset 处理器重置&lt;br>
+During Debug state 调试状态下&lt;br>
+Exiting from Debug state 退出调试状态&lt;/p>
+&lt;p>&lt;strong>There are two types of privilege relevant to the AArch64 Exception model:&lt;/strong>&lt;br>
+&lt;strong>有两种与 AArch64 异常模型相关的权限：&lt;/strong>&lt;br>
+Privilege in the memory system&lt;br>
+内存系统中的特权&lt;br>
+Privilege from the point of view of accessing processor resources&lt;br>
+从访问处理器资源的角度来看的特权&lt;br>
+Both types of privilege are affected by the current privileged Exception level.&lt;br>
+两种类型的特权都受到当前特权异常级别的影响。&lt;/p>
+&lt;p>&lt;strong>Memory privilege 内存特权&lt;/strong>&lt;br>
+Arm 架构的 A-profile 实现了虚拟内存系统，其中内存管理单元 (MMU) 允许软件为内存区域分配属性。这些属性包括读/写权限，可以将其配置为允许特权访问和非特权访问的单独访问权限。&lt;/p>
+&lt;p>&lt;strong>In the Arm architecture, registers are split into two main categories:&lt;/strong>&lt;br>
+&lt;strong>在 Arm 架构中，寄存器分为两大类：&lt;/strong>&lt;br>
+Registers that provide system control or status reporting&lt;br>
+提供系统控制或状态报告的寄存器&lt;br>
+Registers that are used in instruction processing, for example to accumulate a result, and in handling exceptions&lt;br>
+用于指令处理（例如累积结果）以及处理异常的寄存器&lt;/p>
+&lt;p>&lt;strong>System Control Register (SCTLR)&lt;/strong>&lt;br>
+There is a System Control Register (SCTLR) for each implemented Exception level. Each register controls the architectural features for that EL, such as the MMU, caches and alignment checking:&lt;br>
+每个实现的异常级别都有一个系统控制寄存器（SCTLR）。每个寄存器控制该 EL 的架构特性，例如 MMU、缓存和对齐检查：&lt;br>
+SCTLR_EL1&lt;br>
+Top-level system control for EL0 and EL1&lt;br>
+SCTLR_EL2&lt;br>
+Top-level system control for EL2&lt;br>
+SCTLR_EL3&lt;br>
+Top-level system control for EL3&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240821163109.png"
+loading="lazy"
+>&lt;/p>
+&lt;h4 id="execution-and-security-states执行和安全状态">Execution and Security states执行和安全状态&lt;/h4>
+&lt;p>The AArch64 architecture provides four Exception levels.There are also two Execution states and up to four Security states.The current state of an Armv8-A or Armv9-A processor is determined by the Exception level and the current Execution state. &lt;br>
+AArch64 架构提供了四个异常级别。还有两个执行状态和最多四个安全状态。 Armv8-A 或 Armv9-A 处理器的当前状态由异常级别和当前执行状态决定。&lt;/p>
+&lt;p>&lt;strong>Execution states 执行状态&lt;/strong> &lt;br>
+Armv8-A 和 Armv9-A 支持两种执行状态：AArch32,AArch64&lt;br>
+Armv8-A：灵活支持 AArch32 和 AArch64，复位时的执行状态由实现决定。&lt;br>
+Armv9-A：强制要求 AArch64，在复位时执行状态必须是 AArch64，但在用户态（EL0）可以选择支持 AArch32。&lt;/p>
+&lt;p>&lt;strong>Security states 安全状态&lt;/strong>&lt;/p>
+&lt;p>Secure state 安全状态&lt;br>
+In this state, a Processing Element (PE) can access both the Secure and Non-secure physical address spaces, and the Secure copy of banked registers.&lt;br>
+在此状态下，处理元件 (PE) 可以访问安全和非安全物理地址空间以及存储寄存器的安全副本。&lt;br>
+Non-secure state 非安全状态&lt;br>
+This is often also referred to as Normal world. In this state, a PE can only access the Non-secure physical address space. The PE can only access System registers that allow non-secure accesses.&lt;br>
+这通常也称为正常世界。在这种状态下，PE只能访问非安全物理地址空间。 PE 只能访问允许非安全访问的系统寄存器。&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240821221527.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>Armv8-A：EL3 始终在 Secure state 中，用于管理安全和非安全世界之间的转换。&lt;br>
+Armv9-A：默认情况下 EL3 仍然在 Secure state 中，但如果实现了 RME，EL3 会成为 Root state 的一部分，与 Secure state 的其他部分分离，提供更高级别的安全隔离和管理。&lt;/p>
+&lt;p>At EL0, EL1, and EL2 the PE can be in either Secure state or Non-secure state. You often see this written as:
+在 EL0、EL1 和 EL2，PE 可以处于安全状态或非安全状态。你经常看到这样写：&lt;br>
+NS_EL1: Non-secure state, Exception level 1&lt;br>
+NS_EL1：非安全状态，异常级别 1&lt;br>
+S_EL1: Secure state, Exception level 1&lt;br>
+S_EL1：安全状态，异常级别 1&lt;/p>
+&lt;p>&lt;strong>Realm Management Extension(RME)领域管理扩展&lt;/strong>&lt;br>
+Armv9-A introduced support for the Realm Management Extension (RME). When RME is implemented, two additional Security states are supported:&lt;br>
+Armv9-A 引入了对领域管理扩展 (RME) 的支持。实施 RME 时，支持两种附加安全状态：&lt;br>
+Realm state: In this state a PE can access Non-secure and Realm physical address spaces.&lt;br>
+Realm状态：在此状态下PE可以访问非安全和Realm物理地址空间。&lt;br>
+Root state: In this state a PE can access all physical address spaces. Root state is only available in EL3.&lt;br>
+根状态：在此状态下PE可以访问所有物理地址空间。根状态仅在 EL3 中可用。&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240821224950.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>补充：RME&lt;br>
+&lt;a class="link" href="https://developer.arm.com/documentation/den0126/latest/" target="_blank" rel="noopener"
+>https://developer.arm.com/documentation/den0126/latest/&lt;/a>&lt;/p>
+&lt;p>补充：trustzone&lt;br>
+&lt;a class="link" href="https://developer.arm.com/documentation/102418/latest/" target="_blank" rel="noopener"
+>https://developer.arm.com/documentation/102418/latest/&lt;/a>&lt;/p>
+&lt;p>补充：虚拟化
+&lt;a class="link" href="https://developer.arm.com/documentation/102142/latest/" target="_blank" rel="noopener"
+>https://developer.arm.com/documentation/102142/latest/&lt;/a>&lt;/p>
+&lt;h4 id="exception-types异常类型">Exception types异常类型&lt;/h4>
+&lt;p>The Arm architecture categorizes exceptions into two broad types: synchronous exceptions and asynchronous exceptions.&lt;br>
+Arm架构将异常分为两大类：同步异常和异步异常。&lt;/p>
+&lt;p>&lt;strong>Synchronous exceptions 同步异常&lt;/strong>&lt;/p>
+&lt;p>There are many different types of synchronous exception, and it is possible that a given instruction might cause multiple synchronous exceptions. The Arm architecture provides a fixed priority order for synchronous exceptions.
+同步异常有许多不同类型，并且给定指令可能会导致多个同步异常。 Arm 架构为同步异常提供固定的优先级顺序。&lt;/p>
+&lt;p>同步异常的一些不同原因：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Invalid instructions and trap exceptions 无效指令和陷阱异常
+例如，EL1 处的操作系统内核可能会禁用 EL0 处浮点指令的使用，以节省应用程序之间上下文切换的时间。惰性上下文切换（lazy context-switching）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Memory accesses 内存访问&lt;br>
+这可能是由于 MMU 执行的检查或内存系统返回的错误造成的。&lt;br>
+补充：内存也可能引起异步异常&lt;br>
+&lt;a class="link" href="https://developer.arm.com/documentation/101811/latest/" target="_blank" rel="noopener"
+>https://developer.arm.com/documentation/101811/latest/&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Exception-generating instructions 异常生成指令&lt;br>
+Arm 架构包括异常生成指令 SVC、HVC 和 SMC。这些指令的目的仅仅是生成异常并使 PE 能够在异常级别之间移动：&lt;br>
+Supervisor Call (SVC) 指令使 EL0 处的用户程序能够请求 EL1 处的 OS 服务&lt;br>
+Hypervisor Call (HVC) 指令（如果实施了虚拟化扩展，则可用）使 OS 能够请求 EL2 处的虚拟机管理程序服务&lt;br>
+Secure Monitor Call (SMC) 指令（如果实施了安全扩展，则可用）使普通世界能够从 EL3 处的固件请求安全世界服务&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>服务调用路由：&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240822100718.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>在虚拟化环境中，虚拟机监控程序可以通过设置 HCR_EL2.TSC 位，将客户操作系统的 SMC 指令陷阱到 EL2 层级进行处理，从而有效控制和仿真系统行为。这种机制确保了虚拟机监控程序对客户操作系统的全面控制，同时提供了灵活的系统管理能力。&lt;/p>
+&lt;ol start="4">
+&lt;li>Debug exceptions 调试异常&lt;br>
+Debug exceptions are synchronous exceptions that are routed to the Exception level where a debugger is hosted. The debugger code then executes much like exception handler code.&lt;br>
+调试异常是路由到托管调试器的异常级别的同步异常。然后，调试器代码的执行方式与异常处理程序代码非常相似。&lt;/li>
+&lt;/ol>
+&lt;p>补充：self-hosted debug 自托管调试&lt;br>
+&lt;a class="link" href="https://developer.arm.com/documentation/102120/latest/" target="_blank" rel="noopener"
+>https://developer.arm.com/documentation/102120/latest/&lt;/a>&lt;/p>
+&lt;p>In AArch64, synchronous aborts cause a synchronous exception. Asynchronous aborts cause an SError interrupt exception.&lt;br>
+在 AArch64 中，同步中止会导致同步异常。异步中止会导致 SError 中断异常。&lt;/p>
+&lt;p>&lt;strong>Asynchronous exceptions 异步异常&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Physical interrupts 物理中断:&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>
+&lt;p>SError 错误&lt;br>
+System Error&lt;br>
+补充：通用中断控制器 v3 和 v4&lt;br>
+&lt;a class="link" href="https://developer.arm.com/documentation/198123/latest/" target="_blank" rel="noopener"
+>https://developer.arm.com/documentation/198123/latest/&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>IRQ and FIQ IRQ 和 FIQ&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>在 ARM 架构中，IRQ（Interrupt Request） 和 FIQ（Fast Interrupt Request） 是两种不同类型的中断机制，用于处理不同优先级的中断请求。&lt;br>
+在 AArch64 架构中，FIQ（Fast Interrupt Request）和 IRQ（Interrupt Request）的优先级相同，都是异步中断，并且它们的处理方式没有像在某些早期架构中那样显著不同。相较于旧的 ARM 架构（如 AArch32），FIQ 通常具有比 IRQ 更高的优先级，但在 AArch64 中，这种优先级的差异已经被消除。两者的优先级可以通过软件配置，而不是硬件固定。&lt;br>
+所有 Arm 实现都使用 Arm 通用中断控制器 Generic Interrupt Controller (GIC) 架构来管理 IRQ 和 FIQ。&lt;/p>
+&lt;ol start="2">
+&lt;li>Virtual interrupts 虚拟中断:&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>vSError, Virtual System Error&lt;/li>
+&lt;li>vSError，虚拟系统错误&lt;/li>
+&lt;li>vIRQ, Virtual IRQ vIRQ，虚拟IRQ&lt;/li>
+&lt;li>vFIQ, Virtual FIQ vFIQ，虚拟 FIQ&lt;/li>
+&lt;/ul>
+&lt;p>Masking 掩蔽&lt;br>
+ARM 架构中的异步异常（如中断）可以被暂时屏蔽，保持挂起状态，直到解除屏蔽后再处理。而同步异常（如指令执行错误）无法屏蔽，因为它们会直接阻止指令执行。2021 年引入的 Armv8.8-A 和 Armv9.3-A 扩展增加了不可屏蔽中断（NMI）的支持，允许某些中断在被屏蔽情况下仍能处理，确保关键任务的及时响应。&lt;/p>
+&lt;h4 id="handling-exceptions处理异常">Handling exceptions处理异常&lt;/h4></description></item><item><title>机密计算 -> ARM CCA</title><link>https://blog.nrevery.cn/p/%E6%9C%BA%E5%AF%86%E8%AE%A1%E7%AE%97-arm-cca/</link><pubDate>Tue, 13 Aug 2024 22:28:20 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E6%9C%BA%E5%AF%86%E8%AE%A1%E7%AE%97-arm-cca/</guid><description>&lt;p>简单介绍：&lt;br>
 &lt;a class="link" href="https://cloud.tencent.com/developer/article/2411953" target="_blank" rel="noopener"
 >https://cloud.tencent.com/developer/article/2411953&lt;/a>&lt;br>
 &lt;a class="link" href="https://blog.csdn.net/qq_43543209/article/details/135659463" target="_blank" rel="noopener"
