@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TEE on nRevery's Blog</title><link>https://blog.nrevery.cn/categories/tee/</link><description>Recent content in TEE on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Wed, 21 Aug 2024 10:35:49 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/categories/tee/index.xml" rel="self" type="application/rss+xml"/><item><title>Introducing-Arm-Confidential-Compute-Architecture.pdf</title><link>https://blog.nrevery.cn/p/introducing-arm-confidential-compute-architecture.pdf/</link><pubDate>Wed, 21 Aug 2024 10:35:49 +0800</pubDate><guid>https://blog.nrevery.cn/p/introducing-arm-confidential-compute-architecture.pdf/</guid><description>&lt;h2 id="前置知识">前置知识&lt;/h2>
 &lt;h3 id="aarch64-异常模型">AArch64 异常模型&lt;/h3>
-&lt;h4 id="privilege-and-exception-levels特权和异常级别">Privilege and Exception levels特权和异常级别&lt;/h4>
 &lt;p>&lt;a class="link" href="https://developer.arm.com/documentation/102412/latest" target="_blank" rel="noopener"
 >https://developer.arm.com/documentation/102412/latest&lt;/a>&lt;/p>
-&lt;p>Exception level -&amp;gt; EL&lt;br>
-&lt;strong>有四种异常级别：EL0、EL1、EL2 和 EL3。&lt;/strong>&lt;/p>
+&lt;h4 id="privilege-and-exception-levels特权和异常级别">Privilege and Exception levels特权和异常级别&lt;/h4>
+&lt;p>Exception level -&amp;gt; EL&lt;/p>
+&lt;p>&lt;strong>有四种异常级别：EL0、EL1、EL2 和 EL3。&lt;/strong>&lt;/p>
 &lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240821110229.png"
 loading="lazy"
 >&lt;/p>
@@ -161,7 +161,165 @@ System Error&lt;br>
 &lt;/ul>
 &lt;p>Masking 掩蔽&lt;br>
 ARM 架构中的异步异常（如中断）可以被暂时屏蔽，保持挂起状态，直到解除屏蔽后再处理。而同步异常（如指令执行错误）无法屏蔽，因为它们会直接阻止指令执行。2021 年引入的 Armv8.8-A 和 Armv9.3-A 扩展增加了不可屏蔽中断（NMI）的支持，允许某些中断在被屏蔽情况下仍能处理，确保关键任务的及时响应。&lt;/p>
-&lt;h4 id="handling-exceptions处理异常">Handling exceptions处理异常&lt;/h4></description></item><item><title>机密计算 -> ARM CCA</title><link>https://blog.nrevery.cn/p/%E6%9C%BA%E5%AF%86%E8%AE%A1%E7%AE%97-arm-cca/</link><pubDate>Tue, 13 Aug 2024 22:28:20 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E6%9C%BA%E5%AF%86%E8%AE%A1%E7%AE%97-arm-cca/</guid><description>&lt;p>简单介绍：&lt;br>
+&lt;h4 id="handling-exceptions处理异常">Handling exceptions处理异常&lt;/h4>
+&lt;p>在 ARM 架构中，当处理器元素 (PE) 响应异常时，会进行异常处理。异常处理分为两个状态：异常来源状态（异常处理前的状态）和异常目标状态（异常处理后的状态）。例如，处理器可以从 AArch32 EL0 状态下进入异常处理，切换到 AArch64 EL1 状态。&lt;/p>
+&lt;p>处理完成后，系统需要返回到异常处理前的状态，这称为异常返回。ARM 架构提供了触发异常返回的指令。异常返回同样涉及两个状态：异常返回来源状态（异常返回指令执行前的状态）和异常返回目标状态（异常返回指令执行后的状态）。&lt;/p>
+&lt;p>When an exception occurs, the processor saves the current status of the PE alongside the exception return address, and then enters a specific mode to handle the exception.&lt;br>
+当异常发生时，处理器将PE的当前状态与异常返回地址一起保存，然后进入特定模式来处理异常。&lt;/p>
+&lt;p>当处理器遇到异常时，会保存处理单元（PE）的当前状态和异常返回地址，然后进入一个特定模式来处理异常。以下是发生异常时的一般流程：&lt;/p>
+&lt;ol>
+&lt;li>保存当前处理器状态：&lt;/li>
+&lt;/ol>
+&lt;p>当前处理器状态（PSTATE）的快照会被保存到 Saved Program Status Register (SPSR)。&lt;br>
+异常返回地址会被保存到 Exception Link Register (ELR)。&lt;br>
+对于同步异常和SErrors，异常原因会记录在 Exception Syndrome Register (ESR)。&lt;/p>
+&lt;ol start="2">
+&lt;li>进入特定异常级别：&lt;/li>
+&lt;/ol>
+&lt;p>当异常被带到使用AArch64状态的异常级别（ELx）时：&lt;br>
+异常发生前的PSTATE内容被写入到 SPSR_ELx。&lt;br>
+优先的异常返回地址被写入到 ELR_ELx。&lt;br>
+此外，对于同步异常和SError中断，异常原因信息会写入到 ESR_ELx。&lt;br>
+对于地址相关的同步异常（如MMU错误），触发异常的虚拟地址会写入到 Fault Address Register (FAR_ELx)。&lt;/p>
+&lt;ol start="3">
+&lt;li>异常向量表：&lt;/li>
+&lt;/ol>
+&lt;p>异常处理从一个固定的内存地址开始，该地址称为异常向量。异常发生时，处理单元会跳转到向量表中的一个位置进行处理。&lt;/p>
+&lt;p>在 AArch64 架构中，异常向量表与许多其他处理器架构不同，它包含的是指令而不是地址。每个向量表条目包含最多 32 条指令，这些指令通常足够执行基本的寄存器保存操作（stacking）并调用特定的异常处理代码。&lt;/p>
+&lt;p>AArch32 到 AArch64 寄存器映射：&lt;br>
+AArch32 -&amp;gt; AArch64&lt;br>
+R0-R12 -&amp;gt; X0-X12&lt;br>
+Banked SP and LR -&amp;gt; X13-23&lt;br>
+Banked FIQ -&amp;gt; X24-30&lt;/p>
+&lt;p>AArch64 has a concept of processor state known as PSTATE, it is this information that is stored in the SPSR. PSTATE contains things like current Exception level and Arithmetical Logical Unit (ALU) flags. In AArch64, this includes:&lt;br>
+AArch64 有一个称为 PSTATE 的处理器状态概念，正是该信息存储在 SPSR 中。 PSTATE 包含当前异常级别和算术逻辑单元 (ALU) 标志等内容。在 AArch64 中，这包括：&lt;/p>
+&lt;p>Condition flags 条件标志&lt;br>
+Execution state controls 执行状态控制&lt;br>
+Exception mask bits 异常掩码位&lt;br>
+Access control bits 访问控制位&lt;br>
+Timing control bits 时序控制位&lt;br>
+Speculation control bits 推测控制位&lt;/p>
+&lt;p>For example, the following Exception mask bits (DAIF) in PSTATE allow exception events to be masked. The exception is not taken when the associated bit is set.&lt;br>
+例如，PSTATE 中的以下异常屏蔽位 (DAIF) 允许屏蔽异常事件。当相关位被置位时，不会发生异常。&lt;br>
+D - Debug exception mask bit 调试异常屏蔽位&lt;br>
+A - SError asynchronous exception mask bit, for example, asynchronous external abort 异步异常屏蔽位，例如异步外部中止&lt;br>
+I - IRQ asynchronous exception mask bit 异步异常屏蔽位&lt;br>
+F - FIQ asynchronous exception mask bit 异步异常屏蔽位&lt;/p>
+&lt;p>PE自动保存异常返回地址和当前PSTATE,PSTATE 作为快照存储在 SPSR（已保存程序状态寄存器）中,每个异常级别都有一个 SPSR，SPSR_ELx。&lt;br>
+然后，PE 将当前 PSTATE 更新为架构中为该异常类型定义的 PSTATE，反映新状态。这包括更新受影响的目标异常级别和安全级别。&lt;/p>
+&lt;p>异常的目标要么由体系结构固定，要么由软件使用路由控制进行配置（一定不是EL0）。 &lt;br>
+同步异常（Synchronous Exceptions）根据与产生异常的指令（例如 SVC、HVC 和 SMC）相关的规则进行路由。对于这些指令，它们的异常处理会根据指令本身的类型被路由到适当的异常级别（EL）。例如：&lt;br>
+SVC（Supervisor Call）：通常用于从用户模式请求内核服务，异常会被路由到 EL1。&lt;br>
+HVC（Hypervisor Call）：用于与虚拟化相关的调用，异常会被路由到 EL2。&lt;br>
+SMC（Secure Monitor Call）：用于调用安全监视器，异常会被路由到 EL3。&lt;br>
+对于实现的其他异常类型，如异步异常（包括 IRQ、FIQ 和 SErrors），它们可以独立配置路由到 EL2（Hypervisor）或 EL3（Secure Monitor）。&lt;/p>
+&lt;p>When taking an exception to an Exception level using AArch64, vector tables are an area of normal memory containing instructions that are then used to handle the exception.&lt;br>
+当使用 AArch64 将异常处理为异常级别时，向量表是普通内存的一个区域，其中包含用于处理异常的指令。&lt;br>
+每个异常级别都有自己的向量表，其基地址由其自己的向量基地址寄存器 VBAR_EL 定义。&lt;/p>
+&lt;p>在 AArch64 中，架构允许选择两个堆栈指针寄存器：SP_EL0 或 SP_EL&lt;x>，其中 &lt;x> 是当前的异常级别（EL）。例如，在 EL1 时，可以选择 SP_EL0 或 SP_EL1。当发生异常时，处理器会自动选择目标异常级别的堆栈指针 SP_ELx，根据以下规则进行配置：&lt;br>
+如果在 EL0 执行，处理器使用 SP_EL0。&lt;br>
+如果在 EL1、EL2 或 EL3 执行，处理器使用由 PSTATE.SP 位确定的堆栈指针：&lt;br>
+如果 PSTATE.SP 为 0，则使用 SP_EL0。&lt;br>
+如果 PSTATE.SP 为 1，则使用当前异常级别的堆栈指针 SP_ELx。&lt;/p>
+&lt;p>从异常中返回：&lt;br>
+Restoring all previously stacked corruptible registers 恢复所有先前堆叠的损坏寄存器&lt;br>
+Initiating an exception return instruction (ERET) 启动异常返回指令（ ERET ）&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240823003021.png"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="aarch64内存管理">AArch64内存管理&lt;/h3>
+&lt;p>&lt;a class="link" href="https://developer.arm.com/documentation/101811/latest" target="_blank" rel="noopener"
+>https://developer.arm.com/documentation/101811/latest&lt;/a>&lt;/p>
+&lt;h4 id="what-is-memory-management-什么是内存管理">What is memory management? 什么是内存管理？&lt;/h4>
+&lt;p>略&lt;/p>
+&lt;h4 id="address-spaces-地址空间">Address spaces 地址空间&lt;/h4>
+&lt;p>Armv8-A 中的地址空间：&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240830093146.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>As well as multiple virtual address spaces, AArch64 also has multiple physical address spaces (PAS):
+除了多个虚拟地址空间之外，AArch64 还具有多个物理地址空间（PAS）：&lt;br>
+Non-secure PAS0&lt;br>
+Secure PAS&lt;br>
+Realm PAS (Armv9-A only)&lt;br>
+Root PAS (Armv9-A only)&lt;/p>
+&lt;p>Non-secure state: virtual addresses can only map to Non-secure physical addresses.&lt;br>
+非安全状态：虚拟地址只能映射到非安全物理地址。&lt;br>
+Secure state: virtual addresses can map to Secure or Non-secure physical addresses.&lt;br>
+安全状态：虚拟地址可以映射到安全或非安全物理地址。&lt;br>
+Realm state: virtual addresses can map to Realm or Non-secure physical addresses&lt;br>
+Realm状态：虚拟地址可以映射到Realm或非安全物理地址&lt;br>
+Root state: virtual address can map to any physical address space.&lt;br>
+根状态：虚拟地址可以映射到任意物理地址空间。&lt;/p>
+&lt;p>intermediate physical addresses(IPA)中间物理地址&lt;br>
+多个物理地址空间的映射:&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240830152310.png"
+loading="lazy"
+>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">HCR_EL2.E2H
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">在 ARM 架构中，E2H 是 SCR_EL3（Secure Configuration Register at EL3）寄存器中的一个控制位，主要用于配置 EL2（Hypervisor Exception Level）的行为方式。具体来说，E2H 位决定了 EL2 是以 &amp;#34;Hyp&amp;#34; 模式还是以 &amp;#34;Host&amp;#34; 模式运行。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">E2H 位的含义：
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">E2H = 0: EL2 处于 &amp;#34;Hyp&amp;#34; 模式，兼容传统的虚拟化行为。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">在这种模式下，EL2 的行为更像是经典的虚拟化层，允许在 EL2 中运行虚拟机管理程序（Hypervisor）并支持虚拟化功能。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">在这种模式下，EL2 拥有完整的虚拟化支持能力。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">E2H = 1: EL2 处于 &amp;#34;Host&amp;#34; 模式，更加接近 EL1 的行为。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">在这个模式下，EL2 更像是一个普通的执行级别，且通常与虚拟化操作有所不同。主要用于新的系统架构设计，比如在一些高级虚拟化场景下需要调整 EL2 的行为方式。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">这种模式下，EL2 的一些虚拟化功能可能会被限制。
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240830153054.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>Each region of address space has a size of up to 52-bits. However, each region can be independently shrunk to a smaller size. The TnSZ fields in the TCR_ELx registers control the size of the virtual address space. For example, this diagram shows that TCR_EL1 controls the EL0/EL1 virtual address space:&lt;br>
+地址空间的每个区域的大小最多为 52 位。然而，每个区域都可以独立地缩小到更小的尺寸。 TCR_ELx 寄存器中的 TnSZ 字段控制虚拟地址空间的大小。例如，下图显示 TCR_EL1 控制 EL0/EL1 虚拟地址空间：&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240830161103.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>Address Space Identifiers - Tagging translations with the owning process&lt;br>
+地址空间标识符 - 使用所属进程标记翻译&lt;/p>
+&lt;p>Virtual Machine Identifiers - Tagging translations with the owning VM&lt;br>
+虚拟机标识符 - 使用所属虚拟机标记翻译&lt;/p>
+&lt;h4 id="the-memory-management-unit-mmu-内存管理单元">The Memory Management Unit (MMU) 内存管理单元&lt;/h4>
+&lt;p>The Memory Management Unit (MMU) is responsible for the translation of virtual addresses used by software to physical addresses used in the memory system.&lt;br>
+内存管理单元 (MMU) 负责将软件使用的虚拟地址转换为内存系统中使用的物理地址。&lt;/p>
+&lt;p>The MMU contains the following:&lt;br>
+MMU 包含以下内容：&lt;br>
+The table walk unit, which contains logic that reads the translation tables from memory.&lt;br>
+表遍历单元，包含从内存中读取转换表的逻辑。&lt;br>
+Translation Lookaside Buffers (TLBs), which cache recently used translations.&lt;br>
+翻译后备缓冲区 (TLB)，缓存最近使用的翻译。&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240831205259.png"
+loading="lazy"
+>&lt;/p>
+&lt;h4 id="translation-granule-翻译颗粒">Translation granule 翻译颗粒&lt;/h4>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240901001409.png"
+loading="lazy"
+>&lt;/p>
+&lt;h4 id="translation-lookaside-buffer-maintenance-翻译后备缓冲区维护">Translation Lookaside Buffer maintenance 翻译后备缓冲区维护&lt;/h4>
+&lt;p>The TLBI instruction is used to invalidate entries in the TLBs. The syntax of this instruction is:&lt;br>
+TLBI 指令用于使 TLB 中的条目无效。该指令的语法为：&lt;br>
+&lt;code>TLBI &amp;lt; type &amp;gt;&amp;lt; level &amp;gt;{IS|OS} {, &amp;lt; xt &amp;gt;}&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">STR X1, [X5] // Write to translation table entry
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">DSB ISH // Barrier instructions - not covered in this guide
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">TLBI VAAE1IS , X0 // Invalidate VA specified by X0, in EL0/1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> // virtual address space for all ASIDs
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">DSB ISH // Barrier instructions - not covered in this guide
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ISB // Synchronize context on this processor
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这段代码是一个在 ARM 架构中用于更新和管理翻译表项的过程：&lt;br>
+STR X1, [X5]：将寄存器 X1 的值存储到由 X5 指定的内存地址，即更新翻译表项。&lt;br>
+DSB ISH：数据同步屏障，确保之前的所有内存操作都完成后再继续。&lt;br>
+TLBI VAAE1IS, X0：无效化由 X0 指定的虚拟地址在 EL0/EL1 虚拟地址空间中的翻译缓存（TLB），适用于所有 ASID。&lt;br>
+再次执行 DSB ISH 和 ISB，确保所有之前的指令已执行完毕并且上下文已同步。&lt;br>
+这个流程确保了翻译表项的更新在所有处理器上都同步生效。&lt;/p>
+&lt;h2 id="笔记">笔记&lt;/h2>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240829111348.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240829111448.png"
+loading="lazy"
+>&lt;/p></description></item><item><title>机密计算 -> ARM CCA</title><link>https://blog.nrevery.cn/p/%E6%9C%BA%E5%AF%86%E8%AE%A1%E7%AE%97-arm-cca/</link><pubDate>Tue, 13 Aug 2024 22:28:20 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E6%9C%BA%E5%AF%86%E8%AE%A1%E7%AE%97-arm-cca/</guid><description>&lt;p>简单介绍：&lt;br>
 &lt;a class="link" href="https://cloud.tencent.com/developer/article/2411953" target="_blank" rel="noopener"
 >https://cloud.tencent.com/developer/article/2411953&lt;/a>&lt;br>
 &lt;a class="link" href="https://blog.csdn.net/qq_43543209/article/details/135659463" target="_blank" rel="noopener"
