@@ -313,6 +313,35 @@ DSB ISH：数据同步屏障，确保之前的所有内存操作都完成后再�
 TLBI VAAE1IS, X0：无效化由 X0 指定的虚拟地址在 EL0/EL1 虚拟地址空间中的翻译缓存（TLB），适用于所有 ASID。&lt;br>
 再次执行 DSB ISH 和 ISB，确保所有之前的指令已执行完毕并且上下文已同步。&lt;br>
 这个流程确保了翻译表项的更新在所有处理器上都同步生效。&lt;/p>
+&lt;h3 id="虚拟化">虚拟化&lt;/h3>
+&lt;p>&lt;a class="link" href="https://developer.arm.com/documentation/102142/latest/" target="_blank" rel="noopener"
+>https://developer.arm.com/documentation/102142/latest/&lt;/a>&lt;/p>
+&lt;p>Hypervisors can be divided into two broad categories: standalone, or Type 1, hypervisors and hosted, or Type 2, hypervisors.&lt;br>
+虚拟机管理程序可分为两大类：独立虚拟机管理程序（或类型 1）和托管虚拟机管理程序（或类型 2）。&lt;/p>
+&lt;p>The two most commonly used open-source hypervisors on Arm platforms are Xen (standalone, Type 1) and KVM (hosted, Type 2).&lt;br>
+Arm 平台上最常用的两种开源虚拟机管理程序是 Xen（独立，类型 1）和 KVM（托管，类型 2）&lt;/p>
+&lt;h3 id="安全">安全&lt;/h3>
+&lt;p>&lt;a class="link" href="https://developer.arm.com/documentation/102406/latest/" target="_blank" rel="noopener"
+>https://developer.arm.com/documentation/102406/latest/&lt;/a>&lt;/p>
+&lt;p>Confidentiality 保密性&lt;br>
+Integrity 完整性&lt;br>
+Authenticity 真实性&lt;br>
+Availability 可用性&lt;br>
+（Availability is about ensuring that, even if attacked, the user can still access and use an asset.
+可用性是指确保即使受到攻击，用户仍然可以访问和使用资产。）&lt;/p>
+&lt;p>Vulnerability: An underlying bug or weakness in a system&lt;br>
+漏洞：系统中潜在的错误或弱点&lt;br>
+Exploit: A specific attack that exploits a vulnerability&lt;br>
+漏洞利用：利用漏洞的特定攻击&lt;br>
+Attacker: Also called an adversary, someone trying to compromise an asset&lt;br>
+攻击者：也称为对手，试图破坏资产的人&lt;br>
+Threat: A combination of an attacker, an exploit, and one or more assets that are being attacked&lt;br>
+威胁：攻击者、漏洞利用以及受到攻击的一个或多个资产的组合&lt;/p>
+&lt;p>Different security features in the Arm architecture&lt;br>
+Arm 架构中的不同安全功能&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240901130605.png"
+loading="lazy"
+>&lt;/p>
 &lt;h2 id="笔记">笔记&lt;/h2>
 &lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240829111348.png"
 loading="lazy"
