@@ -320,6 +320,27 @@ TLBI VAAE1IS, X0：无效化由 X0 指定的虚拟地址在 EL0/EL1 虚拟地址
 虚拟机管理程序可分为两大类：独立虚拟机管理程序（或类型 1）和托管虚拟机管理程序（或类型 2）。&lt;/p>
 &lt;p>The two most commonly used open-source hypervisors on Arm platforms are Xen (standalone, Type 1) and KVM (hosted, Type 2).&lt;br>
 Arm 平台上最常用的两种开源虚拟机管理程序是 Xen（独立，类型 1）和 KVM（托管，类型 2）&lt;/p>
+&lt;p>Software running at EL2 or higher has access to several controls for virtualization:&lt;br>
+在 EL2 或更高版本上运行的软件可以访问多个虚拟化控件：&lt;br>
+Stage 2 translation 第二阶段翻译&lt;br>
+EL1/0 instruction and register access trapping&lt;br>
+EL1/0指令和寄存器访问捕获&lt;br>
+Virtual exception generation&lt;br>
+虚拟异常生成&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240902150237.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>这张图展示了虚拟地址空间（Virtual Address Space）、操作系统认为的物理地址空间（What the OS thinks is the Physical Address Space）以及真实的物理地址空间（Physical Address Space）之间的关系，并通过两级地址转换表（Stage 1 和 Stage 2 Tables）来实现不同层级的地址映射。&lt;/p>
+&lt;p>虚拟地址空间：&lt;br>
+包括应用程序、内核和外设等部分。应用程序和内核都运行在虚拟地址空间中，通过一级转换表（Stage 1 Tables）将虚拟地址映射到操作系统认为的物理地址空间。&lt;/p>
+&lt;p>操作系统认为的物理地址空间：&lt;br>
+这是操作系统在第一级地址转换后认为的物理地址空间，通常包括DDR、外设和闪存。在这个阶段，地址转换主要是为了操作系统和应用程序的虚拟内存管理。&lt;/p>
+&lt;p>真实的物理地址空间：&lt;br>
+包括DDR、外设、闪存、SRAM和ROM。这是真实存在的硬件资源的位置。&lt;/p>
+&lt;p>地址转换：&lt;br>
+Stage 1 Tables：负责将虚拟地址空间转换为操作系统认为的物理地址空间。&lt;br>
+Stage 2 Tables：进一步将操作系统认为的物理地址空间转换为真实的物理地址空间。这种两级转换机制在虚拟化环境中特别有用，可以有效地隔离和管理虚拟机访问物理硬件资源的权限。&lt;/p>
+&lt;p>（没看完）&lt;/p>
 &lt;h3 id="安全">安全&lt;/h3>
 &lt;p>&lt;a class="link" href="https://developer.arm.com/documentation/102406/latest/" target="_blank" rel="noopener"
 >https://developer.arm.com/documentation/102406/latest/&lt;/a>&lt;/p>
@@ -343,12 +364,29 @@ Arm 架构中的不同安全功能&lt;/p>
 loading="lazy"
 >&lt;/p>
 &lt;h2 id="笔记">笔记&lt;/h2>
+&lt;p>The following diagram shows a complete view of how Realms fit within an
+Arm CCA system:&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240902225256.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>Realm VM 的执行通过传递给 Monitor 的 hypervisor 命令进行初始化，然后通过 Monitor 推送到 RMM。&lt;/p>
 &lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240829111348.png"
 loading="lazy"
 >&lt;/p>
-&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240829111448.png"
+&lt;p>物理地址空间pas：&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240902225426.png"
 loading="lazy"
->&lt;/p></description></item><item><title>机密计算 -> ARM CCA</title><link>https://blog.nrevery.cn/p/%E6%9C%BA%E5%AF%86%E8%AE%A1%E7%AE%97-arm-cca/</link><pubDate>Tue, 13 Aug 2024 22:28:20 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E6%9C%BA%E5%AF%86%E8%AE%A1%E7%AE%97-arm-cca/</guid><description>&lt;p>简单介绍：&lt;br>
+>&lt;/p>
+&lt;p>颗粒保护检查：&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240902225520.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>Attestation is broken into two key parts:&lt;br>
+• Attestation of the platform平台认证&lt;br>
+• Attestation of the initial state of the RealmRealm初始状态的证明&lt;/p>
+&lt;p>在每个世界中，异常级别 2 执行可以通过执行 SMC 指令来调用异常级别 3 监视器。&lt;/p>
+&lt;p>Realm 管理接口 （RMI） 是 RMM 和 Normal 世界主机之间的接口。&lt;/p>
+&lt;p>Realm 服务接口 （RSI） 是 Realm VM 和 RMM 之间的接口。&lt;/p></description></item><item><title>机密计算 -> ARM CCA</title><link>https://blog.nrevery.cn/p/%E6%9C%BA%E5%AF%86%E8%AE%A1%E7%AE%97-arm-cca/</link><pubDate>Tue, 13 Aug 2024 22:28:20 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E6%9C%BA%E5%AF%86%E8%AE%A1%E7%AE%97-arm-cca/</guid><description>&lt;p>简单介绍：&lt;br>
 &lt;a class="link" href="https://cloud.tencent.com/developer/article/2411953" target="_blank" rel="noopener"
 >https://cloud.tencent.com/developer/article/2411953&lt;/a>&lt;br>
 &lt;a class="link" href="https://blog.csdn.net/qq_43543209/article/details/135659463" target="_blank" rel="noopener"
