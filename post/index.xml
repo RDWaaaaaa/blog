@@ -1,4 +1,88 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on nRevery's Blog</title><link>https://blog.nrevery.cn/post/</link><description>Recent content in Posts on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Wed, 21 Aug 2024 10:35:49 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/post/index.xml" rel="self" type="application/rss+xml"/><item><title>Introducing-Arm-Confidential-Compute-Architecture.pdf</title><link>https://blog.nrevery.cn/p/introducing-arm-confidential-compute-architecture.pdf/</link><pubDate>Wed, 21 Aug 2024 10:35:49 +0800</pubDate><guid>https://blog.nrevery.cn/p/introducing-arm-confidential-compute-architecture.pdf/</guid><description>&lt;h2 id="前置知识">前置知识&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on nRevery's Blog</title><link>https://blog.nrevery.cn/post/</link><description>Recent content in Posts on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Mon, 02 Sep 2024 23:03:47 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/post/index.xml" rel="self" type="application/rss+xml"/><item><title>Realm_Management_Extension_DEN0126_en.pdf</title><link>https://blog.nrevery.cn/p/realm_management_extension_den0126_en.pdf/</link><pubDate>Mon, 02 Sep 2024 23:03:47 +0800</pubDate><guid>https://blog.nrevery.cn/p/realm_management_extension_den0126_en.pdf/</guid><description/></item><item><title>Learn_the_Architecture_Memory_Management_101811_0102_00_en.pdf</title><link>https://blog.nrevery.cn/p/learn_the_architecture_memory_management_101811_0102_00_en.pdf/</link><pubDate>Mon, 02 Sep 2024 23:01:07 +0800</pubDate><guid>https://blog.nrevery.cn/p/learn_the_architecture_memory_management_101811_0102_00_en.pdf/</guid><description>&lt;p>&lt;a class="link" href="https://developer.arm.com/documentation/101811/latest" target="_blank" rel="noopener"
+>https://developer.arm.com/documentation/101811/latest&lt;/a>&lt;/p>
+&lt;h3 id="what-is-memory-management-什么是内存管理">What is memory management? 什么是内存管理？&lt;/h3>
+&lt;p>略&lt;/p>
+&lt;h3 id="address-spaces-地址空间">Address spaces 地址空间&lt;/h3>
+&lt;p>Armv8-A 中的地址空间：&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240830093146.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>As well as multiple virtual address spaces, AArch64 also has multiple physical address spaces (PAS):
+除了多个虚拟地址空间之外，AArch64 还具有多个物理地址空间（PAS）：&lt;br>
+Non-secure PAS0&lt;br>
+Secure PAS&lt;br>
+Realm PAS (Armv9-A only)&lt;br>
+Root PAS (Armv9-A only)&lt;/p>
+&lt;p>Non-secure state: virtual addresses can only map to Non-secure physical addresses.&lt;br>
+非安全状态：虚拟地址只能映射到非安全物理地址。&lt;br>
+Secure state: virtual addresses can map to Secure or Non-secure physical addresses.&lt;br>
+安全状态：虚拟地址可以映射到安全或非安全物理地址。&lt;br>
+Realm state: virtual addresses can map to Realm or Non-secure physical addresses&lt;br>
+Realm状态：虚拟地址可以映射到Realm或非安全物理地址&lt;br>
+Root state: virtual address can map to any physical address space.&lt;br>
+根状态：虚拟地址可以映射到任意物理地址空间。&lt;/p>
+&lt;p>intermediate physical addresses(IPA)中间物理地址&lt;br>
+多个物理地址空间的映射:&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240830152310.png"
+loading="lazy"
+>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">HCR_EL2.E2H
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">在 ARM 架构中，E2H 是 SCR_EL3（Secure Configuration Register at EL3）寄存器中的一个控制位，主要用于配置 EL2（Hypervisor Exception Level）的行为方式。具体来说，E2H 位决定了 EL2 是以 &amp;#34;Hyp&amp;#34; 模式还是以 &amp;#34;Host&amp;#34; 模式运行。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">E2H 位的含义：
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">E2H = 0: EL2 处于 &amp;#34;Hyp&amp;#34; 模式，兼容传统的虚拟化行为。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">在这种模式下，EL2 的行为更像是经典的虚拟化层，允许在 EL2 中运行虚拟机管理程序（Hypervisor）并支持虚拟化功能。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">在这种模式下，EL2 拥有完整的虚拟化支持能力。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">E2H = 1: EL2 处于 &amp;#34;Host&amp;#34; 模式，更加接近 EL1 的行为。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">在这个模式下，EL2 更像是一个普通的执行级别，且通常与虚拟化操作有所不同。主要用于新的系统架构设计，比如在一些高级虚拟化场景下需要调整 EL2 的行为方式。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">这种模式下，EL2 的一些虚拟化功能可能会被限制。
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240830153054.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>Each region of address space has a size of up to 52-bits. However, each region can be independently shrunk to a smaller size. The TnSZ fields in the TCR_ELx registers control the size of the virtual address space. For example, this diagram shows that TCR_EL1 controls the EL0/EL1 virtual address space:&lt;br>
+地址空间的每个区域的大小最多为 52 位。然而，每个区域都可以独立地缩小到更小的尺寸。 TCR_ELx 寄存器中的 TnSZ 字段控制虚拟地址空间的大小。例如，下图显示 TCR_EL1 控制 EL0/EL1 虚拟地址空间：&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240830161103.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>Address Space Identifiers - Tagging translations with the owning process&lt;br>
+地址空间标识符 - 使用所属进程标记翻译&lt;/p>
+&lt;p>Virtual Machine Identifiers - Tagging translations with the owning VM&lt;br>
+虚拟机标识符 - 使用所属虚拟机标记翻译&lt;/p>
+&lt;h3 id="the-memory-management-unit-mmu-内存管理单元">The Memory Management Unit (MMU) 内存管理单元&lt;/h3>
+&lt;p>The Memory Management Unit (MMU) is responsible for the translation of virtual addresses used by software to physical addresses used in the memory system.&lt;br>
+内存管理单元 (MMU) 负责将软件使用的虚拟地址转换为内存系统中使用的物理地址。&lt;/p>
+&lt;p>The MMU contains the following:&lt;br>
+MMU 包含以下内容：&lt;br>
+The table walk unit, which contains logic that reads the translation tables from memory.&lt;br>
+表遍历单元，包含从内存中读取转换表的逻辑。&lt;br>
+Translation Lookaside Buffers (TLBs), which cache recently used translations.&lt;br>
+翻译后备缓冲区 (TLB)，缓存最近使用的翻译。&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240831205259.png"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="translation-granule-翻译颗粒">Translation granule 翻译颗粒&lt;/h3>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240901001409.png"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="translation-lookaside-buffer-maintenance-翻译后备缓冲区维护">Translation Lookaside Buffer maintenance 翻译后备缓冲区维护&lt;/h3>
+&lt;p>The TLBI instruction is used to invalidate entries in the TLBs. The syntax of this instruction is:&lt;br>
+TLBI 指令用于使 TLB 中的条目无效。该指令的语法为：&lt;br>
+&lt;code>TLBI &amp;lt; type &amp;gt;&amp;lt; level &amp;gt;{IS|OS} {, &amp;lt; xt &amp;gt;}&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">STR X1, [X5] // Write to translation table entry
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">DSB ISH // Barrier instructions - not covered in this guide
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">TLBI VAAE1IS , X0 // Invalidate VA specified by X0, in EL0/1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> // virtual address space for all ASIDs
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">DSB ISH // Barrier instructions - not covered in this guide
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ISB // Synchronize context on this processor
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这段代码是一个在 ARM 架构中用于更新和管理翻译表项的过程：&lt;br>
+STR X1, [X5]：将寄存器 X1 的值存储到由 X5 指定的内存地址，即更新翻译表项。&lt;br>
+DSB ISH：数据同步屏障，确保之前的所有内存操作都完成后再继续。&lt;br>
+TLBI VAAE1IS, X0：无效化由 X0 指定的虚拟地址在 EL0/EL1 虚拟地址空间中的翻译缓存（TLB），适用于所有 ASID。&lt;br>
+再次执行 DSB ISH 和 ISB，确保所有之前的指令已执行完毕并且上下文已同步。&lt;br>
+这个流程确保了翻译表项的更新在所有处理器上都同步生效。&lt;/p></description></item><item><title>Introducing-Arm-Confidential-Compute-Architecture.pdf</title><link>https://blog.nrevery.cn/p/introducing-arm-confidential-compute-architecture.pdf/</link><pubDate>Wed, 21 Aug 2024 10:35:49 +0800</pubDate><guid>https://blog.nrevery.cn/p/introducing-arm-confidential-compute-architecture.pdf/</guid><description>&lt;h2 id="前置知识">前置知识&lt;/h2>
 &lt;h3 id="aarch64-异常模型">AArch64 异常模型&lt;/h3>
 &lt;p>&lt;a class="link" href="https://developer.arm.com/documentation/102412/latest" target="_blank" rel="noopener"
 >https://developer.arm.com/documentation/102412/latest&lt;/a>&lt;/p>
@@ -227,92 +311,6 @@ Initiating an exception return instruction (ERET) 启动异常返回指令（ ER
 &lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240823003021.png"
 loading="lazy"
 >&lt;/p>
-&lt;h3 id="aarch64内存管理">AArch64内存管理&lt;/h3>
-&lt;p>&lt;a class="link" href="https://developer.arm.com/documentation/101811/latest" target="_blank" rel="noopener"
->https://developer.arm.com/documentation/101811/latest&lt;/a>&lt;/p>
-&lt;h4 id="what-is-memory-management-什么是内存管理">What is memory management? 什么是内存管理？&lt;/h4>
-&lt;p>略&lt;/p>
-&lt;h4 id="address-spaces-地址空间">Address spaces 地址空间&lt;/h4>
-&lt;p>Armv8-A 中的地址空间：&lt;/p>
-&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240830093146.png"
-loading="lazy"
->&lt;/p>
-&lt;p>As well as multiple virtual address spaces, AArch64 also has multiple physical address spaces (PAS):
-除了多个虚拟地址空间之外，AArch64 还具有多个物理地址空间（PAS）：&lt;br>
-Non-secure PAS0&lt;br>
-Secure PAS&lt;br>
-Realm PAS (Armv9-A only)&lt;br>
-Root PAS (Armv9-A only)&lt;/p>
-&lt;p>Non-secure state: virtual addresses can only map to Non-secure physical addresses.&lt;br>
-非安全状态：虚拟地址只能映射到非安全物理地址。&lt;br>
-Secure state: virtual addresses can map to Secure or Non-secure physical addresses.&lt;br>
-安全状态：虚拟地址可以映射到安全或非安全物理地址。&lt;br>
-Realm state: virtual addresses can map to Realm or Non-secure physical addresses&lt;br>
-Realm状态：虚拟地址可以映射到Realm或非安全物理地址&lt;br>
-Root state: virtual address can map to any physical address space.&lt;br>
-根状态：虚拟地址可以映射到任意物理地址空间。&lt;/p>
-&lt;p>intermediate physical addresses(IPA)中间物理地址&lt;br>
-多个物理地址空间的映射:&lt;/p>
-&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240830152310.png"
-loading="lazy"
->&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">HCR_EL2.E2H
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">在 ARM 架构中，E2H 是 SCR_EL3（Secure Configuration Register at EL3）寄存器中的一个控制位，主要用于配置 EL2（Hypervisor Exception Level）的行为方式。具体来说，E2H 位决定了 EL2 是以 &amp;#34;Hyp&amp;#34; 模式还是以 &amp;#34;Host&amp;#34; 模式运行。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">E2H 位的含义：
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">E2H = 0: EL2 处于 &amp;#34;Hyp&amp;#34; 模式，兼容传统的虚拟化行为。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">在这种模式下，EL2 的行为更像是经典的虚拟化层，允许在 EL2 中运行虚拟机管理程序（Hypervisor）并支持虚拟化功能。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">在这种模式下，EL2 拥有完整的虚拟化支持能力。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">E2H = 1: EL2 处于 &amp;#34;Host&amp;#34; 模式，更加接近 EL1 的行为。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">在这个模式下，EL2 更像是一个普通的执行级别，且通常与虚拟化操作有所不同。主要用于新的系统架构设计，比如在一些高级虚拟化场景下需要调整 EL2 的行为方式。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">这种模式下，EL2 的一些虚拟化功能可能会被限制。
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240830153054.png"
-loading="lazy"
->&lt;/p>
-&lt;p>Each region of address space has a size of up to 52-bits. However, each region can be independently shrunk to a smaller size. The TnSZ fields in the TCR_ELx registers control the size of the virtual address space. For example, this diagram shows that TCR_EL1 controls the EL0/EL1 virtual address space:&lt;br>
-地址空间的每个区域的大小最多为 52 位。然而，每个区域都可以独立地缩小到更小的尺寸。 TCR_ELx 寄存器中的 TnSZ 字段控制虚拟地址空间的大小。例如，下图显示 TCR_EL1 控制 EL0/EL1 虚拟地址空间：&lt;/p>
-&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240830161103.png"
-loading="lazy"
->&lt;/p>
-&lt;p>Address Space Identifiers - Tagging translations with the owning process&lt;br>
-地址空间标识符 - 使用所属进程标记翻译&lt;/p>
-&lt;p>Virtual Machine Identifiers - Tagging translations with the owning VM&lt;br>
-虚拟机标识符 - 使用所属虚拟机标记翻译&lt;/p>
-&lt;h4 id="the-memory-management-unit-mmu-内存管理单元">The Memory Management Unit (MMU) 内存管理单元&lt;/h4>
-&lt;p>The Memory Management Unit (MMU) is responsible for the translation of virtual addresses used by software to physical addresses used in the memory system.&lt;br>
-内存管理单元 (MMU) 负责将软件使用的虚拟地址转换为内存系统中使用的物理地址。&lt;/p>
-&lt;p>The MMU contains the following:&lt;br>
-MMU 包含以下内容：&lt;br>
-The table walk unit, which contains logic that reads the translation tables from memory.&lt;br>
-表遍历单元，包含从内存中读取转换表的逻辑。&lt;br>
-Translation Lookaside Buffers (TLBs), which cache recently used translations.&lt;br>
-翻译后备缓冲区 (TLB)，缓存最近使用的翻译。&lt;/p>
-&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240831205259.png"
-loading="lazy"
->&lt;/p>
-&lt;h4 id="translation-granule-翻译颗粒">Translation granule 翻译颗粒&lt;/h4>
-&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240901001409.png"
-loading="lazy"
->&lt;/p>
-&lt;h4 id="translation-lookaside-buffer-maintenance-翻译后备缓冲区维护">Translation Lookaside Buffer maintenance 翻译后备缓冲区维护&lt;/h4>
-&lt;p>The TLBI instruction is used to invalidate entries in the TLBs. The syntax of this instruction is:&lt;br>
-TLBI 指令用于使 TLB 中的条目无效。该指令的语法为：&lt;br>
-&lt;code>TLBI &amp;lt; type &amp;gt;&amp;lt; level &amp;gt;{IS|OS} {, &amp;lt; xt &amp;gt;}&lt;/code>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">STR X1, [X5] // Write to translation table entry
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">DSB ISH // Barrier instructions - not covered in this guide
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">TLBI VAAE1IS , X0 // Invalidate VA specified by X0, in EL0/1
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> // virtual address space for all ASIDs
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">DSB ISH // Barrier instructions - not covered in this guide
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ISB // Synchronize context on this processor
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这段代码是一个在 ARM 架构中用于更新和管理翻译表项的过程：&lt;br>
-STR X1, [X5]：将寄存器 X1 的值存储到由 X5 指定的内存地址，即更新翻译表项。&lt;br>
-DSB ISH：数据同步屏障，确保之前的所有内存操作都完成后再继续。&lt;br>
-TLBI VAAE1IS, X0：无效化由 X0 指定的虚拟地址在 EL0/EL1 虚拟地址空间中的翻译缓存（TLB），适用于所有 ASID。&lt;br>
-再次执行 DSB ISH 和 ISB，确保所有之前的指令已执行完毕并且上下文已同步。&lt;br>
-这个流程确保了翻译表项的更新在所有处理器上都同步生效。&lt;/p>
 &lt;h3 id="虚拟化">虚拟化&lt;/h3>
 &lt;p>&lt;a class="link" href="https://developer.arm.com/documentation/102142/latest/" target="_blank" rel="noopener"
 >https://developer.arm.com/documentation/102142/latest/&lt;/a>&lt;/p>
