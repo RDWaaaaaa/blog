@@ -1,197 +1,805 @@
-<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="简单介绍： https://cloud.tencent.com/developer/article/2411953 https://blog.csdn.net/qq_43543209/article/details/135659463 https://blog.csdn.net/weixin_42135087/article/details/121174706 https://community.arm.com/management/archive/cn/b/blog/posts/arm-1203521971 开源项目： https://github.com/caibirda/islet_runable # 如果下载失败考虑网络问题 git config --global http.proxy http://192.168.101.11:7890 export https_proxy=http://192.168.101.11:7890 export http_proxy=http://192.168.101.11:7890 export all_proxy=socks5://192.168.101.11:7890 aarch64介绍： https://blog.csdn.net/jimfire/category_11329148.html sudo apt-get install qemu-user gcc-aarch64-linux-gnu # .c aarch64-linux-gnu-gcc -static -o hello hello.c qemu-aarch64 ./hello # .s aarch64-linux-gnu-as -c first.s aarch64-linux-gnu-gcc"><title>机密计算 -> ARM CCA</title><link rel=canonical href=https://blog.nrevery.cn/p/%E6%9C%BA%E5%AF%86%E8%AE%A1%E7%AE%97-arm-cca/><link rel=stylesheet href=/scss/style.min.afa623dfb9682b431496282473b3cd5704dfb51f22d0d528a89d9d56858188d7.css><meta property="og:title" content="机密计算 -> ARM CCA"><meta property="og:description" content="简单介绍： https://cloud.tencent.com/developer/article/2411953 https://blog.csdn.net/qq_43543209/article/details/135659463 https://blog.csdn.net/weixin_42135087/article/details/121174706 https://community.arm.com/management/archive/cn/b/blog/posts/arm-1203521971 开源项目： https://github.com/caibirda/islet_runable # 如果下载失败考虑网络问题 git config --global http.proxy http://192.168.101.11:7890 export https_proxy=http://192.168.101.11:7890 export http_proxy=http://192.168.101.11:7890 export all_proxy=socks5://192.168.101.11:7890 aarch64介绍： https://blog.csdn.net/jimfire/category_11329148.html sudo apt-get install qemu-user gcc-aarch64-linux-gnu # .c aarch64-linux-gnu-gcc -static -o hello hello.c qemu-aarch64 ./hello # .s aarch64-linux-gnu-as -c first.s aarch64-linux-gnu-gcc"><meta property="og:url" content="https://blog.nrevery.cn/p/%E6%9C%BA%E5%AF%86%E8%AE%A1%E7%AE%97-arm-cca/"><meta property="og:site_name" content="nRevery's Blog"><meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="notes"><meta property="article:published_time" content="2024-08-13T22:28:20+08:00"><meta property="article:modified_time" content="2024-08-13T22:28:20+08:00"><meta name=twitter:title content="机密计算 -> ARM CCA"><meta name=twitter:description content="简单介绍： https://cloud.tencent.com/developer/article/2411953 https://blog.csdn.net/qq_43543209/article/details/135659463 https://blog.csdn.net/weixin_42135087/article/details/121174706 https://community.arm.com/management/archive/cn/b/blog/posts/arm-1203521971 开源项目： https://github.com/caibirda/islet_runable # 如果下载失败考虑网络问题 git config --global http.proxy http://192.168.101.11:7890 export https_proxy=http://192.168.101.11:7890 export http_proxy=http://192.168.101.11:7890 export all_proxy=socks5://192.168.101.11:7890 aarch64介绍： https://blog.csdn.net/jimfire/category_11329148.html sudo apt-get install qemu-user gcc-aarch64-linux-gnu # .c aarch64-linux-gnu-gcc -static -o hello hello.c qemu-aarch64 ./hello # .s aarch64-linux-gnu-as -c first.s aarch64-linux-gnu-gcc"><link rel="shortcut icon" href=/img/favicon.ico></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"light")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
-<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/touxiang.png width=300 height=300 class=site-logo loading=lazy alt=Avatar></a>
-<span class=emoji>🍥</span></figure><div class=site-meta><h1 class=site-name><a href=/>nRevery's Blog</a></h1><h2 class=site-description>One clover and a bee,and revery.✍️</h2></div></header><ol class=social-menu><li><a href=https://github.com/RDWaaaaaa target=_blank title=GitHub rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=/index.xml target=_blank title=RSS rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="5" cy="19" r="1"/><path d="M4 4a16 16 0 0116 16"/><path d="M4 11a9 9 0 019 9"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg><span>主页</span></a></li><li><a href=/%E5%85%B3%E4%BA%8E/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg><span>关于</span></a></li><li><a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg><span>Archives</span></a></li><li><a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg><span>Search</span></a></li><li><a href=/links/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg><span>Links</span></a></li><div class=menu-bottom-section><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><span>暗色模式</span></li></div></ol></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/tee/ style=background-color:#3a6390;color:#fff>TEE</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/%E6%9C%BA%E5%AF%86%E8%AE%A1%E7%AE%97-arm-cca/>机密计算 -> ARM CCA</a></h2></div><footer class=article-time><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg><time class=article-time--published>Aug 13, 2024</time></div><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg><time class=article-time--reading>阅读时长: 6 分钟</time></div></footer></div></header><section class=article-content><p>简单介绍：<br><a class=link href=https://cloud.tencent.com/developer/article/2411953 target=_blank rel=noopener>https://cloud.tencent.com/developer/article/2411953</a><br><a class=link href=https://blog.csdn.net/qq_43543209/article/details/135659463 target=_blank rel=noopener>https://blog.csdn.net/qq_43543209/article/details/135659463</a><br><a class=link href=https://blog.csdn.net/weixin_42135087/article/details/121174706 target=_blank rel=noopener>https://blog.csdn.net/weixin_42135087/article/details/121174706</a><br><a class=link href=https://community.arm.com/management/archive/cn/b/blog/posts/arm-1203521971 target=_blank rel=noopener>https://community.arm.com/management/archive/cn/b/blog/posts/arm-1203521971</a></p><p>开源项目：<br><a class=link href=https://github.com/caibirda/islet_runable target=_blank rel=noopener>https://github.com/caibirda/islet_runable</a></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-zsh data-lang=zsh><span class=line><span class=cl><span class=c1># 如果下载失败考虑网络问题</span>
-</span></span><span class=line><span class=cl>git config --global http.proxy http://192.168.101.11:7890
-</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>https_proxy</span><span class=o>=</span>http://192.168.101.11:7890
-</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>http_proxy</span><span class=o>=</span>http://192.168.101.11:7890
-</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>all_proxy</span><span class=o>=</span>socks5://192.168.101.11:7890
-</span></span></code></pre></div><p>aarch64介绍：<br><a class=link href=https://blog.csdn.net/jimfire/category_11329148.html target=_blank rel=noopener>https://blog.csdn.net/jimfire/category_11329148.html</a></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-zsh data-lang=zsh><span class=line><span class=cl>sudo apt-get install qemu-user gcc-aarch64-linux-gnu
-</span></span><span class=line><span class=cl><span class=c1># .c</span>
-</span></span><span class=line><span class=cl>aarch64-linux-gnu-gcc -static -o hello hello.c
-</span></span><span class=line><span class=cl>qemu-aarch64 ./hello
-</span></span><span class=line><span class=cl><span class=c1># .s</span>
-</span></span><span class=line><span class=cl>aarch64-linux-gnu-as -c first.s
-</span></span><span class=line><span class=cl>aarch64-linux-gnu-gcc -static -o first first.o
-</span></span><span class=line><span class=cl><span class=c1># 检查返回值</span>
-</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=nv>$?</span>
-</span></span></code></pre></div><p>AArch64中有31个通用寄存器x0,x1,…x30,x31寄存器被称为xzr，也就是零寄存器。<br>为了提供32位的处理，我们可以使用Wn来代替Xn表示32位。<br>所以x6寄存器的低32位就是w6。也没必要声明高32位。xzr寄存器的32位等价寄存器是wzr。<br>当一个指令的目的寄存器是32位寄存器，那么高32位置为0。它们是不被保留的。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-armasm data-lang=armasm><span class=line><span class=cl>mov <span class=nc>w0</span>, #<span class=mi>2</span>           <span class=err>//</span> <span class=nc>w0</span> <span class=err>←</span> <span class=err>2</span>
-</span></span><span class=line><span class=cl>add <span class=nc>w0</span>, <span class=nc>w1</span>, <span class=err>wzr</span>   <span class=err>//</span> <span class=nc>w0</span> <span class=err>←</span> <span class=nc>w1</span> <span class=err>+</span> <span class=err>0</span>
-</span></span><span class=line><span class=cl>orr <span class=nc>b0</span>, <span class=nc>b1</span>, <span class=err>wzr</span>
-</span></span><span class=line><span class=cl>add <span class=nc>w0</span>, #<span class=mi>1</span>, <span class=nc>w1</span>   <span class=err>//</span> <span class=err>ERROR:</span> <span class=err>second</span> <span class=err>operand</span> <span class=err>should</span> <span class=err>be</span> <span class=err>an</span> <span class=err>integer</span> <span class=err>register</span>
-</span></span><span class=line><span class=cl>add <span class=nc>w0</span>, #<span class=mi>1</span>, #<span class=mi>2</span>   <span class=err>//</span> <span class=err>ERROR:</span> <span class=err>second</span> <span class=err>operand</span> <span class=err>should</span> <span class=err>be</span> <span class=err>an</span> <span class=err>integer</span> <span class=err>register.</span>
-</span></span></code></pre></div><p>main函数总是接受程序名为第一个参数。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>// test.s
-</span></span><span class=line><span class=cl>.text
-</span></span><span class=line><span class=cl>.globl main
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>main:
-</span></span><span class=line><span class=cl>  add w0, w0, #1   // w0 ← w0 + 1
-</span></span><span class=line><span class=cl>  ret              // return from main
-</span></span><span class=line><span class=cl>$ aarch64-linux-gnu-gcc -c test.s
-</span></span><span class=line><span class=cl>$ aarch64-linux-gnu-gcc -o test test.o
-</span></span><span class=line><span class=cl>$ ./test ; echo $?
-</span></span><span class=line><span class=cl>2
-</span></span><span class=line><span class=cl>$ ./test foo ; echo $?
-</span></span><span class=line><span class=cl>3
-</span></span><span class=line><span class=cl>$ ./test foo bar ; echo $?
-</span></span><span class=line><span class=cl>4
-</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-armasm data-lang=armasm><span class=line><span class=cl>reg, <span class=err>LSL</span>, #<span class=err>amount</span>
-</span></span><span class=line><span class=cl>reg, <span class=err>LSR</span>, #<span class=err>amount</span>
-</span></span><span class=line><span class=cl>reg, <span class=err>ASR</span>, #<span class=err>amount</span>
-</span></span><span class=line><span class=cl>reg, <span class=err>ROR</span>, #<span class=err>amount</span>
-</span></span><span class=line><span class=cl>add <span class=nc>r1</span>, <span class=nc>r2</span>, <span class=nc>r3</span>, <span class=err>LSL</span> #<span class=mi>4</span> <span class=err>/*</span> <span class=nc>r1</span> <span class=err>←</span> <span class=nc>r2</span> <span class=err>+</span> <span class=err>(</span><span class=nc>r3</span> <span class=err>&lt;&lt;</span> <span class=err>4)</span>
-</span></span></code></pre></div><p>一个扩展操作符以kxtw的形式，其中k是一个整型值，该值是我们想要扩展的宽度。w是窄的哪个值。<br>对于前者，整型的类型能够使U(unsigned)或者S(signed,例如，补码)。对于后者，宽度能够使B,H或者W，分别对应byte(寄存器的低8位)，half-word(寄存器的低16位)或者word(寄存器的低32位)。<br>这也意味着扩展符有uxtb, sxtb, uxth, sxth, uxtw, sxtw。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-armasm data-lang=armasm><span class=line><span class=cl>add <span class=nc>x0</span>, <span class=nc>x1</span>, <span class=nc>w2</span>, <span class=err>sxtb</span> <span class=err>//</span> <span class=nc>x0</span> <span class=err>←</span> <span class=nc>x1</span> <span class=err>+</span> <span class=err>ExtendSigne</span><span class=nc>d8</span><span class=err>To64(</span><span class=nc>w2</span><span class=err>)</span>
-</span></span><span class=line><span class=cl>add <span class=nc>w0</span>, <span class=nc>w1</span>, <span class=nc>w2</span>, <span class=err>sxtb</span> <span class=err>//</span> <span class=nc>w0</span> <span class=err>←</span> <span class=nc>w1</span> <span class=err>+</span> <span class=err>ExtendSigne</span><span class=nc>d8</span><span class=err>To32(</span><span class=nc>w2</span><span class=err>)</span>
-</span></span><span class=line><span class=cl>add <span class=nc>x2</span>, <span class=nc>x0</span>, <span class=nc>x1</span>, <span class=err>sxtw</span> #<span class=mi>1</span>   <span class=err>//</span> <span class=nc>x2</span> <span class=err>←</span> <span class=nc>x0</span> <span class=err>+</span> <span class=err>(ExtendSigne</span><span class=nc>d16</span><span class=err>To64(</span><span class=nc>x1</span><span class=err>)</span> <span class=err>&lt;&lt;</span> <span class=err>1)</span>
-</span></span><span class=line><span class=cl>add <span class=nc>x2</span>, <span class=nc>x0</span>, <span class=nc>x1</span>, <span class=err>sxtw</span> #<span class=mi>2</span>   <span class=err>//</span> <span class=nc>x2</span> <span class=err>←</span> <span class=nc>x0</span> <span class=err>+</span> <span class=err>(ExtendSigne</span><span class=nc>d16</span><span class=err>To64(</span><span class=nc>x1</span><span class=err>)</span> <span class=err>&lt;&lt;</span> <span class=err>2)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>mul <span class=err>Rdest</span>, <span class=err>Rsource1</span>, <span class=err>Rsource2</span> <span class=err>//</span> <span class=err>Rdest</span> <span class=err>←</span> <span class=err>Rsource1</span> <span class=err>*</span> <span class=err>Rsource2</span>
-</span></span><span class=line><span class=cl>umull <span class=err>Xdest</span>, <span class=err>Wsource1</span>, <span class=err>Wsource2</span>  <span class=err>//</span> <span class=err>Xdest</span> <span class=err>←</span> <span class=err>Wsource1</span> <span class=err>*</span> <span class=err>Wsource2</span>
-</span></span><span class=line><span class=cl>smull <span class=err>Xdest</span>, <span class=err>Wsource1</span>, <span class=err>Wsource2</span>  <span class=err>//</span> <span class=err>Xdest</span> <span class=err>←</span> <span class=err>Wsource1</span> <span class=err>*</span> <span class=err>Wsource2</span> 
-</span></span><span class=line><span class=cl><span class=err>mul</span> <span class=err>Xlower</span>, <span class=err>Xsource1</span>, <span class=err>Xsource2</span>   <span class=err>//</span> <span class=err>Xlower</span> <span class=err>←</span> <span class=err>Lowe</span><span class=nc>r64</span><span class=err>Bits(Xsource1</span> <span class=err>*</span> <span class=err>Xsource2)</span>
-</span></span><span class=line><span class=cl>smulh <span class=err>Xupper</span>, <span class=err>Xsource1</span>, <span class=err>Xsource2</span> <span class=err>//</span> <span class=err>Xupper</span> <span class=err>←</span> <span class=err>Uppe</span><span class=nc>r64</span><span class=err>Bits(Xsource1</span> <span class=err>*</span> <span class=err>Xsource2)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>udiv <span class=err>Rdest</span>, <span class=err>Rsource1</span>, <span class=err>Rsource2</span>  <span class=err>//</span> <span class=err>Rdest</span> <span class=err>←</span> <span class=err>Rsource1</span> <span class=err>/</span> <span class=err>Rsource2</span>
-</span></span><span class=line><span class=cl>sdiv <span class=err>Rdest</span>, <span class=err>Rsource1</span>, <span class=err>Rsource2</span>  <span class=err>//</span> <span class=err>Rdest</span> <span class=err>←</span> <span class=err>Rsource1</span> <span class=err>/</span> <span class=err>Rsource2</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>mvn <span class=err>Rdest</span>, <span class=err>Rsource</span>    <span class=err>//</span> <span class=err>Rdest</span> <span class=err>←</span> <span class=err>~Rsource</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=err>//</span> and<span class=err>，orr和eor</span>
-</span></span><span class=line><span class=cl>and <span class=err>Rdest</span>, <span class=err>Rsource1</span>, #<span class=err>immediate          // Rdest ← Rsource</span><span class=mi>1</span> <span class=err>&amp;</span> <span class=err>immediate</span>
-</span></span><span class=line><span class=cl>and <span class=err>Rdest</span>, <span class=err>Rsource1</span>, <span class=err>Rsource2</span>            <span class=err>//</span> <span class=err>Rdest</span> <span class=err>←</span> <span class=err>Rsource1</span> <span class=err>&amp;</span> <span class=err>Rsource2</span>
-</span></span><span class=line><span class=cl>and <span class=err>Xdest</span>, <span class=err>Xsource1</span>, <span class=err>Xsource2</span>, <span class=err>shiftop</span>   <span class=err>//</span> <span class=err>Xdest</span> <span class=err>←</span> <span class=err>Xsource1</span> <span class=err>&amp;</span> <span class=err>shiftop(Xsource2)</span>
-</span></span><span class=line><span class=cl>and <span class=err>Wdest</span>, <span class=err>Wsource1</span>, <span class=err>Wsource2</span>, <span class=err>shiftop</span>   <span class=err>//</span> <span class=err>Wdest</span> <span class=err>←</span> <span class=err>Wsource1</span> <span class=err>&amp;</span> <span class=err>shiftop(Wsource2)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=err>//</span> bic<span class=err>(位清空)，orn(或非)和eon(异或非)</span>
-</span></span><span class=line><span class=cl>orn <span class=err>Rdest</span>, <span class=err>Rsource1</span>, <span class=err>Rsource2</span>            <span class=err>//</span> <span class=err>Rdest</span> <span class=err>←</span> <span class=err>Rsource1</span> <span class=err>|</span> <span class=err>~Rsource2</span>
-</span></span><span class=line><span class=cl>orn <span class=err>Xdest</span>, <span class=err>Xsource1</span>, <span class=err>Xsource2</span>, <span class=err>shiftop</span>   <span class=err>//</span> <span class=err>Xdest</span> <span class=err>←</span> <span class=err>Xsource1</span> <span class=err>|</span> <span class=err>~shiftop(Xsource2)</span>
-</span></span><span class=line><span class=cl>orn <span class=err>Wdest</span>, <span class=err>Wsource1</span>, <span class=err>Wsource2</span>, <span class=err>shiftop</span>   <span class=err>//</span> <span class=err>Wdest</span> <span class=err>←</span> <span class=err>Wsource1</span> <span class=err>|</span> <span class=err>~shiftop(Wsource2)</span>
-</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-armasm data-lang=armasm><span class=line><span class=cl>ldr <span class=err>W2</span>, <span class=err>[X1]</span>  <span class=err>//</span> <span class=err>W2</span> <span class=err>←</span> <span class=err>*X1</span> <span class=err>(32-bit</span> <span class=err>load)</span>
-</span></span><span class=line><span class=cl>ldr <span class=err>X2</span>, <span class=err>[X1]</span>  <span class=err>//</span> <span class=err>X2</span> <span class=err>←</span> <span class=err>*X1</span> <span class=err>(64-bit</span> <span class=err>load)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>ldr <span class=err>W2</span>, <span class=err>[X1</span>, #<span class=mi>4</span><span class=err>]</span>        <span class=err>//</span> <span class=err>W2</span> <span class=err>←</span> <span class=err>*(X1</span> <span class=err>+</span> <span class=err>4)</span>   <span class=err>[32-bit</span> <span class=err>load]</span>
-</span></span><span class=line><span class=cl>ldr <span class=err>W2</span>, <span class=err>[X1</span>, #<span class=err>-</span><span class=mi>4</span><span class=err>]</span>       <span class=err>//</span> <span class=err>W2</span> <span class=err>←</span> <span class=err>*(X1</span> <span class=err>-</span> <span class=err>4)</span>   <span class=err>[32-bit</span> <span class=err>load]</span>
-</span></span><span class=line><span class=cl>ldr <span class=err>X2</span>, <span class=err>[X1</span>, #<span class=mi>240</span><span class=err>]</span>      <span class=err>//</span> <span class=err>X2</span> <span class=err>←</span> <span class=err>*(X1</span> <span class=err>+</span> <span class=err>240)</span> <span class=err>[64-bit</span> <span class=err>load]</span>
-</span></span><span class=line><span class=cl>ldr <span class=err>X2</span>, <span class=err>[X1</span>, #<span class=mi>400</span><span class=err>]</span>      <span class=err>//</span> <span class=err>X2</span> <span class=err>←</span> <span class=err>*(X1</span> <span class=err>+</span> <span class=err>400)</span> <span class=err>[64-bit</span> <span class=err>load]</span>
-</span></span><span class=line><span class=cl><span class=err>//</span> ldr <span class=err>X2</span>, <span class=err>[X1</span>, #<span class=mi>404</span><span class=err>]</span>   <span class=err>//</span> <span class=err>Invalid</span> <span class=err>offset</span>, <span class=err>not</span> <span class=err>multiple</span> <span class=err>of</span> <span class=err>8!</span>
-</span></span><span class=line><span class=cl><span class=err>//</span> ldr <span class=err>X2</span>, <span class=err>[X1</span>, #<span class=err>-</span><span class=mi>400</span><span class=err>]</span>  <span class=err>//</span> <span class=err>Invalid</span> <span class=err>offset</span>, <span class=err>must</span> <span class=err>be</span> <span class=err>positive!</span>
-</span></span><span class=line><span class=cl><span class=err>//</span> ldr <span class=err>X2</span>, <span class=err>[X1</span>, #<span class=mi>32768</span><span class=err>]</span> <span class=err>//</span> <span class=err>Invalid</span> <span class=err>offset</span>, <span class=err>out</span> <span class=err>of</span> <span class=err>the</span> <span class=err>range!</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>ldr <span class=err>W1</span>, <span class=err>[X2</span>, <span class=err>X3]</span>  <span class=err>//</span> <span class=err>W1</span> <span class=err>←</span> <span class=err>*(X2</span> <span class=err>+</span> <span class=err>X3)</span> <span class=err>[32-bit</span> <span class=err>load]</span>
-</span></span><span class=line><span class=cl>ldr <span class=err>X1</span>, <span class=err>[X2</span>, <span class=err>X3]</span>  <span class=err>//</span> <span class=err>X1</span> <span class=err>←</span> <span class=err>*(X2</span> <span class=err>+</span> <span class=err>X3)</span> <span class=err>[64-bit</span> <span class=err>load]</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>ldr <span class=err>W1</span>, <span class=err>[X2</span>, <span class=err>W3</span>, <span class=err>sxtw]</span> <span class=err>//</span> <span class=err>W1</span> <span class=err>←</span> <span class=err>*(X2</span> <span class=err>+</span> <span class=err>ExtendSigne</span><span class=nc>d32</span><span class=err>To64(W3))</span>    <span class=err>[32-bit</span> <span class=err>load]</span>
-</span></span><span class=line><span class=cl>ldr <span class=err>W1</span>, <span class=err>[X2</span>, <span class=err>W3</span>, <span class=err>uxtw]</span> <span class=err>//</span> <span class=err>W1</span> <span class=err>←</span> <span class=err>*(X2</span> <span class=err>+</span> <span class=err>ExtendUnsigne</span><span class=nc>d32</span><span class=err>To64(W3))</span>  <span class=err>[64-bit</span> <span class=err>load]</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>ldr <span class=err>W1</span>, <span class=err>[X2</span>, <span class=err>W3</span>, <span class=err>sxtw</span> #<span class=mi>3</span><span class=err>]</span> <span class=err>//</span> <span class=err>W1</span> <span class=err>←</span> <span class=err>*(X2</span> <span class=err>+</span> <span class=err>ExtendSigne</span><span class=nc>d32</span><span class=err>To64(W3</span> <span class=err>&lt;&lt;</span> <span class=err>3))</span> <span class=err>[32-bit-load]</span>
-</span></span></code></pre></div><p>在AArch64中有2中索引模式：预先索引（pre-indexing）和事后索引（post-indexing）模式。在预先索引模式下，其基地址寄存器添加偏移计算地址，并且这个地址会写回基地址寄存器。在事后索引模式中，基地址被用于计算地址，但是在地址访问基地址寄存器后会更新地址的值，该值是添加了偏移的。</p><p>这两种方式看起来有点相似，都是更新用偏移基地址寄存器。它们不同之处在于偏移的计算时机：预先索引模式会在访问地址之前计算，事后索引模式会在访问之后计算。而我们能够使用的偏移值必须在-256到255之间。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-armasm data-lang=armasm><span class=line><span class=cl>ldr <span class=err>X1</span>, <span class=err>[X2</span>, #<span class=mi>4</span><span class=err>]!</span> <span class=err>//</span> <span class=err>X1</span> <span class=err>←</span> <span class=err>*(X2</span> <span class=err>+</span> <span class=err>4)</span>
-</span></span><span class=line><span class=cl>                  <span class=err>//</span> X<span class=err>2</span> <span class=err>←</span> <span class=err>X2</span> <span class=err>+</span> <span class=err>4</span>
-</span></span><span class=line><span class=cl>ldr <span class=err>X1</span>, <span class=err>[X2]</span>, #<span class=mi>4</span>  <span class=err>//</span> <span class=err>X1</span> <span class=err>←</span> <span class=err>*X2</span>
-</span></span><span class=line><span class=cl>                  <span class=err>//</span> X<span class=err>2</span> <span class=err>←</span> <span class=err>X2</span> <span class=err>+</span> <span class=err>4</span>
-</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-armasm data-lang=armasm><span class=line><span class=cl>ldr <span class=err>Xn</span>, <span class=err>addr_of_var</span> <span class=err>//</span> <span class=err>Xn</span> <span class=err>←</span> <span class=err>&amp;var</span>
-</span></span><span class=line><span class=cl><span class=err>//</span> ldr <span class=err>Wn</span>, <span class=err>addr_of_var</span> <span class=err>//</span> <span class=err>Wn</span> <span class=err>←</span> <span class=err>&amp;var</span>
-</span></span><span class=line><span class=cl><span class=err>...</span> 
-</span></span><span class=line><span class=cl>addr<span class=err>_of_var</span> <span class=err>:</span> <span class=err>.dword</span> <span class=err>variable</span> <span class=err>//</span> <span class=err>This</span> <span class=err>tells</span> <span class=err>the</span> <span class=err>assembler</span> <span class=err>that</span>
-</span></span><span class=line><span class=cl>                              <span class=err>//</span> we <span class=err>want</span> <span class=err>here</span> <span class=err>the</span> <span class=err>address</span> <span class=err>of</span> <span class=err>var</span>
-</span></span><span class=line><span class=cl>                              <span class=err>//</span> <span class=err>(</span>This <span class=err>is</span> <span class=err>not</span> <span class=err>to</span> <span class=err>be</span> <span class=err>executed!)</span>
-</span></span><span class=line><span class=cl><span class=err>...</span> 
-</span></span><span class=line><span class=cl>ldr <span class=err>Xm</span>, <span class=err>[Xn]</span>  <span class=err>//</span> <span class=err>Xm</span> <span class=err>←</span> <span class=err>*Xn</span>    <span class=err>[64-bit</span> <span class=err>load]</span>
-</span></span><span class=line><span class=cl>ldr <span class=err>Wm</span>, <span class=err>[Xn]</span>  <span class=err>//</span> <span class=err>Wm</span> <span class=err>←</span> <span class=err>*Xn</span>    <span class=err>[32-bit</span> <span class=err>load]</span>
-</span></span></code></pre></div><p>全局变量被定义在.data节。为了实现这个方法，我们只要简单地定义它们的初始值。如果我们想定义一个32位的变量，我们使用.word。如果我们想顶一个64位的变量，我们使用.dword。<br>在Linux中AArch64不需要内存访问对其。但是如果它们对齐了，则它们在硬件中会执行得快一点。所以我们使用.balign指令去按照数据得尺寸（以字节）对齐每个变量。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-armasm data-lang=armasm><span class=line><span class=cl><span class=err>//</span> globalvar<span class=err>.s</span>
-</span></span><span class=line><span class=cl><span class=kn>.data</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kn>.balign</span><span class=nl> 8 </span><span class=err>//</span> Align <span class=err>to</span> <span class=err>8</span> <span class=err>bytes</span>
-</span></span><span class=line><span class=cl><span class=kn>.byte</span><span class=nl> 1
-</span></span></span><span class=line><span class=cl><span class=nl></span>global<span class=err>_va</span><span class=nc>r64</span> <span class=err>:</span> <span class=err>.dword</span> <span class=err>0</span><span class=nc>x12</span><span class=err>34</span>  <span class=err>//</span> <span class=err>a</span> <span class=err>64-bit</span> <span class=err>value</span> <span class=err>of</span> <span class=err>0</span><span class=nc>x12</span><span class=err>34</span>
-</span></span><span class=line><span class=cl><span class=err>//</span> <span class=nl>alternatively</span><span class=p>:</span><span class=kn> .word </span><span class=mh>0x1234</span><span class=err>,</span> <span class=err>0</span>x<span class=err>0</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kn>.balign</span><span class=nl> 4 </span><span class=err>//</span> Align <span class=err>to</span> <span class=err>4</span> <span class=err>bytes</span>
-</span></span><span class=line><span class=cl><span class=kn>.byte</span><span class=nl> 1
-</span></span></span><span class=line><span class=cl><span class=nl></span>global<span class=err>_va</span><span class=nc>r32</span> <span class=err>:</span> <span class=err>.word</span> <span class=err>0</span><span class=nc>x56</span><span class=err>78</span>   <span class=err>//</span> <span class=err>a</span> <span class=err>32-bit</span> <span class=err>value</span> <span class=err>of</span> <span class=err>0</span>
-</span></span></code></pre></div><p>注意，有必要在最后的连接阶段使用-static标记。这将创建一个static文件，这个文件被直接加载到内存。默认地，程序运行的时候，链接器是创建动态文件，这些动态文件被动态链接器加载。动态链接器会在一个地址上加载程序，超过232个提交这些地址非法。当使用.dword，静态链接器保证了对动态链接器的声明是发射的，所以后者能够在运行时修复64位地址。</p><p>GDB调试</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-zsh data-lang=zsh><span class=line><span class=cl>$ qemu-arm -g <span class=m>12345</span> ./a.out <span class=p>&amp;</span>
-</span></span><span class=line><span class=cl>$ gdb-multiarch ./a.out
-</span></span><span class=line><span class=cl><span class=o>(</span>gdb<span class=o>)</span> <span class=nb>set</span> arch arm
-</span></span><span class=line><span class=cl>The target architecture is assumed to be mips
-</span></span><span class=line><span class=cl><span class=o>(</span>gdb<span class=o>)</span> <span class=nb>set</span> endian little
-</span></span><span class=line><span class=cl>The target is assumed to be little endian
-</span></span><span class=line><span class=cl><span class=o>(</span>gdb<span class=o>)</span> target remote localhost:12345
-</span></span><span class=line><span class=cl>Remote debugging using localhost:12345
-</span></span><span class=line><span class=cl>0x00400280 in _ftext <span class=o>()</span>
-</span></span><span class=line><span class=cl><span class=o>(</span>gdb<span class=o>)</span> x/i <span class=nv>$pc</span>
-</span></span><span class=line><span class=cl>  <span class=o>=</span>&gt; 0x767cb880    move   <span class=nv>$t9</span>, <span class=nv>$ra</span>
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='简单介绍： https://cloud.tencent.com/developer/article/2411953 https://blog.csdn.net/qq_43543209/article/details/135659463 https://blog.csdn.net/weixin_42135087/article/details/121174706 https://community.arm.com/management/archive/cn/b/blog/posts/arm-1203521971 开源项目： https://github.com/caibirda/islet_runable # 如果下载失败考虑网络问题 git config --global http.proxy http://192.168.101.11:7890 export https_proxy=http://192.168.101.11:7890 export http_proxy=http://192.168.101.11:7890 export all_proxy=socks5://192.168.101.11:7890 aarch64介绍： https://blog.csdn.net/jimfire/category_11329148.html sudo apt-get install qemu-user gcc-aarch64-linux-gnu # .c aarch64-linux-gnu-gcc -static -o hello hello.c qemu-aarch64 ./hello # .s aarch64-linux-gnu-as -c first.s aarch64-linux-gnu-gcc'>
+<title>机密计算 -&gt; ARM CCA</title>
+
+<link rel='canonical' href='https://blog.nrevery.cn/p/%E6%9C%BA%E5%AF%86%E8%AE%A1%E7%AE%97-arm-cca/'>
+
+<link rel="stylesheet" href="/scss/style.min.c144fc5f15e273f61106f7edf2ae6b4db220a43f8d9ba8659d9d9df5eca329dd.css"><meta property='og:title' content='机密计算 -&gt; ARM CCA'>
+<meta property='og:description' content='简单介绍： https://cloud.tencent.com/developer/article/2411953 https://blog.csdn.net/qq_43543209/article/details/135659463 https://blog.csdn.net/weixin_42135087/article/details/121174706 https://community.arm.com/management/archive/cn/b/blog/posts/arm-1203521971 开源项目： https://github.com/caibirda/islet_runable # 如果下载失败考虑网络问题 git config --global http.proxy http://192.168.101.11:7890 export https_proxy=http://192.168.101.11:7890 export http_proxy=http://192.168.101.11:7890 export all_proxy=socks5://192.168.101.11:7890 aarch64介绍： https://blog.csdn.net/jimfire/category_11329148.html sudo apt-get install qemu-user gcc-aarch64-linux-gnu # .c aarch64-linux-gnu-gcc -static -o hello hello.c qemu-aarch64 ./hello # .s aarch64-linux-gnu-as -c first.s aarch64-linux-gnu-gcc'>
+<meta property='og:url' content='https://blog.nrevery.cn/p/%E6%9C%BA%E5%AF%86%E8%AE%A1%E7%AE%97-arm-cca/'>
+<meta property='og:site_name' content='nRevery&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='notes' /><meta property='article:published_time' content='2024-08-13T22:28:20&#43;08:00'/><meta property='article:modified_time' content='2024-08-13T22:28:20&#43;08:00'/>
+<meta name="twitter:title" content="机密计算 -&gt; ARM CCA">
+<meta name="twitter:description" content="简单介绍： https://cloud.tencent.com/developer/article/2411953 https://blog.csdn.net/qq_43543209/article/details/135659463 https://blog.csdn.net/weixin_42135087/article/details/121174706 https://community.arm.com/management/archive/cn/b/blog/posts/arm-1203521971 开源项目： https://github.com/caibirda/islet_runable # 如果下载失败考虑网络问题 git config --global http.proxy http://192.168.101.11:7890 export https_proxy=http://192.168.101.11:7890 export http_proxy=http://192.168.101.11:7890 export all_proxy=socks5://192.168.101.11:7890 aarch64介绍： https://blog.csdn.net/jimfire/category_11329148.html sudo apt-get install qemu-user gcc-aarch64-linux-gnu # .c aarch64-linux-gnu-gcc -static -o hello hello.c qemu-aarch64 ./hello # .s aarch64-linux-gnu-as -c first.s aarch64-linux-gnu-gcc">
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    <img src="/img/touxiang.png" width="300" height="300" class="site-logo" loading="lazy" alt="Avatar">
+                
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">nRevery&#39;s Blog</a></h1>
+            <h2 class="site-description">One clover and a bee,and revery.✍️</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/RDWaaaaaa'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>暗色模式</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/tee/" style="background-color: #3A6390; color: #fff;">
+                TEE
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E6%9C%BA%E5%AF%86%E8%AE%A1%E7%AE%97-arm-cca/">机密计算 -&gt; ARM CCA</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 13, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 6 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>简单介绍：<br>
+<a class="link" href="https://cloud.tencent.com/developer/article/2411953"  target="_blank" rel="noopener"
+    >https://cloud.tencent.com/developer/article/2411953</a><br>
+<a class="link" href="https://blog.csdn.net/qq_43543209/article/details/135659463"  target="_blank" rel="noopener"
+    >https://blog.csdn.net/qq_43543209/article/details/135659463</a><br>
+<a class="link" href="https://blog.csdn.net/weixin_42135087/article/details/121174706"  target="_blank" rel="noopener"
+    >https://blog.csdn.net/weixin_42135087/article/details/121174706</a><br>
+<a class="link" href="https://community.arm.com/management/archive/cn/b/blog/posts/arm-1203521971"  target="_blank" rel="noopener"
+    >https://community.arm.com/management/archive/cn/b/blog/posts/arm-1203521971</a></p>
+<p>开源项目：<br>
+<a class="link" href="https://github.com/caibirda/islet_runable"  target="_blank" rel="noopener"
+    >https://github.com/caibirda/islet_runable</a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-zsh" data-lang="zsh"><span class="line"><span class="cl"><span class="c1"># 如果下载失败考虑网络问题</span>
+</span></span><span class="line"><span class="cl">git config --global http.proxy http://192.168.101.11:7890
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">https_proxy</span><span class="o">=</span>http://192.168.101.11:7890
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">http_proxy</span><span class="o">=</span>http://192.168.101.11:7890
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">all_proxy</span><span class="o">=</span>socks5://192.168.101.11:7890
+</span></span></code></pre></div><p>aarch64介绍：<br>
+<a class="link" href="https://blog.csdn.net/jimfire/category_11329148.html"  target="_blank" rel="noopener"
+    >https://blog.csdn.net/jimfire/category_11329148.html</a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-zsh" data-lang="zsh"><span class="line"><span class="cl">sudo apt-get install qemu-user gcc-aarch64-linux-gnu
+</span></span><span class="line"><span class="cl"><span class="c1"># .c</span>
+</span></span><span class="line"><span class="cl">aarch64-linux-gnu-gcc -static -o hello hello.c
+</span></span><span class="line"><span class="cl">qemu-aarch64 ./hello
+</span></span><span class="line"><span class="cl"><span class="c1"># .s</span>
+</span></span><span class="line"><span class="cl">aarch64-linux-gnu-as -c first.s
+</span></span><span class="line"><span class="cl">aarch64-linux-gnu-gcc -static -o first first.o
+</span></span><span class="line"><span class="cl"><span class="c1"># 检查返回值</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="nv">$?</span>
+</span></span></code></pre></div><p>AArch64中有31个通用寄存器x0,x1,…x30,x31寄存器被称为xzr，也就是零寄存器。<br>
+为了提供32位的处理，我们可以使用Wn来代替Xn表示32位。<br>
+所以x6寄存器的低32位就是w6。也没必要声明高32位。xzr寄存器的32位等价寄存器是wzr。<br>
+当一个指令的目的寄存器是32位寄存器，那么高32位置为0。它们是不被保留的。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm"><span class="line"><span class="cl">mov <span class="nc">w0</span>, #<span class="mi">2</span>           <span class="err">//</span> <span class="nc">w0</span> <span class="err">←</span> <span class="err">2</span>
+</span></span><span class="line"><span class="cl">add <span class="nc">w0</span>, <span class="nc">w1</span>, <span class="err">wzr</span>   <span class="err">//</span> <span class="nc">w0</span> <span class="err">←</span> <span class="nc">w1</span> <span class="err">+</span> <span class="err">0</span>
+</span></span><span class="line"><span class="cl">orr <span class="nc">b0</span>, <span class="nc">b1</span>, <span class="err">wzr</span>
+</span></span><span class="line"><span class="cl">add <span class="nc">w0</span>, #<span class="mi">1</span>, <span class="nc">w1</span>   <span class="err">//</span> <span class="err">ERROR:</span> <span class="err">second</span> <span class="err">operand</span> <span class="err">should</span> <span class="err">be</span> <span class="err">an</span> <span class="err">integer</span> <span class="err">register</span>
+</span></span><span class="line"><span class="cl">add <span class="nc">w0</span>, #<span class="mi">1</span>, #<span class="mi">2</span>   <span class="err">//</span> <span class="err">ERROR:</span> <span class="err">second</span> <span class="err">operand</span> <span class="err">should</span> <span class="err">be</span> <span class="err">an</span> <span class="err">integer</span> <span class="err">register.</span>
+</span></span></code></pre></div><p>main函数总是接受程序名为第一个参数。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// test.s
+</span></span><span class="line"><span class="cl">.text
+</span></span><span class="line"><span class="cl">.globl main
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">main:
+</span></span><span class="line"><span class="cl">  add w0, w0, #1   // w0 ← w0 + 1
+</span></span><span class="line"><span class="cl">  ret              // return from main
+</span></span><span class="line"><span class="cl">$ aarch64-linux-gnu-gcc -c test.s
+</span></span><span class="line"><span class="cl">$ aarch64-linux-gnu-gcc -o test test.o
+</span></span><span class="line"><span class="cl">$ ./test ; echo $?
+</span></span><span class="line"><span class="cl">2
+</span></span><span class="line"><span class="cl">$ ./test foo ; echo $?
+</span></span><span class="line"><span class="cl">3
+</span></span><span class="line"><span class="cl">$ ./test foo bar ; echo $?
+</span></span><span class="line"><span class="cl">4
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm"><span class="line"><span class="cl">reg, <span class="err">LSL</span>, #<span class="err">amount</span>
+</span></span><span class="line"><span class="cl">reg, <span class="err">LSR</span>, #<span class="err">amount</span>
+</span></span><span class="line"><span class="cl">reg, <span class="err">ASR</span>, #<span class="err">amount</span>
+</span></span><span class="line"><span class="cl">reg, <span class="err">ROR</span>, #<span class="err">amount</span>
+</span></span><span class="line"><span class="cl">add <span class="nc">r1</span>, <span class="nc">r2</span>, <span class="nc">r3</span>, <span class="err">LSL</span> #<span class="mi">4</span> <span class="err">/*</span> <span class="nc">r1</span> <span class="err">←</span> <span class="nc">r2</span> <span class="err">+</span> <span class="err">(</span><span class="nc">r3</span> <span class="err">&lt;&lt;</span> <span class="err">4)</span>
+</span></span></code></pre></div><p>一个扩展操作符以kxtw的形式，其中k是一个整型值，该值是我们想要扩展的宽度。w是窄的哪个值。<br>
+对于前者，整型的类型能够使U(unsigned)或者S(signed,例如，补码)。对于后者，宽度能够使B,H或者W，分别对应byte(寄存器的低8位)，half-word(寄存器的低16位)或者word(寄存器的低32位)。<br>
+这也意味着扩展符有uxtb, sxtb, uxth, sxth, uxtw, sxtw。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm"><span class="line"><span class="cl">add <span class="nc">x0</span>, <span class="nc">x1</span>, <span class="nc">w2</span>, <span class="err">sxtb</span> <span class="err">//</span> <span class="nc">x0</span> <span class="err">←</span> <span class="nc">x1</span> <span class="err">+</span> <span class="err">ExtendSigne</span><span class="nc">d8</span><span class="err">To64(</span><span class="nc">w2</span><span class="err">)</span>
+</span></span><span class="line"><span class="cl">add <span class="nc">w0</span>, <span class="nc">w1</span>, <span class="nc">w2</span>, <span class="err">sxtb</span> <span class="err">//</span> <span class="nc">w0</span> <span class="err">←</span> <span class="nc">w1</span> <span class="err">+</span> <span class="err">ExtendSigne</span><span class="nc">d8</span><span class="err">To32(</span><span class="nc">w2</span><span class="err">)</span>
+</span></span><span class="line"><span class="cl">add <span class="nc">x2</span>, <span class="nc">x0</span>, <span class="nc">x1</span>, <span class="err">sxtw</span> #<span class="mi">1</span>   <span class="err">//</span> <span class="nc">x2</span> <span class="err">←</span> <span class="nc">x0</span> <span class="err">+</span> <span class="err">(ExtendSigne</span><span class="nc">d16</span><span class="err">To64(</span><span class="nc">x1</span><span class="err">)</span> <span class="err">&lt;&lt;</span> <span class="err">1)</span>
+</span></span><span class="line"><span class="cl">add <span class="nc">x2</span>, <span class="nc">x0</span>, <span class="nc">x1</span>, <span class="err">sxtw</span> #<span class="mi">2</span>   <span class="err">//</span> <span class="nc">x2</span> <span class="err">←</span> <span class="nc">x0</span> <span class="err">+</span> <span class="err">(ExtendSigne</span><span class="nc">d16</span><span class="err">To64(</span><span class="nc">x1</span><span class="err">)</span> <span class="err">&lt;&lt;</span> <span class="err">2)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mul <span class="err">Rdest</span>, <span class="err">Rsource1</span>, <span class="err">Rsource2</span> <span class="err">//</span> <span class="err">Rdest</span> <span class="err">←</span> <span class="err">Rsource1</span> <span class="err">*</span> <span class="err">Rsource2</span>
+</span></span><span class="line"><span class="cl">umull <span class="err">Xdest</span>, <span class="err">Wsource1</span>, <span class="err">Wsource2</span>  <span class="err">//</span> <span class="err">Xdest</span> <span class="err">←</span> <span class="err">Wsource1</span> <span class="err">*</span> <span class="err">Wsource2</span>
+</span></span><span class="line"><span class="cl">smull <span class="err">Xdest</span>, <span class="err">Wsource1</span>, <span class="err">Wsource2</span>  <span class="err">//</span> <span class="err">Xdest</span> <span class="err">←</span> <span class="err">Wsource1</span> <span class="err">*</span> <span class="err">Wsource2</span> 
+</span></span><span class="line"><span class="cl"><span class="err">mul</span> <span class="err">Xlower</span>, <span class="err">Xsource1</span>, <span class="err">Xsource2</span>   <span class="err">//</span> <span class="err">Xlower</span> <span class="err">←</span> <span class="err">Lowe</span><span class="nc">r64</span><span class="err">Bits(Xsource1</span> <span class="err">*</span> <span class="err">Xsource2)</span>
+</span></span><span class="line"><span class="cl">smulh <span class="err">Xupper</span>, <span class="err">Xsource1</span>, <span class="err">Xsource2</span> <span class="err">//</span> <span class="err">Xupper</span> <span class="err">←</span> <span class="err">Uppe</span><span class="nc">r64</span><span class="err">Bits(Xsource1</span> <span class="err">*</span> <span class="err">Xsource2)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udiv <span class="err">Rdest</span>, <span class="err">Rsource1</span>, <span class="err">Rsource2</span>  <span class="err">//</span> <span class="err">Rdest</span> <span class="err">←</span> <span class="err">Rsource1</span> <span class="err">/</span> <span class="err">Rsource2</span>
+</span></span><span class="line"><span class="cl">sdiv <span class="err">Rdest</span>, <span class="err">Rsource1</span>, <span class="err">Rsource2</span>  <span class="err">//</span> <span class="err">Rdest</span> <span class="err">←</span> <span class="err">Rsource1</span> <span class="err">/</span> <span class="err">Rsource2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mvn <span class="err">Rdest</span>, <span class="err">Rsource</span>    <span class="err">//</span> <span class="err">Rdest</span> <span class="err">←</span> <span class="err">~Rsource</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">//</span> and<span class="err">，orr和eor</span>
+</span></span><span class="line"><span class="cl">and <span class="err">Rdest</span>, <span class="err">Rsource1</span>, #<span class="err">immediate          // Rdest ← Rsource</span><span class="mi">1</span> <span class="err">&amp;</span> <span class="err">immediate</span>
+</span></span><span class="line"><span class="cl">and <span class="err">Rdest</span>, <span class="err">Rsource1</span>, <span class="err">Rsource2</span>            <span class="err">//</span> <span class="err">Rdest</span> <span class="err">←</span> <span class="err">Rsource1</span> <span class="err">&amp;</span> <span class="err">Rsource2</span>
+</span></span><span class="line"><span class="cl">and <span class="err">Xdest</span>, <span class="err">Xsource1</span>, <span class="err">Xsource2</span>, <span class="err">shiftop</span>   <span class="err">//</span> <span class="err">Xdest</span> <span class="err">←</span> <span class="err">Xsource1</span> <span class="err">&amp;</span> <span class="err">shiftop(Xsource2)</span>
+</span></span><span class="line"><span class="cl">and <span class="err">Wdest</span>, <span class="err">Wsource1</span>, <span class="err">Wsource2</span>, <span class="err">shiftop</span>   <span class="err">//</span> <span class="err">Wdest</span> <span class="err">←</span> <span class="err">Wsource1</span> <span class="err">&amp;</span> <span class="err">shiftop(Wsource2)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">//</span> bic<span class="err">(位清空)，orn(或非)和eon(异或非)</span>
+</span></span><span class="line"><span class="cl">orn <span class="err">Rdest</span>, <span class="err">Rsource1</span>, <span class="err">Rsource2</span>            <span class="err">//</span> <span class="err">Rdest</span> <span class="err">←</span> <span class="err">Rsource1</span> <span class="err">|</span> <span class="err">~Rsource2</span>
+</span></span><span class="line"><span class="cl">orn <span class="err">Xdest</span>, <span class="err">Xsource1</span>, <span class="err">Xsource2</span>, <span class="err">shiftop</span>   <span class="err">//</span> <span class="err">Xdest</span> <span class="err">←</span> <span class="err">Xsource1</span> <span class="err">|</span> <span class="err">~shiftop(Xsource2)</span>
+</span></span><span class="line"><span class="cl">orn <span class="err">Wdest</span>, <span class="err">Wsource1</span>, <span class="err">Wsource2</span>, <span class="err">shiftop</span>   <span class="err">//</span> <span class="err">Wdest</span> <span class="err">←</span> <span class="err">Wsource1</span> <span class="err">|</span> <span class="err">~shiftop(Wsource2)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm"><span class="line"><span class="cl">ldr <span class="err">W2</span>, <span class="err">[X1]</span>  <span class="err">//</span> <span class="err">W2</span> <span class="err">←</span> <span class="err">*X1</span> <span class="err">(32-bit</span> <span class="err">load)</span>
+</span></span><span class="line"><span class="cl">ldr <span class="err">X2</span>, <span class="err">[X1]</span>  <span class="err">//</span> <span class="err">X2</span> <span class="err">←</span> <span class="err">*X1</span> <span class="err">(64-bit</span> <span class="err">load)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ldr <span class="err">W2</span>, <span class="err">[X1</span>, #<span class="mi">4</span><span class="err">]</span>        <span class="err">//</span> <span class="err">W2</span> <span class="err">←</span> <span class="err">*(X1</span> <span class="err">+</span> <span class="err">4)</span>   <span class="err">[32-bit</span> <span class="err">load]</span>
+</span></span><span class="line"><span class="cl">ldr <span class="err">W2</span>, <span class="err">[X1</span>, #<span class="err">-</span><span class="mi">4</span><span class="err">]</span>       <span class="err">//</span> <span class="err">W2</span> <span class="err">←</span> <span class="err">*(X1</span> <span class="err">-</span> <span class="err">4)</span>   <span class="err">[32-bit</span> <span class="err">load]</span>
+</span></span><span class="line"><span class="cl">ldr <span class="err">X2</span>, <span class="err">[X1</span>, #<span class="mi">240</span><span class="err">]</span>      <span class="err">//</span> <span class="err">X2</span> <span class="err">←</span> <span class="err">*(X1</span> <span class="err">+</span> <span class="err">240)</span> <span class="err">[64-bit</span> <span class="err">load]</span>
+</span></span><span class="line"><span class="cl">ldr <span class="err">X2</span>, <span class="err">[X1</span>, #<span class="mi">400</span><span class="err">]</span>      <span class="err">//</span> <span class="err">X2</span> <span class="err">←</span> <span class="err">*(X1</span> <span class="err">+</span> <span class="err">400)</span> <span class="err">[64-bit</span> <span class="err">load]</span>
+</span></span><span class="line"><span class="cl"><span class="err">//</span> ldr <span class="err">X2</span>, <span class="err">[X1</span>, #<span class="mi">404</span><span class="err">]</span>   <span class="err">//</span> <span class="err">Invalid</span> <span class="err">offset</span>, <span class="err">not</span> <span class="err">multiple</span> <span class="err">of</span> <span class="err">8!</span>
+</span></span><span class="line"><span class="cl"><span class="err">//</span> ldr <span class="err">X2</span>, <span class="err">[X1</span>, #<span class="err">-</span><span class="mi">400</span><span class="err">]</span>  <span class="err">//</span> <span class="err">Invalid</span> <span class="err">offset</span>, <span class="err">must</span> <span class="err">be</span> <span class="err">positive!</span>
+</span></span><span class="line"><span class="cl"><span class="err">//</span> ldr <span class="err">X2</span>, <span class="err">[X1</span>, #<span class="mi">32768</span><span class="err">]</span> <span class="err">//</span> <span class="err">Invalid</span> <span class="err">offset</span>, <span class="err">out</span> <span class="err">of</span> <span class="err">the</span> <span class="err">range!</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ldr <span class="err">W1</span>, <span class="err">[X2</span>, <span class="err">X3]</span>  <span class="err">//</span> <span class="err">W1</span> <span class="err">←</span> <span class="err">*(X2</span> <span class="err">+</span> <span class="err">X3)</span> <span class="err">[32-bit</span> <span class="err">load]</span>
+</span></span><span class="line"><span class="cl">ldr <span class="err">X1</span>, <span class="err">[X2</span>, <span class="err">X3]</span>  <span class="err">//</span> <span class="err">X1</span> <span class="err">←</span> <span class="err">*(X2</span> <span class="err">+</span> <span class="err">X3)</span> <span class="err">[64-bit</span> <span class="err">load]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ldr <span class="err">W1</span>, <span class="err">[X2</span>, <span class="err">W3</span>, <span class="err">sxtw]</span> <span class="err">//</span> <span class="err">W1</span> <span class="err">←</span> <span class="err">*(X2</span> <span class="err">+</span> <span class="err">ExtendSigne</span><span class="nc">d32</span><span class="err">To64(W3))</span>    <span class="err">[32-bit</span> <span class="err">load]</span>
+</span></span><span class="line"><span class="cl">ldr <span class="err">W1</span>, <span class="err">[X2</span>, <span class="err">W3</span>, <span class="err">uxtw]</span> <span class="err">//</span> <span class="err">W1</span> <span class="err">←</span> <span class="err">*(X2</span> <span class="err">+</span> <span class="err">ExtendUnsigne</span><span class="nc">d32</span><span class="err">To64(W3))</span>  <span class="err">[64-bit</span> <span class="err">load]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ldr <span class="err">W1</span>, <span class="err">[X2</span>, <span class="err">W3</span>, <span class="err">sxtw</span> #<span class="mi">3</span><span class="err">]</span> <span class="err">//</span> <span class="err">W1</span> <span class="err">←</span> <span class="err">*(X2</span> <span class="err">+</span> <span class="err">ExtendSigne</span><span class="nc">d32</span><span class="err">To64(W3</span> <span class="err">&lt;&lt;</span> <span class="err">3))</span> <span class="err">[32-bit-load]</span>
+</span></span></code></pre></div><p>在AArch64中有2中索引模式：预先索引（pre-indexing）和事后索引（post-indexing）模式。在预先索引模式下，其基地址寄存器添加偏移计算地址，并且这个地址会写回基地址寄存器。在事后索引模式中，基地址被用于计算地址，但是在地址访问基地址寄存器后会更新地址的值，该值是添加了偏移的。</p>
+<p>这两种方式看起来有点相似，都是更新用偏移基地址寄存器。它们不同之处在于偏移的计算时机：预先索引模式会在访问地址之前计算，事后索引模式会在访问之后计算。而我们能够使用的偏移值必须在-256到255之间。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm"><span class="line"><span class="cl">ldr <span class="err">X1</span>, <span class="err">[X2</span>, #<span class="mi">4</span><span class="err">]!</span> <span class="err">//</span> <span class="err">X1</span> <span class="err">←</span> <span class="err">*(X2</span> <span class="err">+</span> <span class="err">4)</span>
+</span></span><span class="line"><span class="cl">                  <span class="err">//</span> X<span class="err">2</span> <span class="err">←</span> <span class="err">X2</span> <span class="err">+</span> <span class="err">4</span>
+</span></span><span class="line"><span class="cl">ldr <span class="err">X1</span>, <span class="err">[X2]</span>, #<span class="mi">4</span>  <span class="err">//</span> <span class="err">X1</span> <span class="err">←</span> <span class="err">*X2</span>
+</span></span><span class="line"><span class="cl">                  <span class="err">//</span> X<span class="err">2</span> <span class="err">←</span> <span class="err">X2</span> <span class="err">+</span> <span class="err">4</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm"><span class="line"><span class="cl">ldr <span class="err">Xn</span>, <span class="err">addr_of_var</span> <span class="err">//</span> <span class="err">Xn</span> <span class="err">←</span> <span class="err">&amp;var</span>
+</span></span><span class="line"><span class="cl"><span class="err">//</span> ldr <span class="err">Wn</span>, <span class="err">addr_of_var</span> <span class="err">//</span> <span class="err">Wn</span> <span class="err">←</span> <span class="err">&amp;var</span>
+</span></span><span class="line"><span class="cl"><span class="err">...</span> 
+</span></span><span class="line"><span class="cl">addr<span class="err">_of_var</span> <span class="err">:</span> <span class="err">.dword</span> <span class="err">variable</span> <span class="err">//</span> <span class="err">This</span> <span class="err">tells</span> <span class="err">the</span> <span class="err">assembler</span> <span class="err">that</span>
+</span></span><span class="line"><span class="cl">                              <span class="err">//</span> we <span class="err">want</span> <span class="err">here</span> <span class="err">the</span> <span class="err">address</span> <span class="err">of</span> <span class="err">var</span>
+</span></span><span class="line"><span class="cl">                              <span class="err">//</span> <span class="err">(</span>This <span class="err">is</span> <span class="err">not</span> <span class="err">to</span> <span class="err">be</span> <span class="err">executed!)</span>
+</span></span><span class="line"><span class="cl"><span class="err">...</span> 
+</span></span><span class="line"><span class="cl">ldr <span class="err">Xm</span>, <span class="err">[Xn]</span>  <span class="err">//</span> <span class="err">Xm</span> <span class="err">←</span> <span class="err">*Xn</span>    <span class="err">[64-bit</span> <span class="err">load]</span>
+</span></span><span class="line"><span class="cl">ldr <span class="err">Wm</span>, <span class="err">[Xn]</span>  <span class="err">//</span> <span class="err">Wm</span> <span class="err">←</span> <span class="err">*Xn</span>    <span class="err">[32-bit</span> <span class="err">load]</span>
+</span></span></code></pre></div><p>全局变量被定义在.data节。为了实现这个方法，我们只要简单地定义它们的初始值。如果我们想定义一个32位的变量，我们使用.word。如果我们想顶一个64位的变量，我们使用.dword。<br>
+在Linux中AArch64不需要内存访问对其。但是如果它们对齐了，则它们在硬件中会执行得快一点。所以我们使用.balign指令去按照数据得尺寸（以字节）对齐每个变量。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm"><span class="line"><span class="cl"><span class="err">//</span> globalvar<span class="err">.s</span>
+</span></span><span class="line"><span class="cl"><span class="kn">.data</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">.balign</span><span class="nl"> 8 </span><span class="err">//</span> Align <span class="err">to</span> <span class="err">8</span> <span class="err">bytes</span>
+</span></span><span class="line"><span class="cl"><span class="kn">.byte</span><span class="nl"> 1
+</span></span></span><span class="line"><span class="cl"><span class="nl"></span>global<span class="err">_va</span><span class="nc">r64</span> <span class="err">:</span> <span class="err">.dword</span> <span class="err">0</span><span class="nc">x12</span><span class="err">34</span>  <span class="err">//</span> <span class="err">a</span> <span class="err">64-bit</span> <span class="err">value</span> <span class="err">of</span> <span class="err">0</span><span class="nc">x12</span><span class="err">34</span>
+</span></span><span class="line"><span class="cl"><span class="err">//</span> <span class="nl">alternatively</span><span class="p">:</span><span class="kn"> .word </span><span class="mh">0x1234</span><span class="err">,</span> <span class="err">0</span>x<span class="err">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">.balign</span><span class="nl"> 4 </span><span class="err">//</span> Align <span class="err">to</span> <span class="err">4</span> <span class="err">bytes</span>
+</span></span><span class="line"><span class="cl"><span class="kn">.byte</span><span class="nl"> 1
+</span></span></span><span class="line"><span class="cl"><span class="nl"></span>global<span class="err">_va</span><span class="nc">r32</span> <span class="err">:</span> <span class="err">.word</span> <span class="err">0</span><span class="nc">x56</span><span class="err">78</span>   <span class="err">//</span> <span class="err">a</span> <span class="err">32-bit</span> <span class="err">value</span> <span class="err">of</span> <span class="err">0</span>
+</span></span></code></pre></div><p>注意，有必要在最后的连接阶段使用-static标记。这将创建一个static文件，这个文件被直接加载到内存。默认地，程序运行的时候，链接器是创建动态文件，这些动态文件被动态链接器加载。动态链接器会在一个地址上加载程序，超过232个提交这些地址非法。当使用.dword，静态链接器保证了对动态链接器的声明是发射的，所以后者能够在运行时修复64位地址。</p>
+<p>GDB调试</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-zsh" data-lang="zsh"><span class="line"><span class="cl">$ qemu-arm -g <span class="m">12345</span> ./a.out <span class="p">&amp;</span>
+</span></span><span class="line"><span class="cl">$ gdb-multiarch ./a.out
+</span></span><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> <span class="nb">set</span> arch arm
+</span></span><span class="line"><span class="cl">The target architecture is assumed to be mips
+</span></span><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> <span class="nb">set</span> endian little
+</span></span><span class="line"><span class="cl">The target is assumed to be little endian
+</span></span><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> target remote localhost:12345
+</span></span><span class="line"><span class="cl">Remote debugging using localhost:12345
+</span></span><span class="line"><span class="cl">0x00400280 in _ftext <span class="o">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> x/i <span class="nv">$pc</span>
+</span></span><span class="line"><span class="cl">  <span class="o">=</span>&gt; 0x767cb880    move   <span class="nv">$t9</span>, <span class="nv">$ra</span>
 </span></span></code></pre></div><p>show architecture 和 show endian 检查当前设置。
-可使用专为 ARM 设计的 GDB 版本，如 arm-none-eabi-gdb。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-armasm data-lang=armasm><span class=line><span class=cl><span class=err>//</span> <span class=err>无条件分支</span>
-</span></span><span class=line><span class=cl><span class=cm>/* branch */</span>
-</span></span><span class=line><span class=cl><span class=kn>.text</span>
-</span></span><span class=line><span class=cl><span class=kn>.globl</span><span class=nl> main
-</span></span></span><span class=line><span class=cl><span class=nl>main</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>  mov <span class=nc>w0</span>, #<span class=mi>3</span>   <span class=err>//</span> <span class=nc>w0</span> <span class=err>←</span> <span class=err>3</span>
-</span></span><span class=line><span class=cl>  b <span class=err>jump</span>       <span class=err>//</span> <span class=err>branch</span> <span class=err>to</span> <span class=err>label</span> <span class=err>jump</span>
-</span></span><span class=line><span class=cl>  mov <span class=nc>w0</span>, #<span class=mi>4</span>   <span class=err>//</span> <span class=nc>w0</span> <span class=err>←</span> <span class=err>4</span>
-</span></span><span class=line><span class=cl>  <span class=nl>jump</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>    ret        <span class=err>//</span> <span class=err>end</span> <span class=err>function</span>
-</span></span></code></pre></div><p><img src=https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240820224345.png loading=lazy></p><p>条件分支指令: b.cond<br>该指令在它的操作数上面有一点特殊，就是条件码，它是以指令名称的形式体现的。这个cond部分就是条件码，并且必须是上面所述的一部分。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-armasm data-lang=armasm><span class=line><span class=cl>  b<span class=err>.lt</span> <span class=err>label1</span> <span class=err>//</span> <span class=err>if</span> <span class=nc>w0</span> <span class=err>&lt;</span> <span class=err>0</span> <span class=err>then</span> <span class=err>branch</span> <span class=err>to</span> <span class=err>label1</span>
-</span></span><span class=line><span class=cl>  b<span class=err>.eq</span> <span class=err>label2</span> <span class=err>//</span> <span class=err>if</span> <span class=nc>w0</span> <span class=err>==</span> <span class=err>0</span> <span class=err>then</span> <span class=err>branch</span> <span class=err>to</span> <span class=err>label2</span>
-</span></span><span class=line><span class=cl>  b<span class=err>.gt</span> <span class=err>label3</span> <span class=err>//</span> <span class=err>if</span> <span class=nc>w0</span> <span class=err>&gt;</span> <span class=err>1</span> <span class=err>then</span> <span class=err>branch</span> <span class=err>to</span> <span class=err>label3</span>
-</span></span><span class=line><span class=cl><span class=nl>label1</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>  <span class=err>//</span> code <span class=err>for</span> <span class=err>label1</span>
-</span></span><span class=line><span class=cl>  b <span class=err>end_of_arithmetic_if</span> <span class=err>//</span> <span class=err>branch</span> <span class=err>to</span> <span class=err>end_of_arithmetic_if</span>
-</span></span><span class=line><span class=cl><span class=nl>label2</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>  <span class=err>//</span> code <span class=err>for</span> <span class=err>label2</span>
-</span></span><span class=line><span class=cl>  b <span class=err>end_of_arithmetic_if</span> <span class=err>//</span> <span class=err>branch</span> <span class=err>to</span> <span class=err>end_of_arithmetic_if</span>
-</span></span><span class=line><span class=cl><span class=nl>label3</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>  <span class=err>//</span> code <span class=err>for</span> <span class=err>label3</span>
-</span></span><span class=line><span class=cl>  b <span class=err>end_of_arithmetic_if</span> <span class=err>//</span> <span class=err>branch</span> <span class=err>to</span> <span class=err>end_of_arithmetic_if</span>
-</span></span><span class=line><span class=cl><span class=nl>end_of_arithmetic_if</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>  <span class=err>//</span> rest <span class=err>ouf</span> <span class=err>our</span> <span class=err>Fortran</span> <span class=err>program</span> <span class=err>:)</span>
-</span></span></code></pre></div><p>调用一个函数的核心是跳转分支，但是这是一个特殊的常用分支，因此，有必要为此单独设置一个指令。在AArch64中，这个指令就是bl，其意思是branch和link。它是一个无条件分支，该分支的作用是设置x30寄存器中的值是下一条指令的地址。回忆一下，x30是一个通用目的寄存器，但是在本例中，我们给予它特殊的意义：它包含了函数结束之后的地址。历史原因，当x30寄存器被用于此目的时，它被称为链接寄存器。</p><p>从函数返回后，唯一我们叫做的事情就是跳转到x30寄存器中的的地址。有一个指令能够无条件跳转到保存在寄存器中的地址，叫br。所以，调用一个函数和返回一个函数的过程如下。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-armasm data-lang=armasm><span class=line><span class=cl><span class=kn>.text</span>
-</span></span><span class=line><span class=cl><span class=nl>my_function</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>  br <span class=nc>x30</span>
-</span></span><span class=line><span class=cl><span class=nl>caller</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>  bl <span class=err>my_function</span>
-</span></span><span class=line><span class=cl>  <span class=err>//</span> more <span class=err>instructions</span> <span class=err>...</span>
-</span></span></code></pre></div><p>但是从一个函数返回是一个通用操作，所以，我们直接用ret，而不用br x30。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-armasm data-lang=armasm><span class=line><span class=cl><span class=kn>.text</span>
-</span></span><span class=line><span class=cl><span class=nl>my_function</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>  ret
-</span></span><span class=line><span class=cl><span class=nl>caller</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>  bl <span class=err>my_function</span>
-</span></span><span class=line><span class=cl>  <span class=err>//</span> more <span class=err>instructions</span> <span class=err>...</span>
-</span></span></code></pre></div><p>x0-x7被用来传递参数和返回值。这些寄存器的值可能会被调用函数自由修改（callee）所以调用者会忽略它们中的内容。即使它们不被用来传递参数和返回值。这也意味着它们在实际应用中是调用者保存寄存器。<br>x8-x18是对每个函数而言是临时寄存器。对于函数而言，它不管它们里面的值，因此，在实际过程中，它们是调用者保存寄存器。<br>x19-x28寄存器是被调用者保存寄存器，即它们被函数调用之前应保存，在返回之后应该恢复<br>我们已经知道x30是链接寄存器并且它的值必须被保存直到函数使用ret指令返回到调用者。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-armasm data-lang=armasm><span class=line><span class=cl><span class=kn>.data</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kn>.balign</span><span class=nl> 8
-</span></span></span><span class=line><span class=cl><span class=nl></span><span class=cm>/* This is the greeting message */</span>
-</span></span><span class=line><span class=cl><span class=nl>say_hello</span><span class=p>:</span><span class=kn> .asciz </span><span class=p>&#34;</span><span class=s2>Hello world!</span><span class=p>&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kn>.balign</span><span class=nl> 8
-</span></span></span><span class=line><span class=cl><span class=nl></span><span class=cm>/* We need to keep x30 otherwise we will not be able to return from main! */</span>
-</span></span><span class=line><span class=cl><span class=nl>keep_x30</span><span class=p>:</span><span class=kn> .dword </span><span class=mi>0</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kn>.text</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=cm>/* We are going to call a C-library puts function */</span>
-</span></span><span class=line><span class=cl><span class=kn>.globl</span><span class=nl> puts
-</span></span></span><span class=line><span class=cl><span class=nl></span>
-</span></span><span class=line><span class=cl><span class=kn>.globl</span><span class=nl> main
-</span></span></span><span class=line><span class=cl><span class=nl>main</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>    ldr <span class=nc>x0</span>, <span class=err>addr_keep_</span><span class=nc>x30</span>     <span class=err>//</span> <span class=nc>w0</span> <span class=err>←</span> <span class=err>&amp;keep_30</span>   <span class=err>[64]</span>
-</span></span><span class=line><span class=cl>    str <span class=nc>x30</span>, <span class=err>[</span><span class=nc>x0</span><span class=err>]</span>             <span class=err>//</span> <span class=err>*keep_30</span> <span class=err>←</span> <span class=nc>x30</span>  <span class=err>[64]</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    ldr <span class=nc>x0</span>, <span class=err>addr_say_hello</span>    <span class=err>//</span> <span class=nc>w0</span> <span class=err>←</span> <span class=err>&amp;say_hello</span> <span class=err>[64]</span>
-</span></span><span class=line><span class=cl>    bl <span class=err>puts</span>                   <span class=err>//</span> <span class=err>call</span> <span class=err>puts</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    ldr <span class=nc>x0</span>, <span class=err>addr_keep_</span><span class=nc>x30</span>     <span class=err>//</span> <span class=nc>w0</span> <span class=err>←</span> <span class=err>&amp;keep_30</span>   <span class=err>[64]</span>
-</span></span><span class=line><span class=cl>    ldr <span class=nc>x30</span>, <span class=err>[</span><span class=nc>x0</span><span class=err>]</span>             <span class=err>//</span> <span class=nc>x30</span> <span class=err>←</span> <span class=err>*keep_30</span>  <span class=err>[64]</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    mov <span class=nc>w0</span>, #<span class=mi>0</span>                <span class=err>//</span> <span class=nc>w0</span> <span class=err>←</span> <span class=err>0</span>
-</span></span><span class=line><span class=cl>    ret                       <span class=err>//</span> <span class=err>return</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>addr<span class=err>_keep_</span><span class=nc>x30</span> <span class=err>:</span> <span class=err>.dword</span> <span class=err>keep_</span><span class=nc>x30</span>
-</span></span><span class=line><span class=cl><span class=nl>addr_say_hello</span><span class=p>:</span><span class=kn> .dword </span><span class=err>say_hello</span>
-</span></span></code></pre></div></section><footer class=article-footer><section class=article-tags><a href=/tags/notes/>notes</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg><span>Licensed under CC BY-NC-SA 4.0</span></section></footer><link rel=stylesheet href=https://cdn.staticfile.org/KaTeX/0.16.8/katex.min.css integrity=sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn crossorigin=anonymous><script src=https://cdn.staticfile.org/KaTeX/0.16.8/katex.min.js integrity=sha384-cpW21h6RZv/phavutF+AuVYrr+dA8xD9zs6FwLpaCct6O9ctzYFfFr4dgmgccOTx crossorigin=anonymous defer></script><script src=https://cdn.staticfile.org/KaTeX/0.16.8/contrib/auto-render.min.js integrity=sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05 crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}],ignoredClasses:["gist"]})})</script></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article><a href=/p/islet_runable/><div class=article-details><h2 class=article-title>Islet_runable</h2></div></a></article><article><a href=/p/realm_management_extension_den0126_en.pdf/><div class=article-details><h2 class=article-title>Realm_Management_Extension_DEN0126_en.pdf</h2></div></a></article><article><a href=/p/learn_the_architecture_memory_management_101811_0102_00_en.pdf/><div class=article-details><h2 class=article-title>Learn_the_Architecture_Memory_Management_101811_0102_00_en.pdf</h2></div></a></article><article><a href=/p/introducing-arm-confidential-compute-architecture.pdf/><div class=article-details><h2 class=article-title>Introducing-Arm-Confidential-Compute-Architecture.pdf</h2></div></a></article></div></div></aside><script src=//unpkg.com/@waline/client@v2/dist/waline.js></script>
-<link href=//unpkg.com/@waline/client@v2/dist/waline.css rel=stylesheet><div id=waline class=waline-container></div><style>.waline-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding);--waline-font-size:var(--article-font-size)}.waline-container .wl-count{color:var(--card-text-color-main)}</style><script>Waline.init({dark:'html[data-scheme="dark"]',el:"#waline",emoji:["https://unpkg.com/@waline/emojis@1.2.0/tieba","https://unpkg.com/@waline/emojis@1.2.0/bilibili","https://unpkg.com/@waline/emojis@1.2.0/tw-emoji","https://unpkg.com/@waline/emojis@1.2.0/bmoji","https://unpkg.com/@waline/emojis@1.2.0/alus"],lang:"zh-CN",locale:{admin:"👻真爱卡",placeholder:"🎉Capybara!"},pageview:!0,requiredMeta:["name","email"],serverURL:"https://waline.nrevery.com/"})</script><footer class=site-footer><section class=copyright>&copy;
-2023 -
-2024 nRevery</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.20.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-<button class="pswp__button pswp__button--share" title=Share></button>
-<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
-<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js integrity="sha512-2R4VJGamBudpzC1NTaSkusXP7QkiUYvEKhpJAxeVCqLDsgW4OqtzorZGpulE3eEA7p++U0ZYmqBwO3m+R2hRjA==" crossorigin=anonymous defer></script><script src=https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js integrity="sha512-SxO0cwfxj/QhgX1SgpmUr0U2l5304ezGVhc0AO2YwOQ/C8O67ynyTorMKGjVv1fJnPQgjdxRz6x70MY9r0sKtQ==" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdnjs.cloudflare.com/ajax/libs/vibrant.js/1.0.0/Vibrant.min.js integrity="sha512-V6rhYmJy8NZQF8F0bhJiTM0iI6wX/FKJoWvYrCM15UIeb6p38HjvTZWfO0IxJnMZrHWUJZJqLuWK0zslra2FVw==" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
-<script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
+可使用专为 ARM 设计的 GDB 版本，如 arm-none-eabi-gdb。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm"><span class="line"><span class="cl"><span class="err">//</span> <span class="err">无条件分支</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* branch */</span>
+</span></span><span class="line"><span class="cl"><span class="kn">.text</span>
+</span></span><span class="line"><span class="cl"><span class="kn">.globl</span><span class="nl"> main
+</span></span></span><span class="line"><span class="cl"><span class="nl">main</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  mov <span class="nc">w0</span>, #<span class="mi">3</span>   <span class="err">//</span> <span class="nc">w0</span> <span class="err">←</span> <span class="err">3</span>
+</span></span><span class="line"><span class="cl">  b <span class="err">jump</span>       <span class="err">//</span> <span class="err">branch</span> <span class="err">to</span> <span class="err">label</span> <span class="err">jump</span>
+</span></span><span class="line"><span class="cl">  mov <span class="nc">w0</span>, #<span class="mi">4</span>   <span class="err">//</span> <span class="nc">w0</span> <span class="err">←</span> <span class="err">4</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">jump</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    ret        <span class="err">//</span> <span class="err">end</span> <span class="err">function</span>
+</span></span></code></pre></div><p><img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240820224345.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>条件分支指令: b.cond<br>
+该指令在它的操作数上面有一点特殊，就是条件码，它是以指令名称的形式体现的。这个cond部分就是条件码，并且必须是上面所述的一部分。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm"><span class="line"><span class="cl">  b<span class="err">.lt</span> <span class="err">label1</span> <span class="err">//</span> <span class="err">if</span> <span class="nc">w0</span> <span class="err">&lt;</span> <span class="err">0</span> <span class="err">then</span> <span class="err">branch</span> <span class="err">to</span> <span class="err">label1</span>
+</span></span><span class="line"><span class="cl">  b<span class="err">.eq</span> <span class="err">label2</span> <span class="err">//</span> <span class="err">if</span> <span class="nc">w0</span> <span class="err">==</span> <span class="err">0</span> <span class="err">then</span> <span class="err">branch</span> <span class="err">to</span> <span class="err">label2</span>
+</span></span><span class="line"><span class="cl">  b<span class="err">.gt</span> <span class="err">label3</span> <span class="err">//</span> <span class="err">if</span> <span class="nc">w0</span> <span class="err">&gt;</span> <span class="err">1</span> <span class="err">then</span> <span class="err">branch</span> <span class="err">to</span> <span class="err">label3</span>
+</span></span><span class="line"><span class="cl"><span class="nl">label1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="err">//</span> code <span class="err">for</span> <span class="err">label1</span>
+</span></span><span class="line"><span class="cl">  b <span class="err">end_of_arithmetic_if</span> <span class="err">//</span> <span class="err">branch</span> <span class="err">to</span> <span class="err">end_of_arithmetic_if</span>
+</span></span><span class="line"><span class="cl"><span class="nl">label2</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="err">//</span> code <span class="err">for</span> <span class="err">label2</span>
+</span></span><span class="line"><span class="cl">  b <span class="err">end_of_arithmetic_if</span> <span class="err">//</span> <span class="err">branch</span> <span class="err">to</span> <span class="err">end_of_arithmetic_if</span>
+</span></span><span class="line"><span class="cl"><span class="nl">label3</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="err">//</span> code <span class="err">for</span> <span class="err">label3</span>
+</span></span><span class="line"><span class="cl">  b <span class="err">end_of_arithmetic_if</span> <span class="err">//</span> <span class="err">branch</span> <span class="err">to</span> <span class="err">end_of_arithmetic_if</span>
+</span></span><span class="line"><span class="cl"><span class="nl">end_of_arithmetic_if</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="err">//</span> rest <span class="err">ouf</span> <span class="err">our</span> <span class="err">Fortran</span> <span class="err">program</span> <span class="err">:)</span>
+</span></span></code></pre></div><p>调用一个函数的核心是跳转分支，但是这是一个特殊的常用分支，因此，有必要为此单独设置一个指令。在AArch64中，这个指令就是bl，其意思是branch和link。它是一个无条件分支，该分支的作用是设置x30寄存器中的值是下一条指令的地址。回忆一下，x30是一个通用目的寄存器，但是在本例中，我们给予它特殊的意义：它包含了函数结束之后的地址。历史原因，当x30寄存器被用于此目的时，它被称为链接寄存器。</p>
+<p>从函数返回后，唯一我们叫做的事情就是跳转到x30寄存器中的的地址。有一个指令能够无条件跳转到保存在寄存器中的地址，叫br。所以，调用一个函数和返回一个函数的过程如下。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm"><span class="line"><span class="cl"><span class="kn">.text</span>
+</span></span><span class="line"><span class="cl"><span class="nl">my_function</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  br <span class="nc">x30</span>
+</span></span><span class="line"><span class="cl"><span class="nl">caller</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  bl <span class="err">my_function</span>
+</span></span><span class="line"><span class="cl">  <span class="err">//</span> more <span class="err">instructions</span> <span class="err">...</span>
+</span></span></code></pre></div><p>但是从一个函数返回是一个通用操作，所以，我们直接用ret，而不用br x30。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm"><span class="line"><span class="cl"><span class="kn">.text</span>
+</span></span><span class="line"><span class="cl"><span class="nl">my_function</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  ret
+</span></span><span class="line"><span class="cl"><span class="nl">caller</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  bl <span class="err">my_function</span>
+</span></span><span class="line"><span class="cl">  <span class="err">//</span> more <span class="err">instructions</span> <span class="err">...</span>
+</span></span></code></pre></div><p>x0-x7被用来传递参数和返回值。这些寄存器的值可能会被调用函数自由修改（callee）所以调用者会忽略它们中的内容。即使它们不被用来传递参数和返回值。这也意味着它们在实际应用中是调用者保存寄存器。<br>
+x8-x18是对每个函数而言是临时寄存器。对于函数而言，它不管它们里面的值，因此，在实际过程中，它们是调用者保存寄存器。<br>
+x19-x28寄存器是被调用者保存寄存器，即它们被函数调用之前应保存，在返回之后应该恢复<br>
+我们已经知道x30是链接寄存器并且它的值必须被保存直到函数使用ret指令返回到调用者。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm"><span class="line"><span class="cl"><span class="kn">.data</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">.balign</span><span class="nl"> 8
+</span></span></span><span class="line"><span class="cl"><span class="nl"></span><span class="cm">/* This is the greeting message */</span>
+</span></span><span class="line"><span class="cl"><span class="nl">say_hello</span><span class="p">:</span><span class="kn"> .asciz </span><span class="p">&#34;</span><span class="s2">Hello world!</span><span class="p">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">.balign</span><span class="nl"> 8
+</span></span></span><span class="line"><span class="cl"><span class="nl"></span><span class="cm">/* We need to keep x30 otherwise we will not be able to return from main! */</span>
+</span></span><span class="line"><span class="cl"><span class="nl">keep_x30</span><span class="p">:</span><span class="kn"> .dword </span><span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">.text</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/* We are going to call a C-library puts function */</span>
+</span></span><span class="line"><span class="cl"><span class="kn">.globl</span><span class="nl"> puts
+</span></span></span><span class="line"><span class="cl"><span class="nl"></span>
+</span></span><span class="line"><span class="cl"><span class="kn">.globl</span><span class="nl"> main
+</span></span></span><span class="line"><span class="cl"><span class="nl">main</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    ldr <span class="nc">x0</span>, <span class="err">addr_keep_</span><span class="nc">x30</span>     <span class="err">//</span> <span class="nc">w0</span> <span class="err">←</span> <span class="err">&amp;keep_30</span>   <span class="err">[64]</span>
+</span></span><span class="line"><span class="cl">    str <span class="nc">x30</span>, <span class="err">[</span><span class="nc">x0</span><span class="err">]</span>             <span class="err">//</span> <span class="err">*keep_30</span> <span class="err">←</span> <span class="nc">x30</span>  <span class="err">[64]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    ldr <span class="nc">x0</span>, <span class="err">addr_say_hello</span>    <span class="err">//</span> <span class="nc">w0</span> <span class="err">←</span> <span class="err">&amp;say_hello</span> <span class="err">[64]</span>
+</span></span><span class="line"><span class="cl">    bl <span class="err">puts</span>                   <span class="err">//</span> <span class="err">call</span> <span class="err">puts</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    ldr <span class="nc">x0</span>, <span class="err">addr_keep_</span><span class="nc">x30</span>     <span class="err">//</span> <span class="nc">w0</span> <span class="err">←</span> <span class="err">&amp;keep_30</span>   <span class="err">[64]</span>
+</span></span><span class="line"><span class="cl">    ldr <span class="nc">x30</span>, <span class="err">[</span><span class="nc">x0</span><span class="err">]</span>             <span class="err">//</span> <span class="nc">x30</span> <span class="err">←</span> <span class="err">*keep_30</span>  <span class="err">[64]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    mov <span class="nc">w0</span>, #<span class="mi">0</span>                <span class="err">//</span> <span class="nc">w0</span> <span class="err">←</span> <span class="err">0</span>
+</span></span><span class="line"><span class="cl">    ret                       <span class="err">//</span> <span class="err">return</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">addr<span class="err">_keep_</span><span class="nc">x30</span> <span class="err">:</span> <span class="err">.dword</span> <span class="err">keep_</span><span class="nc">x30</span>
+</span></span><span class="line"><span class="cl"><span class="nl">addr_say_hello</span><span class="p">:</span><span class="kn"> .dword </span><span class="err">say_hello</span>
+</span></span></code></pre></div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/notes/">notes</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.staticfile.org/KaTeX/0.16.8/katex.min.css"integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6&#43;HX0sLNAK3q71HotJqlAn"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.staticfile.org/KaTeX/0.16.8/katex.min.js"integrity="sha384-cpW21h6RZv/phavutF&#43;AuVYrr&#43;dA8xD9zs6FwLpaCct6O9ctzYFfFr4dgmgccOTx"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.staticfile.org/KaTeX/0.16.8/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/islet_runable/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Islet_runable</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/realm_management_extension_den0126_en.pdf/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Realm_Management_Extension_DEN0126_en.pdf</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/learn_the_architecture_memory_management_101811_0102_00_en.pdf/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Learn_the_Architecture_Memory_Management_101811_0102_00_en.pdf</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/introducing-arm-confidential-compute-architecture.pdf/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Introducing-Arm-Confidential-Compute-Architecture.pdf</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src='//unpkg.com/@waline/client@v2/dist/waline.js'></script>
+<link href='//unpkg.com/@waline/client@v2/dist/waline.css' rel='stylesheet'/>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+        --waline-font-size: var(--article-font-size);
+    }
+    .waline-container .wl-count {
+        color: var(--card-text-color-main);
+    }
+</style><script>
+    
+    Waline.init({"dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://unpkg.com/@waline/emojis@1.2.0/tieba","https://unpkg.com/@waline/emojis@1.2.0/bilibili","https://unpkg.com/@waline/emojis@1.2.0/tw-emoji","https://unpkg.com/@waline/emojis@1.2.0/bmoji","https://unpkg.com/@waline/emojis@1.2.0/alus"],"lang":"zh-CN","locale":{"admin":"👻真爱卡","placeholder":"🎉Capybara!"},"pageview":true,"requiredMeta":["name","email"],"serverURL":"https://waline.nrevery.com/"});
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2024 nRevery
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.20.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"integrity="sha512-2R4VJGamBudpzC1NTaSkusXP7QkiUYvEKhpJAxeVCqLDsgW4OqtzorZGpulE3eEA7p&#43;&#43;U0ZYmqBwO3m&#43;R2hRjA=="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"integrity="sha512-SxO0cwfxj/QhgX1SgpmUr0U2l5304ezGVhc0AO2YwOQ/C8O67ynyTorMKGjVv1fJnPQgjdxRz6x70MY9r0sKtQ=="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdnjs.cloudflare.com/ajax/libs/vibrant.js/1.0.0/Vibrant.min.js"integrity="sha512-V6rhYmJy8NZQF8F0bhJiTM0iI6wX/FKJoWvYrCM15UIeb6p38HjvTZWfO0IxJnMZrHWUJZJqLuWK0zslra2FVw=="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

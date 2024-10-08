@@ -2394,7 +2394,7 @@ loading="lazy"
 &lt;p>$B(0)=1$&lt;/p>
 &lt;p>$B(n+1)=\sum\limits_{k=0}^{n}B(k)$&lt;/p>
 &lt;h3 id="格点线段">格点线段&lt;/h3>
-&lt;p>两个端点分别为(a,b),(c,d)则不计算端点，线上格点的个数为$gcd(d-b,c-a)-1$&lt;/p></description></item><item><title>Tips</title><link>https://blog.nrevery.cn/p/tips/</link><pubDate>Mon, 16 Oct 2023 20:43:15 +0800</pubDate><guid>https://blog.nrevery.cn/p/tips/</guid><description>&lt;h2 id="语法知识">语法知识&lt;/h2>
+&lt;p>两个端点分别为(a,b),(c,d)则不计算端点，线上格点的个数为$gcd(d-b,c-a)-1$&lt;/p></description></item><item><title>语法知识等</title><link>https://blog.nrevery.cn/p/%E8%AF%AD%E6%B3%95%E7%9F%A5%E8%AF%86%E7%AD%89/</link><pubDate>Mon, 16 Oct 2023 20:43:15 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AF%AD%E6%B3%95%E7%9F%A5%E8%AF%86%E7%AD%89/</guid><description>&lt;h2 id="语法知识">语法知识&lt;/h2>
 &lt;p>[TOC]&lt;/p>
 &lt;div STYLE="page-break-after: always;">&lt;/div>
 &lt;h3 id="结构体重载运算符">结构体重载运算符&lt;/h3>
