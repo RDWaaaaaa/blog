@@ -1,1 +1,30 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CTF on nRevery's Blog</title><link>https://blog.nrevery.cn/categories/ctf/</link><description>Recent content in CTF on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><atom:link href="https://blog.nrevery.cn/categories/ctf/index.xml" rel="self" type="application/rss+xml"/></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CTF on nRevery's Blog</title><link>https://blog.nrevery.cn/categories/ctf/</link><description>Recent content in CTF on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Sat, 26 Oct 2024 10:51:20 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/categories/ctf/index.xml" rel="self" type="application/rss+xml"/><item><title>Web入门</title><link>https://blog.nrevery.cn/p/web%E5%85%A5%E9%97%A8/</link><pubDate>Sat, 26 Oct 2024 10:51:20 +0800</pubDate><guid>https://blog.nrevery.cn/p/web%E5%85%A5%E9%97%A8/</guid><description>&lt;h3 id="robots协议">robots协议&lt;/h3>
+&lt;p>robots协议（Robots Exclusion Protocol），也称为爬虫排除标准或robots.txt协议，是一种网站通过其根目录下的&lt;code>robots.txt&lt;/code>文件来告诉网络爬虫（搜索引擎的自动访问程序）哪些页面可以抓取，哪些页面不可以抓取的协议。这个协议由网站管理员设置，以控制搜索引擎如何索引他们的网站。&lt;/p>
+&lt;p>&lt;code>robots.txt&lt;/code>文件通常位于网站的根目录下，例如：&lt;code>http://www.example.com/robots.txt&lt;/code>。这个文件包含了一系列的规则，这些规则指定了哪些爬虫可以访问网站的哪些部分。这些规则通常包括：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;code>User-agent&lt;/code>：指定规则适用于哪个爬虫。例如，&lt;code>Googlebot&lt;/code>是Google搜索引擎的爬虫。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>Disallow&lt;/code>：指定不允许爬虫访问的路径。例如，&lt;code>Disallow: /private/&lt;/code>表示不允许爬虫访问&lt;code>/private/&lt;/code>目录下的所有页面。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>Allow&lt;/code>：指定允许爬虫访问的路径。通常与&lt;code>Disallow&lt;/code>一起使用，以提供更具体的访问控制。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>Crawl-delay&lt;/code>：指定爬虫在请求下一个页面之前应该等待的时间（以秒为单位）。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>Sitemap&lt;/code>：指定网站地图的URL，网站地图是一个列出了网站所有重要页面的文件，方便爬虫发现和索引。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>robots协议是一个君子协议，它依赖于爬虫开发者遵守这些规则。虽然大多数主流搜索引擎都会遵守这个协议，但并不是所有爬虫都会这么做。此外，robots协议并不能阻止恶意用户直接访问网站内容，它只能限制爬虫的行为。&lt;/p>
+&lt;h3 id="备份文件">备份文件&lt;/h3>
+&lt;p>&lt;a class="link" href="https://github.com/maurosoria/dirsearch" target="_blank" rel="noopener"
+>https://github.com/maurosoria/dirsearch&lt;/a>
+功能：Web 路径暴力破解器
+常见的备份文件后缀名有: .git .svn .swp .svn .~ .bak .bash_history&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="line">&lt;span class="cl">&lt;span class="n">python&lt;/span> &lt;span class="n">dirsearch&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">py&lt;/span> &lt;span class="n">-u&lt;/span> &lt;span class="n">http&lt;/span>&lt;span class="err">:&lt;/span>&lt;span class="p">//&lt;/span>&lt;span class="mf">61.147&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">171&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mf">105&lt;/span>&lt;span class="err">:&lt;/span>&lt;span class="mf">51018&lt;/span> &lt;span class="n">-e&lt;/span> &lt;span class="p">*&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="字典">字典&lt;/h3>
+&lt;p>&lt;a class="link" href="https://github.com/rootphantomer/Blasting_dictionary" target="_blank" rel="noopener"
+>https://github.com/rootphantomer/Blasting_dictionary&lt;/a>&lt;/p></description></item></channel></rss>
