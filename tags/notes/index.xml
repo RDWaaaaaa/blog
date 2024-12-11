@@ -197,7 +197,29 @@ loading="lazy"
 >&lt;/p>
 &lt;h3 id="总结-1">总结&lt;/h3>
 &lt;p>Mad Hatter分成了两个仓库，一个仓库存代码一个仓库存pipeline配置文件，pipeline配置文件的那个仓库无法git push。
-整体思路和上一题差不多，提交pr触发pipeline。&lt;/p></description></item><item><title>训练营-第二阶段</title><link>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</link><pubDate>Mon, 28 Oct 2024 21:17:13 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</guid><description/></item><item><title>Islet_runable</title><link>https://blog.nrevery.cn/p/islet_runable/</link><pubDate>Tue, 10 Sep 2024 10:42:30 +0800</pubDate><guid>https://blog.nrevery.cn/p/islet_runable/</guid><description>&lt;p>配置代理：
+整体思路和上一题差不多，提交pr触发pipeline。&lt;/p>
+&lt;h2 id="easy---duchess">Easy - Duchess&lt;/h2>
+&lt;h3 id="提示-2">提示&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">如果每个人都管好自己的事，世界转得比现在快得多。这对你的秘密也适用吗？
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">你有访问 Wonderland/duchess 仓库的权限，这个仓库大量使用 Python。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Duchess 非常关注她的凭证安全，但肯定某个地方遗留了 PyPi 令牌...你能找到它吗？
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PyPi 令牌的前缀是 “pypi-”。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">过去可能犯过一些错误。
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="过程-2">过程&lt;/h3>
+&lt;p>Gitleaks 是一个开源的 Git 仓库秘密扫描工具，旨在检测和防止敏感数据（如 API 密钥、密码、证书等）被错误地提交到 Git 仓库中。它可以帮助开发者和安全团队自动化地扫描 Git 仓库，发现潜在的安全漏洞，尤其是在代码历史中暴露的敏感信息。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">gitleaks detect &lt;span class="c1"># 扫描当前 Git 仓库&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gitleaks detect --commit-ref &amp;lt;commit-id&amp;gt; &lt;span class="c1"># 扫描历史提交&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gitleaks detect --report-format json --report-path gitleaks_report.json &lt;span class="c1"># 使用 JSON 格式输出扫描结果&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git clone http://localhost:3000/Wonderland/duchess.git
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> duchess
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://github.com/gitleaks/gitleaks/releases/download/v8.18.0/gitleaks_8.18.0_linux_x64.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -xzvf gitleaks_8.18.0_linux_x64.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./gitleaks detect -v
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210085625.png"
+loading="lazy"
+>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git show 43f216c2268a94ff03e5400cd4ca7a11243821b0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>训练营-第二阶段</title><link>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</link><pubDate>Mon, 28 Oct 2024 21:17:13 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</guid><description/></item><item><title>Islet_runable</title><link>https://blog.nrevery.cn/p/islet_runable/</link><pubDate>Tue, 10 Sep 2024 10:42:30 +0800</pubDate><guid>https://blog.nrevery.cn/p/islet_runable/</guid><description>&lt;p>配置代理：
 firefox - 设置 - 常规 - 网络设置&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">https_proxy&lt;/span>&lt;span class="o">=&lt;/span>http://10.12.170.200:7890
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">http_proxy&lt;/span>&lt;span class="o">=&lt;/span>http://10.12.170.200:7890
