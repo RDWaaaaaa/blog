@@ -231,7 +231,11 @@ loading="lazy"
 loading="lazy"
 >&lt;/p>
 &lt;h3 id="总结-2">总结&lt;/h3>
-&lt;p>这道题通过检测 Git 仓库的历史记录，寻找可能暴露的 PyPi 令牌。由于历史中可能有一些敏感信息的泄漏，使用工具如 gitleaks 可以帮助发现这些泄露的凭证。最终，通过查看提交历史并提取出 PyPi 令牌，获取了 flag。&lt;/p>
+&lt;p>这道题通过检测 Git 仓库的历史记录，寻找可能暴露的 PyPi 令牌。由于历史中可能有一些敏感信息的泄漏，使用工具如 gitleaks 可以帮助发现这些泄露的凭证。最终，通过查看提交历史并提取出 PyPi 令牌，获取了 flag。
+比较有意思的是我在写题解时写到了pypi的具体内容，导致部署失败，才发现它没有通过安全审查&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241211155420.png"
+loading="lazy"
+>&lt;/p>
 &lt;h2 id="moderate---caterpillar">Moderate - Caterpillar&lt;/h2>
 &lt;h3 id="提示-3">提示&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">你是谁？你只有读取权限……这足够吗？利用你对 Wonderland/caterpillar 仓库的访问权限来窃取存储在 Jenkins 凭证存储中的 flag2 密钥。
