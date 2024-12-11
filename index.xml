@@ -27,7 +27,7 @@ loading="lazy"
 >
 解决：&lt;/li>
 &lt;li>分成多个命令单独下载。&lt;/li>
-&lt;li>修改&lt;code>/etc/docker/daemon.json&lt;/code>限制并发:&lt;/li>
+&lt;li>修改&lt;code>/etc/docker/daemon.json&lt;/code>限制并发，并且似乎镜像源只有一个会比多个还快？&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;max-concurrent-downloads&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>
@@ -136,25 +136,25 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>新分支：
 &lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241209092512.png"
 loading="lazy"
->
-合并请求：
+>&lt;/p>
+&lt;p>合并请求：
 &lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241209094906.png"
 loading="lazy"
->
-在http://localhost:8080中找到这个pr并点击build now
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241209101542.png"
+>&lt;/p>
+&lt;p>在http://localhost:8080中找到这个pr并点击build now&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241209101542.png"
 loading="lazy"
->
-打开这次运行的console output
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241209102403.png"
+>&lt;/p>
+&lt;p>打开这次运行的console output&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241209102403.png"
 loading="lazy"
->
-在最下面可以看到base64加密后的flag
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241209103330.png"
+>&lt;/p>
+&lt;p>在最下面可以看到base64加密后的flag&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241209103330.png"
 loading="lazy"
->
-用cyberchef等工具解密得到flag：06165DF2-C047-4402-8CAB-1C8EC526C115
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241209103449.png"
+>&lt;/p>
+&lt;p>用cyberchef等工具解密得到flag：06165DF2-C047-4402-8CAB-1C8EC526C115&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241209103449.png"
 loading="lazy"
 >&lt;/p>
 &lt;h3 id="踩坑">踩坑&lt;/h3>
