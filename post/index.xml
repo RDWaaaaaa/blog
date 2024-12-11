@@ -485,9 +485,6 @@ loading="lazy"
 loading="lazy"
 >&lt;/p>
 &lt;p>理论上应当能监听到，但是agent1似乎被我折腾坏了，导致offline，根本不能执行流水线&lt;/p>
-&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241212004314.png"
-loading="lazy"
->&lt;/p>
 &lt;h3 id="总结-8">总结&lt;/h3>
 &lt;p>同样是看着似乎不难，但是没成功，之后会再尝试的。&lt;/p></description></item><item><title>记录一些小问题</title><link>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</link><pubDate>Sun, 01 Dec 2024 22:37:04 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</guid><description>&lt;h3 id="wsl突然打不开了重启也没用">wsl突然打不开了，重启也没用&lt;/h3>
 &lt;p>1.cmd下管理员权限执行&lt;code>netsh winsock reset&lt;/code>&lt;br>
