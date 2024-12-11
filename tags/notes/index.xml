@@ -156,7 +156,48 @@ loading="lazy"
 用cyberchef等工具解密得到flag：06165DF2-C047-4402-8CAB-1C8EC526C115
 &lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241209103449.png"
 loading="lazy"
->&lt;/p></description></item><item><title>训练营-第二阶段</title><link>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</link><pubDate>Mon, 28 Oct 2024 21:17:13 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</guid><description/></item><item><title>Islet_runable</title><link>https://blog.nrevery.cn/p/islet_runable/</link><pubDate>Tue, 10 Sep 2024 10:42:30 +0800</pubDate><guid>https://blog.nrevery.cn/p/islet_runable/</guid><description>&lt;p>配置代理：
+>&lt;/p>
+&lt;h3 id="踩坑">踩坑&lt;/h3>
+&lt;p>虚拟机里用vscode非常卡，要使用的话就要给虚拟机多分配些内存&lt;/p>
+&lt;h3 id="总结">总结&lt;/h3>
+&lt;p>通过修改 Jenkinsfile 来窃取存储在 Jenkins 凭证存储中的 flag1。首先，从 Jenkins 触发 Gitea 仓库的管道并下载源代码，然后在 Jenkinsfile 中增加一段代码，通过 withCredentials 获取存储的 flag1 凭证，并使用 sh 命令将其 base64 编码输出。接着，创建新分支并提交修改，推送到远程仓库，在 Gitea 上创建PR。最后，回到 Jenkins 触发管道，成功获取并显示 flag1 的内容。&lt;/p>
+&lt;h2 id="easy---mad-hatter">Easy - Mad Hatter&lt;/h2>
+&lt;h3 id="提示-1">提示&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">Jenkinsfile 被保护了吗？听起来像是一个不庆生的派对。利用你对 Wonderland/mad-hatter 仓库的访问权限窃取 flag3 秘密。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Jenkinsfile 存储在哪里？在 Wonderland 组织中搜索仓库名称，你可能会找到一些有用的仓库。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Jenkinsfile 执行了哪些命令？
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="过程-1">过程&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git clone http://localhost:3000/Wonderland/mad-hatter.git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改makefile：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-makefile" data-lang="makefile">&lt;span class="line">&lt;span class="cl">&lt;span class="err">whoami&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">echo&lt;/span> &lt;span class="s2">&amp;#34;$(FLAG)&amp;#34;&lt;/span> &lt;span class="err">|&lt;/span> &lt;span class="err">base64&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241209105915.png"
+loading="lazy"
+>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git checkout -b challenge2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git add .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git config user.name &lt;span class="s2">&amp;#34;Your Name&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git config user.email &lt;span class="s2">&amp;#34;you@example.com&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit -m &lt;span class="s2">&amp;#34;challenge2&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push -u origin challenge2
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>类似上一题的操作：
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241209110145.png"
+loading="lazy"
+>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241209110307.png"
+loading="lazy"
+>
+得到flag：ACD6E6B8-3584-4F43-AB9C-ACD080B8EBB2
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241209110400.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>如果不进行base64加密：
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241209110951.png"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="总结-1">总结&lt;/h3>
+&lt;p>Mad Hatter分成了两个仓库，一个仓库存代码一个仓库存pipeline配置文件，pipeline配置文件的那个仓库无法git push。
+整体思路和上一题差不多，提交pr触发pipeline。&lt;/p></description></item><item><title>训练营-第二阶段</title><link>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</link><pubDate>Mon, 28 Oct 2024 21:17:13 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</guid><description/></item><item><title>Islet_runable</title><link>https://blog.nrevery.cn/p/islet_runable/</link><pubDate>Tue, 10 Sep 2024 10:42:30 +0800</pubDate><guid>https://blog.nrevery.cn/p/islet_runable/</guid><description>&lt;p>配置代理：
 firefox - 设置 - 常规 - 网络设置&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">https_proxy&lt;/span>&lt;span class="o">=&lt;/span>http://10.12.170.200:7890
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">http_proxy&lt;/span>&lt;span class="o">=&lt;/span>http://10.12.170.200:7890
