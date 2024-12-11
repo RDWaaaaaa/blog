@@ -1,4 +1,64 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>notes on nRevery's Blog</title><link>https://blog.nrevery.cn/tags/notes/</link><description>Recent content in notes on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Wed, 11 Dec 2024 08:43:21 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/tags/notes/index.xml" rel="self" type="application/rss+xml"/><item><title>云安全</title><link>https://blog.nrevery.cn/p/%E4%BA%91%E5%AE%89%E5%85%A8/</link><pubDate>Wed, 11 Dec 2024 08:43:21 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E4%BA%91%E5%AE%89%E5%85%A8/</guid><description/></item><item><title>训练营-第二阶段</title><link>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</link><pubDate>Mon, 28 Oct 2024 21:17:13 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</guid><description/></item><item><title>Islet_runable</title><link>https://blog.nrevery.cn/p/islet_runable/</link><pubDate>Tue, 10 Sep 2024 10:42:30 +0800</pubDate><guid>https://blog.nrevery.cn/p/islet_runable/</guid><description>&lt;p>配置代理：
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>notes on nRevery's Blog</title><link>https://blog.nrevery.cn/tags/notes/</link><description>Recent content in notes on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Wed, 11 Dec 2024 08:43:21 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/tags/notes/index.xml" rel="self" type="application/rss+xml"/><item><title>云安全</title><link>https://blog.nrevery.cn/p/%E4%BA%91%E5%AE%89%E5%85%A8/</link><pubDate>Wed, 11 Dec 2024 08:43:21 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E4%BA%91%E5%AE%89%E5%85%A8/</guid><description>&lt;h1 id="大作业-cicd-goat靶场实验">大作业-CICD-GOAT靶场实验&lt;/h1>
+&lt;h2 id="参考">参考&lt;/h2>
+&lt;p>&lt;a class="link" href="https://kubernetes.io/zh-cn/docs/tasks/tools/install-kubectl-linux/" target="_blank" rel="noopener"
+>https://kubernetes.io/zh-cn/docs/tasks/tools/install-kubectl-linux/&lt;/a>
+&lt;a class="link" href="https://xz.aliyun.com/t/13009?time__1311=GqmhBKYK7KGK0KDsD7%2BEu8pIB2BxmqApD" target="_blank" rel="noopener"
+>https://xz.aliyun.com/t/13009?time__1311=GqmhBKYK7KGK0KDsD7%2BEu8pIB2BxmqApD&lt;/a>&lt;br>
+&lt;a class="link" href="https://github.com/cider-security-research/cicd-goat" target="_blank" rel="noopener"
+>https://github.com/cider-security-research/cicd-goat&lt;/a>
+&lt;a class="link" href="https://blog.putdown.top/archives/a37ca202-5e50-4422-9ef4-281708e8c193" target="_blank" rel="noopener"
+>https://blog.putdown.top/archives/a37ca202-5e50-4422-9ef4-281708e8c193&lt;/a>
+&lt;a class="link" href="https://www.youtube.com/watch?v=EgE1i3AcUX8" target="_blank" rel="noopener"
+>https://www.youtube.com/watch?v=EgE1i3AcUX8&lt;/a>
+&lt;a class="link" href="https://www.youtube.com/watch?v=aH35DD2uVwY" target="_blank" rel="noopener"
+>https://www.youtube.com/watch?v=aH35DD2uVwY&lt;/a>
+&lt;a class="link" href="https://tttang.com/archive/1650/" target="_blank" rel="noopener"
+>https://tttang.com/archive/1650/&lt;/a>
+&lt;a class="link" href="https://whoopsunix.com/docs/DevOpsAttack/cicd-goat/" target="_blank" rel="noopener"
+>https://whoopsunix.com/docs/DevOpsAttack/cicd-goat/&lt;/a>
+&lt;a class="link" href="https://github.com/cider-security-research/cicd-goat/tree/main/solutions" target="_blank" rel="noopener"
+>https://github.com/cider-security-research/cicd-goat/tree/main/solutions&lt;/a>&lt;/p>
+&lt;h2 id="靶场搭建">靶场搭建&lt;/h2>
+&lt;ol>
+&lt;li>&lt;code>curl -o cicd-goat/docker-compose.yaml --create-dirs https://raw.githubusercontent.com/cider-security-research/cicd-goat/main/docker-compose.yaml&lt;/code>在虚拟机中一直下载失败，所以在主机上下载后复制到虚拟机。&lt;/li>
+&lt;li>&lt;code>docker compose up -d&lt;/code>非常慢，会中途突然卡住并且之后也不会再动了。
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241207092737.png"
+loading="lazy"
+>
+解决：&lt;/li>
+&lt;li>分成多个命令单独下载。&lt;/li>
+&lt;li>修改&lt;code>/etc/docker/daemon.json&lt;/code>限制并发:&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;max-concurrent-downloads&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;registry-mirrors&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;https://docker.hlmirror.com&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">sudo systemctl restart docker
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>重试，重试，重试
+环境搭建成功&lt;br>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241207121133.png"
+loading="lazy"
+>&lt;/li>
+&lt;li>有时候会出现某个端口的服务不能正常访问的问题，一种可能的方法是重开&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">Login to CTFd at http://localhost:8000 to view the challenges:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Username: alice
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Password: alice
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Hack:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Jenkins http://localhost:8080
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Username: alice
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Password: alice
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Gitea http://localhost:3000
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Username: thealice
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Password: thealice
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">GitLab http://localhost:4000
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Username: alice
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Password: ali12345
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>训练营-第二阶段</title><link>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</link><pubDate>Mon, 28 Oct 2024 21:17:13 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</guid><description/></item><item><title>Islet_runable</title><link>https://blog.nrevery.cn/p/islet_runable/</link><pubDate>Tue, 10 Sep 2024 10:42:30 +0800</pubDate><guid>https://blog.nrevery.cn/p/islet_runable/</guid><description>&lt;p>配置代理：
 firefox - 设置 - 常规 - 网络设置&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">https_proxy&lt;/span>&lt;span class="o">=&lt;/span>http://10.12.170.200:7890
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">http_proxy&lt;/span>&lt;span class="o">=&lt;/span>http://10.12.170.200:7890
