@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>nRevery's Blog</title><link>https://blog.nrevery.cn/</link><description>Recent content on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Wed, 11 Dec 2024 08:43:21 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>云安全</title><link>https://blog.nrevery.cn/p/%E4%BA%91%E5%AE%89%E5%85%A8/</link><pubDate>Wed, 11 Dec 2024 08:43:21 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E4%BA%91%E5%AE%89%E5%85%A8/</guid><description>&lt;h1 id="大作业-cicd-goat靶场实验">大作业-CICD-GOAT靶场实验&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>nRevery's Blog</title><link>https://blog.nrevery.cn/</link><description>Recent content on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Wed, 11 Dec 2024 08:43:21 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>云安全</title><link>https://blog.nrevery.cn/p/%E4%BA%91%E5%AE%89%E5%85%A8/</link><pubDate>Wed, 11 Dec 2024 08:43:21 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E4%BA%91%E5%AE%89%E5%85%A8/</guid><description>&lt;p>[TOC]&lt;/p>
+&lt;h1 id="大作业-cicd-goat靶场实验">大作业-CICD-GOAT靶场实验&lt;/h1>
 &lt;h2 id="参考">参考&lt;/h2>
 &lt;p>&lt;a class="link" href="https://kubernetes.io/zh-cn/docs/tasks/tools/install-kubectl-linux/" target="_blank" rel="noopener"
 >https://kubernetes.io/zh-cn/docs/tasks/tools/install-kubectl-linux/&lt;/a>
@@ -63,9 +64,11 @@ loading="lazy"
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">我来晚了，我来晚了！没时间说你好，再见！在您被抓之前，请使用您对Wonderland/white-rabbit存储库的访问权限来窃取存储在 Jenkins 凭证存储中的flag1机密。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">尝试通过存储库触发管道。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">如何使用 Jenkinsfile 访问凭据？
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="过程">过程&lt;/h3>
-&lt;p>Jenkinsfile 是 Jenkins的配置文件。它定义了 Jenkins 构建流水线（pipeline），包括了从代码检查、单元测试、集成测试、部署等多个阶段的自动化流程。Jenkinsfile 通常用于持续集成和持续交付（CI/CD）系统中。
-登录Gitea&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>本题利用对仓库的访问权限，修改了jenkinsfile，影响了流水线的执行过程，直接获得了flag
+关键词：存储库的访问权限，Jenkins 凭证存储
+相关信息：Jenkinsfile 是 Jenkins的配置文件。它定义了 Jenkins 构建流水线（pipeline），包括了从代码检查、单元测试、集成&lt;/p>
+&lt;h3 id="过程">过程&lt;/h3>
+&lt;p>登录Gitea&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git clone http://localhost:3000/Wonderland/white-rabbit.git
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-groovy" data-lang="groovy">&lt;span class="line">&lt;span class="cl">&lt;span class="n">pipeline&lt;/span> &lt;span class="o">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 使用任何可用的代理执行管道
@@ -141,7 +144,7 @@ loading="lazy"
 &lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241209094906.png"
 loading="lazy"
 >&lt;/p>
-&lt;p>在http://localhost:8080中找到这个pr并点击build now&lt;/p>
+&lt;p>在http://localhost:8080 中找到这个pr并点击 build now&lt;/p>
 &lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241209101542.png"
 loading="lazy"
 >&lt;/p>
@@ -166,7 +169,8 @@ loading="lazy"
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">Jenkinsfile 被保护了吗？听起来像是一个不庆生的派对。利用你对 Wonderland/mad-hatter 仓库的访问权限窃取 flag3 秘密。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Jenkinsfile 存储在哪里？在 Wonderland 组织中搜索仓库名称，你可能会找到一些有用的仓库。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Jenkinsfile 执行了哪些命令？
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="过程-1">过程&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>结合提示，确实发现Wonderland/mad-hatter仓库没有Jenkinsfile，根据console output可以看到有Wonderland/mad-hatter-pipeline相关的流程&lt;/p>
+&lt;h3 id="过程-1">过程&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git clone http://localhost:3000/Wonderland/mad-hatter.git
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改makefile：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-makefile" data-lang="makefile">&lt;span class="line">&lt;span class="cl">&lt;span class="err">whoami&lt;/span>
@@ -205,8 +209,9 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Duchess 非常关注她的凭证安全，但肯定某个地方遗留了 PyPi 令牌...你能找到它吗？
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PyPi 令牌的前缀是 “pypi-”。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">过去可能犯过一些错误。
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="过程-2">过程&lt;/h3>
-&lt;p>Gitleaks 是一个开源的 Git 仓库秘密扫描工具，旨在检测和防止敏感数据（如 API 密钥、密码、证书等）被错误地提交到 Git 仓库中。它可以帮助开发者和安全团队自动化地扫描 Git 仓库，发现潜在的安全漏洞，尤其是在代码历史中暴露的敏感信息。&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>结合提示，与历史记录有关
+相关信息：Gitleaks 是一个开源的 Git 仓库秘密扫描工具，旨在检测和防止敏感数据（如 API 密钥、密码、证书等）被错误地提交到 Git 仓库中。它可以帮助开发者和安全团队自动化地扫描 Git 仓库，发现潜在的安全漏洞，尤其是在代码历史中暴露的敏感信息。&lt;/p>
+&lt;h3 id="过程-2">过程&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">gitleaks detect &lt;span class="c1"># 扫描当前 Git 仓库&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gitleaks detect --commit-ref &amp;lt;commit-id&amp;gt; &lt;span class="c1"># 扫描历史提交&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gitleaks detect --report-format json --report-path gitleaks_report.json &lt;span class="c1"># 使用 JSON 格式输出扫描结果&lt;/span>
@@ -233,7 +238,8 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">首先，Fork 这个仓库并创建一个 Pull Request，以触发一个恶意的流水线。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">在执行恶意代码并触发 Jenkins 作业后，哪些环境变量可以帮助你继续前进？
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">在流水线中找到了 Gitea 访问令牌？很好。现在还有另一个流水线，它是通过推送到主分支触发的。也许你能从那里获取到 flag！
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="过程-3">过程&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>结合提示，我们需要通过fork+pr触发wonderland-caterpillar-test流水线得到环境变量，从中得到Gitea访问令牌,然后通过提交到main触发wonderland-caterpillar-prod，得到flag&lt;/p>
+&lt;h3 id="过程-3">过程&lt;/h3>
 &lt;p>先fork&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git clone http://localhost:3000/thealice/caterpillar.git
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改Jenkinsfile,修改Install_Requirements阶段&lt;/p>
@@ -303,24 +309,20 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">尝试执行直接 PPE 攻击。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">如何让 Jenkinsfile 指示 Jenkins 在控制器上运行任务？
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">尝试找到控制器的标签——“内置节点”。
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="过程-4">过程&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>结合提示，与执行的节点有关。
+相关信息：
+agent any：流水线可以在 任何可用的节点 上执行，Jenkins 会自动选择一个空闲的节点，适用于不关心节点选择的情况。
+agent { label &amp;lsquo;built-in&amp;rsquo; }：流水线只会在 具有特定标签的节点 上执行，这样可以保证任务只在符合特定条件的节点上运行，适用于有特殊要求的场景。&lt;/p>
+&lt;h3 id="过程-4">过程&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git clone http://localhost:3000/Wonderland/cheshire-cat.git
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改Jenkinsfile&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-groovy" data-lang="groovy">&lt;span class="line">&lt;span class="cl">&lt;span class="n">pipeline&lt;/span> &lt;span class="o">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">agent&lt;/span> &lt;span class="o">{&lt;/span>&lt;span class="n">label&lt;/span> &lt;span class="s1">&amp;#39;built-in&amp;#39;&lt;/span>&lt;span class="o">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">environment&lt;/span> &lt;span class="o">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">PROJECT&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;sanic&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">stages&lt;/span> &lt;span class="o">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">stage&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="s1">&amp;#39;Install_Requirements&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">steps&lt;/span> &lt;span class="o">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sh&lt;/span> &lt;span class="s1">&amp;#39;cat ~/flag5.txt&amp;#39;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">post&lt;/span> &lt;span class="o">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">always&lt;/span> &lt;span class="o">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cleanWs&lt;/span>&lt;span class="o">()&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
@@ -331,18 +333,34 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>提交pr
 &lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210224039.png"
 loading="lazy"
->
-得到flag=6B31A679-6D70-469D-9F8D-6D6E80B3C29C
+>&lt;/p>
+&lt;p>得到flag=6B31A679-6D70-469D-9F8D-6D6E80B3C29C
 &lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210224448.png"
 loading="lazy"
 >&lt;/p>
+&lt;p>查到存在非预期解https://tttang.com/archive/1650/#toc__1：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-groovy" data-lang="groovy">&lt;span class="line">&lt;span class="cl">&lt;span class="n">println&lt;/span> &lt;span class="s2">&amp;#34;cat /var/jenkins_home/flag5.txt&amp;#34;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">execute&lt;/span>&lt;span class="o">().&lt;/span>&lt;span class="na">text&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>查到的：&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241211152745.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>我的：&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241211152845.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>可能是权限不够吗？我的界面中没有script console。也可能是这个bug被修复了？&lt;/p>
 &lt;h3 id="总结-4">总结&lt;/h3>
+&lt;p>通过指定节点来获得所需的信息&lt;/p>
 &lt;h2 id="moderate---twiddledum">Moderate - Twiddledum&lt;/h2>
 &lt;h3 id="提示-5">提示&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">反过来说，如果它是这样，它可能就是；如果它确实是这样，它就会是；但既然它不是这样，它就不是。这就是逻辑。Flag6在twiddledum管道中等着你。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">twiddledum应用程序使用了哪些依赖项？
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">twiddledee包是一个依赖项。使用它在twiddledum管道中执行恶意代码
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="过程-5">过程&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>根据提示，我们查看Wonderland/twiddledum仓库中的依赖项，发现此项目依赖twiddledee&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241211153123.png"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="过程-5">过程&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git clone http://localhost:3000/Wonderland/twiddledee.git
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改index.js&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">pjson&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;./package.json&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
@@ -350,13 +368,21 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git add .
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit -m &lt;span class="s2">&amp;#34;challenge2-3&amp;#34;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="总结-5">总结&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>主动build，得到flag&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241211150251.png"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="总结-5">总结&lt;/h3>
+&lt;p>管道项目的依赖项可能存在供应链攻击，给twiddledee依赖项投毒，导致管道的仓库twiddledum也执行了相关命令。&lt;/p>
 &lt;h2 id="moderate---dodo">Moderate - Dodo&lt;/h2>
 &lt;h3 id="提示-6">提示&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">每个人都赢了，所有人都必须有奖品！Dodo管道正在扫描你。你的任务是在不被抓到的情况下使S3存储桶变为公开可读。完成后，在工作的控制台输出中领取你的奖品。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">阅读关于Checkov的信息，它是一个阻止你把事情搞砸的扫描器。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">阅读关于恶意代码分析的信息。
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="过程-6">过程&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>此题考查引入 checkov 产生的安全问题，这个工具会读取仓库中的 .checkov.yml 配置文件作为 checkov 运行的配置
+相关信息：
+Checkov 是一个开源的静态代码分析工具，专门用于扫描 基础设施即代码（Infrastructure as Code, IaC） 配置文件，检查潜在的安全问题和合规性风险。它支持多种 IaC 工具的配置格式，如 Terraform、CloudFormation、Kubernetes 配置文件等。&lt;/p>
+&lt;h3 id="过程-6">过程&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git clone http://localhost:3000/Wonderland/dodo.git
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>创建.checkov.yml:&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">soft-fail&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
