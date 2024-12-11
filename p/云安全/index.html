@@ -165,8 +165,8 @@
 <img src=https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210092127.png loading=lazy>
 jenkins的这个提交的console output中得到
 GITEA_TOKEN=5d3ed5564341d5060c8524c41fe03507e296ca46
-<img src=https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210092718.png loading=lazy>
-修改Jenkinsfile的deploy阶段</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-groovy data-lang=groovy><span class=line><span class=cl><span class=n>pipeline</span> <span class=o>{</span>
+<img src=https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210092718.png loading=lazy></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>git clone http://5d3ed5564341d5060c8524c41fe03507e296ca46@192.168.72.129:3000/Wonderland/caterpillar.git
+</span></span></code></pre></div><p>修改Jenkinsfile的deploy阶段</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-groovy data-lang=groovy><span class=line><span class=cl><span class=n>pipeline</span> <span class=o>{</span>
 </span></span><span class=line><span class=cl>    <span class=n>agent</span> <span class=n>any</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>    <span class=n>stages</span> <span class=o>{</span>
