@@ -335,7 +335,59 @@ loading="lazy"
 &lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210224448.png"
 loading="lazy"
 >&lt;/p>
-&lt;h3 id="总结-4">总结&lt;/h3></description></item><item><title>记录一些小问题</title><link>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</link><pubDate>Sun, 01 Dec 2024 22:37:04 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</guid><description>&lt;h3 id="wsl突然打不开了重启也没用">wsl突然打不开了，重启也没用&lt;/h3>
+&lt;h3 id="总结-4">总结&lt;/h3>
+&lt;h2 id="moderate---twiddledum">Moderate - Twiddledum&lt;/h2>
+&lt;h3 id="提示-5">提示&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">反过来说，如果它是这样，它可能就是；如果它确实是这样，它就会是；但既然它不是这样，它就不是。这就是逻辑。Flag6在twiddledum管道中等着你。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">twiddledum应用程序使用了哪些依赖项？
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">twiddledee包是一个依赖项。使用它在twiddledum管道中执行恶意代码
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="过程-5">过程&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git clone http://localhost:3000/Wonderland/twiddledee.git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改index.js&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">pjson&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;./package.json&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">Buffer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">from&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">process&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">env&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">FLAG6&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">toString&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;base64&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git add .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit -m &lt;span class="s2">&amp;#34;challenge2-3&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="总结-5">总结&lt;/h3>
+&lt;h2 id="moderate---dodo">Moderate - Dodo&lt;/h2>
+&lt;h3 id="提示-6">提示&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">每个人都赢了，所有人都必须有奖品！Dodo管道正在扫描你。你的任务是在不被抓到的情况下使S3存储桶变为公开可读。完成后，在工作的控制台输出中领取你的奖品。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">阅读关于Checkov的信息，它是一个阻止你把事情搞砸的扫描器。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">阅读关于恶意代码分析的信息。
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="过程-6">过程&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git clone http://localhost:3000/Wonderland/dodo.git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>创建.checkov.yml:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">soft-fail&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">check&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">THIS_NOT_THE_CHECK_YOUR_ARE_LOOKING_FOR&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改main.tf中的bucket acl为public-read(114行)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl"> acl = &amp;#34;public-read&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git add .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit -m &lt;span class="s2">&amp;#34;challenge2-4&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>build
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210232247.png"
+loading="lazy"
+>
+得到flag=A62F0E52-7D67-410E-8279-32447ADAD916
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210235542.png"
+loading="lazy"
+>&lt;/p>
+&lt;h2 id="hard---hearts">Hard - Hearts&lt;/h2>
+&lt;h3 id="提示-7">提示&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">谁偷了那些馅饼？你的目标是拿到flag8的凭证。但别急……这些是存储在Jenkins上的系统凭证！你该如何访问它们呢？拥有管理代理的权限可能会对你有用……
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">谁是可以管理代理的Jenkins用户？
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">你已经暴力破解了Knave这个Jenkins用户了吗？
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">如果你还没有，Knave用户的密码是rockme。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Jenkins系统凭证可以被代理访问。创建一个代理，使用flag8作为它的SSH凭证，并尝试捕获它。
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="过程-7">过程&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">sudo docker run -p 2222:2222 cowrie/cowrie
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>端口被占用了，换一个
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210233101.png"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="总结-6">总结&lt;/h3></description></item><item><title>记录一些小问题</title><link>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</link><pubDate>Sun, 01 Dec 2024 22:37:04 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</guid><description>&lt;h3 id="wsl突然打不开了重启也没用">wsl突然打不开了，重启也没用&lt;/h3>
 &lt;p>1.cmd下管理员权限执行&lt;code>netsh winsock reset&lt;/code>&lt;br>
 2.重启电脑&lt;br>
 &lt;a class="link" href="https://blog.csdn.net/qq_41048761/article/details/121420814" target="_blank" rel="noopener"
