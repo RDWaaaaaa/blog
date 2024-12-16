@@ -486,7 +486,119 @@ loading="lazy"
 >&lt;/p>
 &lt;p>理论上应当能监听到，但是agent1似乎被我折腾坏了，导致offline，根本不能执行流水线&lt;/p>
 &lt;h3 id="总结-8">总结&lt;/h3>
-&lt;p>同样是看着似乎不难，但是没成功，之后会再尝试的。&lt;/p></description></item><item><title>训练营-第二阶段</title><link>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</link><pubDate>Mon, 28 Oct 2024 21:17:13 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</guid><description/></item><item><title>Islet_runable</title><link>https://blog.nrevery.cn/p/islet_runable/</link><pubDate>Tue, 10 Sep 2024 10:42:30 +0800</pubDate><guid>https://blog.nrevery.cn/p/islet_runable/</guid><description>&lt;p>配置代理：
+&lt;p>同样是看着似乎不难，但是没成功，之后会再尝试的。&lt;/p>
+&lt;h1 id="第一次课1112课后作业">第一次课11.12课后作业&lt;/h1>
+&lt;h2 id="操作-docker">操作 docker&lt;/h2>
+&lt;p>&lt;a class="link" href="https://www.runoob.com/docker/docker-command-manual.html" target="_blank" rel="noopener"
+>https://www.runoob.com/docker/docker-command-manual.html&lt;/a>
+&lt;a class="link" href="https://cloud.tencent.com/developer/article/1004345" target="_blank" rel="noopener"
+>https://cloud.tencent.com/developer/article/1004345&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 显示 Docker 版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker --version
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 获取有关 Docker 配置、容器状态、镜像等的信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker info
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 启动一个新的容器并在后台运行&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 例如，启动一个 Nginx 容器并将其端口映射到宿主机的 80 端口&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker run -d -p 80:80 nginx
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 列出所有运行中的容器&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 如果只想查看当前正在运行的容器，可以使用该命令&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker ps
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 列出所有容器（包括已停止的）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 显示包括已停止的所有容器信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker ps -a
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 启动一个已停止的容器&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 启动指定名称的容器&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker start my_container
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 停止运行中的容器&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 停止指定名称的容器&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker stop my_container
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 重启容器&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 重启指定名称的容器&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker restart my_container
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 进入运行中的容器并执行命令&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 通过 `exec` 进入容器的 bash shell&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker &lt;span class="nb">exec&lt;/span> -it my_container bash
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 删除一个容器&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 删除指定名称的容器（注意，容器必须是停止状态）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker rm my_container
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查看容器的日志&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查看指定容器的输出日志&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker logs my_container
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 拉取 Docker 镜像&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 从 Docker Hub 或其他镜像仓库拉取镜像&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker pull ubuntu:latest
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 构建 Docker 镜像&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 使用当前目录中的 Dockerfile 构建镜像&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker build -t my_image .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 列出所有本地镜像&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查看所有本地的 Docker 镜像&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker images
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 删除镜像&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 删除指定名称的镜像&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker rmi my_image
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查看网络信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 列出 Docker 网络&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker network ls
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 清理未使用的 Docker 数据&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 删除无用的容器、镜像、网络和数据卷&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker system prune
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 清理未使用的镜像&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 删除本地未使用的 Docker 镜像&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker image prune
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查看实时资源使用情况&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 显示容器的 CPU、内存、网络等实时使用情况&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker stats
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="配置使用metarget云原生攻防靶场">配置使用Metarget云原生攻防靶场&lt;/h2>
+&lt;p>&lt;a class="link" href="https://github.com/Metarget/metarget/blob/master/README-zh.md" target="_blank" rel="noopener"
+>https://github.com/Metarget/metarget/blob/master/README-zh.md&lt;/a>
+搭建脆弱场景&lt;code>sudo ./metarget cnv install cve-2019-5736&lt;/code>
+了解当前支持的云原生组件&lt;code>sudo ./metarget gadget list&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241216091730.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>安装指定版本Docker&lt;code>./metarget gadget install docker --version 18.03.1&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241216092609.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>安装指定版本Kubernetes&lt;code>./metarget gadget install k8s --version 1.16.5&lt;/code>（配置了代理所以不用&amp;ndash;domestic）&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241216092647.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>安装指定版本的Kata-containers&lt;code>./metarget gadget install kata --version 1.10.0&lt;/code>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241216092846.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>安装指定版本Linux内核&lt;code>./metarget gadget install kernel --version 5.7.5&lt;/code>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241216092946.png"
+loading="lazy"
+>\&lt;/p>
+&lt;h1 id="第二次课1126">第二次课11.26&lt;/h1>
+&lt;h2 id="活动中的容器存在的风险">活动中的容器存在的风险&lt;/h2>
+&lt;h3 id="--privileged特权容器判断">&amp;ndash;privileged特权容器判断&lt;/h3>
+&lt;h3 id="--privileged特权容器逃逸">&amp;ndash;privileged特权容器逃逸&lt;/h3>
+&lt;h4 id="挂载宿主机目录逃逸">挂载宿主机目录逃逸&lt;/h4>
+&lt;h4 id="挂载宿主机procfs逃逸">挂载宿主机procfs逃逸&lt;/h4>
+&lt;h2 id="容器管理程序接口的风险">容器管理程序接口的风险&lt;/h2>
+&lt;h3 id="unix-socket挂载到容器内部">UNIX-socket挂载到容器内部&lt;/h3>
+&lt;h1 id="第三次课123">第三次课12.3&lt;/h1></description></item><item><title>训练营-第二阶段</title><link>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</link><pubDate>Mon, 28 Oct 2024 21:17:13 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</guid><description/></item><item><title>Islet_runable</title><link>https://blog.nrevery.cn/p/islet_runable/</link><pubDate>Tue, 10 Sep 2024 10:42:30 +0800</pubDate><guid>https://blog.nrevery.cn/p/islet_runable/</guid><description>&lt;p>配置代理：
 firefox - 设置 - 常规 - 网络设置&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">https_proxy&lt;/span>&lt;span class="o">=&lt;/span>http://10.12.170.200:7890
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">http_proxy&lt;/span>&lt;span class="o">=&lt;/span>http://10.12.170.200:7890
