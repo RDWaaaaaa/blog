@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on nRevery's Blog</title><link>https://blog.nrevery.cn/post/</link><description>Recent content in Posts on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Wed, 11 Dec 2024 08:43:21 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/post/index.xml" rel="self" type="application/rss+xml"/><item><title>云安全</title><link>https://blog.nrevery.cn/p/%E4%BA%91%E5%AE%89%E5%85%A8/</link><pubDate>Wed, 11 Dec 2024 08:43:21 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E4%BA%91%E5%AE%89%E5%85%A8/</guid><description>&lt;p>[TOC]&lt;/p>
-&lt;h1 id="大作业-cicd-goat靶场实验">大作业-CICD-GOAT靶场实验&lt;/h1>
-&lt;h2 id="参考">参考&lt;/h2>
+&lt;h2 id="大作业-cicd-goat靶场实验">大作业-CICD-GOAT靶场实验&lt;/h2>
+&lt;h3 id="参考">参考&lt;/h3>
 &lt;p>&lt;a class="link" href="https://kubernetes.io/zh-cn/docs/tasks/tools/install-kubectl-linux/" target="_blank" rel="noopener"
 >https://kubernetes.io/zh-cn/docs/tasks/tools/install-kubectl-linux/&lt;/a>
 &lt;a class="link" href="https://xz.aliyun.com/t/13009?time__1311=GqmhBKYK7KGK0KDsD7%2BEu8pIB2BxmqApD" target="_blank" rel="noopener"
@@ -19,7 +19,7 @@
 >https://whoopsunix.com/docs/DevOpsAttack/cicd-goat/&lt;/a>
 &lt;a class="link" href="https://github.com/cider-security-research/cicd-goat/tree/main/solutions" target="_blank" rel="noopener"
 >https://github.com/cider-security-research/cicd-goat/tree/main/solutions&lt;/a>&lt;/p>
-&lt;h2 id="靶场搭建">靶场搭建&lt;/h2>
+&lt;h3 id="靶场搭建">靶场搭建&lt;/h3>
 &lt;ol>
 &lt;li>&lt;code>curl -o cicd-goat/docker-compose.yaml --create-dirs https://raw.githubusercontent.com/cider-security-research/cicd-goat/main/docker-compose.yaml&lt;/code>在虚拟机中一直下载失败，所以在主机上下载后复制到虚拟机。&lt;/li>
 &lt;li>&lt;code>docker compose up -d&lt;/code>非常慢，会中途突然卡住并且之后也不会再动了。
@@ -59,15 +59,15 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">GitLab http://localhost:4000
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Username: alice
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Password: ali12345
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="easy---white-rabbit">Easy - White Rabbit&lt;/h2>
-&lt;h3 id="提示">提示&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="easy---white-rabbit">Easy - White Rabbit&lt;/h3>
+&lt;h4 id="提示">提示&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">我来晚了，我来晚了！没时间说你好，再见！在您被抓之前，请使用您对Wonderland/white-rabbit存储库的访问权限来窃取存储在 Jenkins 凭证存储中的flag1机密。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">尝试通过存储库触发管道。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">如何使用 Jenkinsfile 访问凭据？
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>本题利用对仓库的访问权限，修改了jenkinsfile，影响了流水线的执行过程，直接获得了flag
 关键词：存储库的访问权限，Jenkins 凭证存储
 相关信息：Jenkinsfile 是 Jenkins的配置文件。它定义了 Jenkins 构建流水线（pipeline），包括了从代码检查、单元测试、集成&lt;/p>
-&lt;h3 id="过程">过程&lt;/h3>
+&lt;h4 id="过程">过程&lt;/h4>
 &lt;p>登录Gitea&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git clone http://localhost:3000/Wonderland/white-rabbit.git
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-groovy" data-lang="groovy">&lt;span class="line">&lt;span class="cl">&lt;span class="n">pipeline&lt;/span> &lt;span class="o">{&lt;/span>
@@ -160,17 +160,17 @@ loading="lazy"
 &lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241209103449.png"
 loading="lazy"
 >&lt;/p>
-&lt;h3 id="踩坑">踩坑&lt;/h3>
+&lt;h4 id="踩坑">踩坑&lt;/h4>
 &lt;p>虚拟机里用vscode非常卡，要使用的话就要给虚拟机多分配些内存&lt;/p>
-&lt;h3 id="总结">总结&lt;/h3>
+&lt;h4 id="总结">总结&lt;/h4>
 &lt;p>通过修改 Jenkinsfile 来窃取存储在 Jenkins 凭证存储中的 flag1。首先，从 Jenkins 触发 Gitea 仓库的管道并下载源代码，然后在 Jenkinsfile 中增加一段代码，通过 withCredentials 获取存储的 flag1 凭证，并使用 sh 命令将其 base64 编码输出。接着，创建新分支并提交修改，推送到远程仓库，在 Gitea 上创建PR。最后，回到 Jenkins 触发管道，成功获取并显示 flag1 的内容。&lt;/p>
-&lt;h2 id="easy---mad-hatter">Easy - Mad Hatter&lt;/h2>
-&lt;h3 id="提示-1">提示&lt;/h3>
+&lt;h3 id="easy---mad-hatter">Easy - Mad Hatter&lt;/h3>
+&lt;h4 id="提示-1">提示&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">Jenkinsfile 被保护了吗？听起来像是一个不庆生的派对。利用你对 Wonderland/mad-hatter 仓库的访问权限窃取 flag3 秘密。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Jenkinsfile 存储在哪里？在 Wonderland 组织中搜索仓库名称，你可能会找到一些有用的仓库。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Jenkinsfile 执行了哪些命令？
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>结合提示，确实发现Wonderland/mad-hatter仓库没有Jenkinsfile，根据console output可以看到有Wonderland/mad-hatter-pipeline相关的流程&lt;/p>
-&lt;h3 id="过程-1">过程&lt;/h3>
+&lt;h4 id="过程-1">过程&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git clone http://localhost:3000/Wonderland/mad-hatter.git
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改makefile：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-makefile" data-lang="makefile">&lt;span class="line">&lt;span class="cl">&lt;span class="err">whoami&lt;/span>
@@ -199,11 +199,11 @@ loading="lazy"
 &lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241209110951.png"
 loading="lazy"
 >&lt;/p>
-&lt;h3 id="总结-1">总结&lt;/h3>
+&lt;h4 id="总结-1">总结&lt;/h4>
 &lt;p>Mad Hatter分成了两个仓库，一个仓库存代码一个仓库存pipeline配置文件，pipeline配置文件的那个仓库无法git push。
 整体思路和上一题差不多，提交pr触发pipeline。&lt;/p>
-&lt;h2 id="easy---duchess">Easy - Duchess&lt;/h2>
-&lt;h3 id="提示-2">提示&lt;/h3>
+&lt;h3 id="easy---duchess">Easy - Duchess&lt;/h3>
+&lt;h4 id="提示-2">提示&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">如果每个人都管好自己的事，世界转得比现在快得多。这对你的秘密也适用吗？
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">你有访问 Wonderland/duchess 仓库的权限，这个仓库大量使用 Python。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Duchess 非常关注她的凭证安全，但肯定某个地方遗留了 PyPi 令牌...你能找到它吗？
@@ -211,7 +211,7 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">过去可能犯过一些错误。
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>结合提示，与历史记录有关
 相关信息：Gitleaks 是一个开源的 Git 仓库秘密扫描工具，旨在检测和防止敏感数据（如 API 密钥、密码、证书等）被错误地提交到 Git 仓库中。它可以帮助开发者和安全团队自动化地扫描 Git 仓库，发现潜在的安全漏洞，尤其是在代码历史中暴露的敏感信息。&lt;/p>
-&lt;h3 id="过程-2">过程&lt;/h3>
+&lt;h4 id="过程-2">过程&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">gitleaks detect &lt;span class="c1"># 扫描当前 Git 仓库&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gitleaks detect --commit-ref &amp;lt;commit-id&amp;gt; &lt;span class="c1"># 扫描历史提交&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gitleaks detect --report-format json --report-path gitleaks_report.json &lt;span class="c1"># 使用 JSON 格式输出扫描结果&lt;/span>
@@ -230,20 +230,20 @@ loading="lazy"
 &lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210085822.png"
 loading="lazy"
 >&lt;/p>
-&lt;h3 id="总结-2">总结&lt;/h3>
+&lt;h4 id="总结-2">总结&lt;/h4>
 &lt;p>这道题通过检测 Git 仓库的历史记录，寻找可能暴露的 PyPi 令牌。由于历史中可能有一些敏感信息的泄漏，使用工具如 gitleaks 可以帮助发现这些泄露的凭证。最终，通过查看提交历史并提取出 PyPi 令牌，获取了 flag。
 比较有意思的是我在写题解时写到了pypi的具体内容，导致部署失败，才发现它没有通过安全审查&lt;/p>
 &lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241211155420.png"
 loading="lazy"
 >&lt;/p>
-&lt;h2 id="moderate---caterpillar">Moderate - Caterpillar&lt;/h2>
-&lt;h3 id="提示-3">提示&lt;/h3>
+&lt;h3 id="moderate---caterpillar">Moderate - Caterpillar&lt;/h3>
+&lt;h4 id="提示-3">提示&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">你是谁？你只有读取权限……这足够吗？利用你对 Wonderland/caterpillar 仓库的访问权限来窃取存储在 Jenkins 凭证存储中的 flag2 密钥。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">首先，Fork 这个仓库并创建一个 Pull Request，以触发一个恶意的流水线。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">在执行恶意代码并触发 Jenkins 作业后，哪些环境变量可以帮助你继续前进？
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">在流水线中找到了 Gitea 访问令牌？很好。现在还有另一个流水线，它是通过推送到主分支触发的。也许你能从那里获取到 flag！
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>结合提示，我们需要通过fork+pr触发wonderland-caterpillar-test流水线得到环境变量，从中得到Gitea访问令牌,然后通过提交到main触发wonderland-caterpillar-prod，得到flag&lt;/p>
-&lt;h3 id="过程-3">过程&lt;/h3>
+&lt;h4 id="过程-3">过程&lt;/h4>
 &lt;p>先fork&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git clone http://localhost:3000/thealice/caterpillar.git
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改Jenkinsfile,修改Install_Requirements阶段&lt;/p>
@@ -305,10 +305,10 @@ loading="lazy"
 &lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210093727.png"
 loading="lazy"
 >&lt;/p>
-&lt;h3 id="总结-3">总结&lt;/h3>
+&lt;h4 id="总结-3">总结&lt;/h4>
 &lt;p>和Easy的前两道题有些类似，修改和利用 Jenkinsfile 触发恶意流水线。&lt;/p>
-&lt;h2 id="moderate---cheshire-cat">Moderate - Cheshire Cat&lt;/h2>
-&lt;h3 id="提示-4">提示&lt;/h3>
+&lt;h3 id="moderate---cheshire-cat">Moderate - Cheshire Cat&lt;/h3>
+&lt;h4 id="提示-4">提示&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">有些人走这条路，有些人走那条路，但至于我，个人来说，我更喜欢捷径。你受害者的 Jenkins 实例中的所有任务都在专用节点上运行，但这对你来说还不够好。你很特别，你想在 Jenkins 控制器上执行代码。那才是重点所在！利用你对 Wonderland/cheshire-cat 仓库的访问权限，在控制器上执行代码并从其文件系统中窃取 ~/flag5.txt。注意：不要使用在本题中获得的访问权限来解决其他题目。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">尝试执行直接 PPE 攻击。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">如何让 Jenkinsfile 指示 Jenkins 在控制器上运行任务？
@@ -317,7 +317,7 @@ loading="lazy"
 相关信息：
 agent any：流水线可以在 任何可用的节点 上执行，Jenkins 会自动选择一个空闲的节点，适用于不关心节点选择的情况。
 agent { label &amp;lsquo;built-in&amp;rsquo; }：流水线只会在 具有特定标签的节点 上执行，这样可以保证任务只在符合特定条件的节点上运行，适用于有特殊要求的场景。&lt;/p>
-&lt;h3 id="过程-4">过程&lt;/h3>
+&lt;h4 id="过程-4">过程&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git clone http://localhost:3000/Wonderland/cheshire-cat.git
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改Jenkinsfile&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-groovy" data-lang="groovy">&lt;span class="line">&lt;span class="cl">&lt;span class="n">pipeline&lt;/span> &lt;span class="o">{&lt;/span>
@@ -353,10 +353,10 @@ loading="lazy"
 loading="lazy"
 >&lt;/p>
 &lt;p>可能是权限不够吗？我的界面中没有script console。也可能是这个bug被修复了？&lt;/p>
-&lt;h3 id="总结-4">总结&lt;/h3>
+&lt;h4 id="总结-4">总结&lt;/h4>
 &lt;p>通过指定节点来获得所需的信息&lt;/p>
-&lt;h2 id="moderate---twiddledum">Moderate - Twiddledum&lt;/h2>
-&lt;h3 id="提示-5">提示&lt;/h3>
+&lt;h3 id="moderate---twiddledum">Moderate - Twiddledum&lt;/h3>
+&lt;h4 id="提示-5">提示&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">反过来说，如果它是这样，它可能就是；如果它确实是这样，它就会是；但既然它不是这样，它就不是。这就是逻辑。Flag6在twiddledum管道中等着你。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">twiddledum应用程序使用了哪些依赖项？
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">twiddledee包是一个依赖项。使用它在twiddledum管道中执行恶意代码
@@ -364,7 +364,7 @@ loading="lazy"
 &lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241211153123.png"
 loading="lazy"
 >&lt;/p>
-&lt;h3 id="过程-5">过程&lt;/h3>
+&lt;h4 id="过程-5">过程&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git clone http://localhost:3000/Wonderland/twiddledee.git
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改index.js&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">pjson&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;./package.json&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
@@ -376,17 +376,17 @@ loading="lazy"
 &lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241211150251.png"
 loading="lazy"
 >&lt;/p>
-&lt;h3 id="总结-5">总结&lt;/h3>
+&lt;h4 id="总结-5">总结&lt;/h4>
 &lt;p>管道项目的依赖项可能存在供应链攻击，给twiddledee依赖项投毒，导致管道的仓库twiddledum也执行了相关命令。&lt;/p>
-&lt;h2 id="moderate---dodo">Moderate - Dodo&lt;/h2>
-&lt;h3 id="提示-6">提示&lt;/h3>
+&lt;h3 id="moderate---dodo">Moderate - Dodo&lt;/h3>
+&lt;h4 id="提示-6">提示&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">每个人都赢了，所有人都必须有奖品！Dodo管道正在扫描你。你的任务是在不被抓到的情况下使S3存储桶变为公开可读。完成后，在工作的控制台输出中领取你的奖品。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">阅读关于Checkov的信息，它是一个阻止你把事情搞砸的扫描器。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">阅读关于恶意代码分析的信息。
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>此题考查引入 checkov 产生的安全问题，这个工具会读取仓库中的 .checkov.yml 配置文件作为 checkov 运行的配置
 相关信息：
 Checkov 是一个开源的静态代码分析工具，专门用于扫描 基础设施即代码（Infrastructure as Code, IaC） 配置文件，检查潜在的安全问题和合规性风险。它支持多种 IaC 工具的配置格式，如 Terraform、CloudFormation、Kubernetes 配置文件等。&lt;/p>
-&lt;h3 id="过程-6">过程&lt;/h3>
+&lt;h4 id="过程-6">过程&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git clone http://localhost:3000/Wonderland/dodo.git
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>创建.checkov.yml:&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">soft-fail&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
@@ -405,10 +405,10 @@ loading="lazy"
 &lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210235542.png"
 loading="lazy"
 >&lt;/p>
-&lt;h3 id="总结-6">总结&lt;/h3>
+&lt;h4 id="总结-6">总结&lt;/h4>
 &lt;p>通过修改配置文件，影响流水线的执行过程&lt;/p>
-&lt;h2 id="hard---hearts">Hard - Hearts&lt;/h2>
-&lt;h3 id="提示-7">提示&lt;/h3>
+&lt;h3 id="hard---hearts">Hard - Hearts&lt;/h3>
+&lt;h4 id="提示-7">提示&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">谁偷了那些馅饼？你的目标是拿到flag8的凭证。但别急……这些是存储在Jenkins上的系统凭证！你该如何访问它们呢？拥有管理代理的权限可能会对你有用……
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">谁是可以管理代理的Jenkins用户？
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">你已经暴力破解了Knave这个Jenkins用户了吗？
@@ -428,7 +428,7 @@ SSH蜜罐是一种安全工具，通常用于捕获、监控和分析针对SSH�
 常见的SSH蜜罐工具：&lt;br>
 Cowrie：一个常用的SSH蜜罐工具，它能够模拟SSH登录，记录攻击者的输入，甚至能够模拟命令执行并让攻击者误以为自己已经成功登录。&lt;br>
 Honeyd：一个可以创建多个虚拟主机的蜜罐工具，可以模拟各种服务，包括SSH服务。&lt;/p>
-&lt;h3 id="过程-7">过程&lt;/h3>
+&lt;h4 id="过程-7">过程&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">sudo docker run -p 2222:2222 cowrie/cowrie
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>端口被占用了，换一个
 &lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210233101.png"
@@ -459,10 +459,10 @@ loading="lazy"
 loading="lazy"
 >&lt;/p>
 &lt;p>目前卡在了这里&lt;/p>
-&lt;h3 id="总结-7">总结&lt;/h3>
+&lt;h4 id="总结-7">总结&lt;/h4>
 &lt;p>蜜罐监听，似乎不难但是没成功&lt;/p>
-&lt;h2 id="hard---dormouse">Hard - Dormouse&lt;/h2>
-&lt;h3 id="提示-8">提示&lt;/h3>
+&lt;h3 id="hard---dormouse">Hard - Dormouse&lt;/h3>
+&lt;h4 id="提示-8">提示&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">“我在睡觉时呼吸”和“我在呼吸时睡觉”是一样的吗？如果你在黑客入侵流水线时窃取秘密，这是否意味着你在窃取秘密时黑客入侵流水线？这些胡说八道先放一边。黑掉 Dormouse 流水线。偷取 flag 9。祝好运。
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">reportcov.sh 脚本的代码存储在哪里？
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">访问 Cov 组织下的 reportcov 源代码。
@@ -476,7 +476,7 @@ loading="lazy"
 &lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241211234844.png"
 loading="lazy"
 >&lt;/p>
-&lt;h3 id="过程-8">过程&lt;/h3>
+&lt;h4 id="过程-8">过程&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">nc -nvlp &lt;span class="m">12345&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>fork仓库，随意稍作修改，然后push
 把pr的title改成&lt;/p>
@@ -485,10 +485,10 @@ loading="lazy"
 loading="lazy"
 >&lt;/p>
 &lt;p>理论上应当能监听到，但是agent1似乎被我折腾坏了，导致offline，根本不能执行流水线&lt;/p>
-&lt;h3 id="总结-8">总结&lt;/h3>
+&lt;h4 id="总结-8">总结&lt;/h4>
 &lt;p>同样是看着似乎不难，但是没成功，之后会再尝试的。&lt;/p>
-&lt;h1 id="第一次课1112">第一次课11.12&lt;/h1>
-&lt;h2 id="课程内容">课程内容&lt;/h2>
+&lt;h2 id="第一次课1112">第一次课11.12&lt;/h2>
+&lt;h3 id="课程内容">课程内容&lt;/h3>
 &lt;p>云计算云安全信创操作系统等基本概念
 参考资料：
 &lt;a class="link" href="https://blog.csdn.net/wenzhongxiang/article/details/133044041" target="_blank" rel="noopener"
@@ -499,8 +499,8 @@ loading="lazy"
 >https://developer.aliyun.com/article/1325299&lt;/a>&lt;br>
 &lt;a class="link" href="https://blog.csdn.net/Peelarmy/article/details/128955751" target="_blank" rel="noopener"
 >https://blog.csdn.net/Peelarmy/article/details/128955751&lt;/a>&lt;/p>
-&lt;h2 id="课后作业">课后作业&lt;/h2>
-&lt;h2 id="操作-docker">操作 docker&lt;/h2>
+&lt;h3 id="课后作业">课后作业&lt;/h3>
+&lt;h3 id="操作-docker">操作 docker&lt;/h3>
 &lt;p>&lt;a class="link" href="https://www.runoob.com/docker/docker-command-manual.html" target="_blank" rel="noopener"
 >https://www.runoob.com/docker/docker-command-manual.html&lt;/a>&lt;br>
 &lt;a class="link" href="https://cloud.tencent.com/developer/article/1004345" target="_blank" rel="noopener"
@@ -578,7 +578,7 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查看实时资源使用情况&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 显示容器的 CPU、内存、网络等实时使用情况&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker stats
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="配置使用metarget云原生攻防靶场">配置使用Metarget云原生攻防靶场&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="配置使用metarget云原生攻防靶场">配置使用Metarget云原生攻防靶场&lt;/h3>
 &lt;p>&lt;a class="link" href="https://github.com/Metarget/metarget/blob/master/README-zh.md" target="_blank" rel="noopener"
 >https://github.com/Metarget/metarget/blob/master/README-zh.md&lt;/a>&lt;br>
 搭建脆弱场景&lt;code>sudo ./metarget cnv install cve-2019-5736&lt;/code>&lt;br>
@@ -601,16 +601,18 @@ loading="lazy"
 &lt;p>安装指定版本Linux内核&lt;code>./metarget gadget install kernel --version 5.7.5&lt;/code>&lt;/p>
 &lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241216092946.png"
 loading="lazy"
->\&lt;/p>
-&lt;h1 id="第二次课1126">第二次课11.26&lt;/h1>
-&lt;h2 id="活动中的容器存在的风险">活动中的容器存在的风险&lt;/h2>
-&lt;h3 id="--privileged特权容器判断">&amp;ndash;privileged特权容器判断&lt;/h3>
-&lt;h3 id="--privileged特权容器逃逸">&amp;ndash;privileged特权容器逃逸&lt;/h3>
-&lt;h4 id="挂载宿主机目录逃逸">挂载宿主机目录逃逸&lt;/h4>
-&lt;h4 id="挂载宿主机procfs逃逸">挂载宿主机procfs逃逸&lt;/h4>
-&lt;h2 id="容器管理程序接口的风险">容器管理程序接口的风险&lt;/h2>
-&lt;h3 id="unix-socket挂载到容器内部">UNIX-socket挂载到容器内部&lt;/h3>
-&lt;h1 id="第三次课123">第三次课12.3&lt;/h1></description></item><item><title>记录一些小问题</title><link>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</link><pubDate>Sun, 01 Dec 2024 22:37:04 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</guid><description>&lt;h3 id="wsl突然打不开了重启也没用">wsl突然打不开了，重启也没用&lt;/h3>
+>&lt;/p>
+&lt;h2 id="第二次课1126">第二次课11.26&lt;/h2>
+&lt;h3 id="活动中的容器存在的风险">活动中的容器存在的风险&lt;/h3>
+&lt;h4 id="--privileged特权容器判断">&amp;ndash;privileged特权容器判断&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">cat /proc/self/status&lt;span class="p">|&lt;/span>grep CapEff
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 如果是以特权模式启动的话，CapEff 对应的掩码值应该为0000003fffffffff或者是 0000001fffffffff&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="--privileged特权容器逃逸">&amp;ndash;privileged特权容器逃逸&lt;/h4>
+&lt;h5 id="挂载宿主机目录逃逸">挂载宿主机目录逃逸&lt;/h5>
+&lt;h5 id="挂载宿主机procfs逃逸">挂载宿主机procfs逃逸&lt;/h5>
+&lt;h3 id="容器管理程序接口的风险">容器管理程序接口的风险&lt;/h3>
+&lt;h4 id="unix-socket挂载到容器内部">UNIX-socket挂载到容器内部&lt;/h4>
+&lt;h2 id="第三次课123">第三次课12.3&lt;/h2></description></item><item><title>记录一些小问题</title><link>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</link><pubDate>Sun, 01 Dec 2024 22:37:04 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</guid><description>&lt;h3 id="wsl突然打不开了重启也没用">wsl突然打不开了，重启也没用&lt;/h3>
 &lt;p>1.cmd下管理员权限执行&lt;code>netsh winsock reset&lt;/code>&lt;br>
 2.重启电脑&lt;br>
 &lt;a class="link" href="https://blog.csdn.net/qq_41048761/article/details/121420814" target="_blank" rel="noopener"
