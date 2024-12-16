@@ -718,7 +718,7 @@ loading="lazy"
 &lt;p>RCE命令注入.pdf的靶场漏洞利用复现
 -&amp;gt;暂未解决&lt;/p>
 &lt;/li>
-&lt;/ul></description></item><item><title>Offensive Shellcode from Scratch</title><link>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</link><pubDate>Thu, 18 Apr 2024 21:48:15 +0800</pubDate><guid>https://blog.nrevery.cn/p/offensive-shellcode-from-scratch/</guid><description/></item><item><title>An Intro to C for Windows</title><link>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</link><pubDate>Wed, 17 Apr 2024 22:58:23 +0800</pubDate><guid>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</guid><description>&lt;ol>
+&lt;/ul></description></item><item><title>An Intro to C for Windows</title><link>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</link><pubDate>Wed, 17 Apr 2024 22:58:23 +0800</pubDate><guid>https://blog.nrevery.cn/p/an-intro-to-c-for-windows/</guid><description>&lt;ol>
 &lt;li>int __cdecl&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">int&lt;/span> &lt;span class="kr">__cdecl&lt;/span> &lt;span class="nf">myFunction&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">);&lt;/span>
