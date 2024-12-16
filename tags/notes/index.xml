@@ -487,10 +487,22 @@ loading="lazy"
 &lt;p>理论上应当能监听到，但是agent1似乎被我折腾坏了，导致offline，根本不能执行流水线&lt;/p>
 &lt;h3 id="总结-8">总结&lt;/h3>
 &lt;p>同样是看着似乎不难，但是没成功，之后会再尝试的。&lt;/p>
-&lt;h1 id="第一次课1112课后作业">第一次课11.12课后作业&lt;/h1>
+&lt;h1 id="第一次课1112">第一次课11.12&lt;/h1>
+&lt;h2 id="课程内容">课程内容&lt;/h2>
+&lt;p>云计算云安全信创操作系统等基本概念
+参考资料：
+&lt;a class="link" href="https://blog.csdn.net/wenzhongxiang/article/details/133044041" target="_blank" rel="noopener"
+>https://blog.csdn.net/wenzhongxiang/article/details/133044041&lt;/a>&lt;br>
+&lt;a class="link" href="http://www.caict.ac.cn/kxyj/qwfb/bps/202407/P020240723334151523502.pdf" target="_blank" rel="noopener"
+>http://www.caict.ac.cn/kxyj/qwfb/bps/202407/P020240723334151523502.pdf&lt;/a>&lt;br>
+&lt;a class="link" href="https://developer.aliyun.com/article/1325299" target="_blank" rel="noopener"
+>https://developer.aliyun.com/article/1325299&lt;/a>&lt;br>
+&lt;a class="link" href="https://blog.csdn.net/Peelarmy/article/details/128955751" target="_blank" rel="noopener"
+>https://blog.csdn.net/Peelarmy/article/details/128955751&lt;/a>&lt;/p>
+&lt;h2 id="课后作业">课后作业&lt;/h2>
 &lt;h2 id="操作-docker">操作 docker&lt;/h2>
 &lt;p>&lt;a class="link" href="https://www.runoob.com/docker/docker-command-manual.html" target="_blank" rel="noopener"
->https://www.runoob.com/docker/docker-command-manual.html&lt;/a>
+>https://www.runoob.com/docker/docker-command-manual.html&lt;/a>&lt;br>
 &lt;a class="link" href="https://cloud.tencent.com/developer/article/1004345" target="_blank" rel="noopener"
 >https://cloud.tencent.com/developer/article/1004345&lt;/a>&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 显示 Docker 版本&lt;/span>
@@ -568,8 +580,8 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker stats
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="配置使用metarget云原生攻防靶场">配置使用Metarget云原生攻防靶场&lt;/h2>
 &lt;p>&lt;a class="link" href="https://github.com/Metarget/metarget/blob/master/README-zh.md" target="_blank" rel="noopener"
->https://github.com/Metarget/metarget/blob/master/README-zh.md&lt;/a>
-搭建脆弱场景&lt;code>sudo ./metarget cnv install cve-2019-5736&lt;/code>
+>https://github.com/Metarget/metarget/blob/master/README-zh.md&lt;/a>&lt;br>
+搭建脆弱场景&lt;code>sudo ./metarget cnv install cve-2019-5736&lt;/code>&lt;br>
 了解当前支持的云原生组件&lt;code>sudo ./metarget gadget list&lt;/code>&lt;/p>
 &lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241216091730.png"
 loading="lazy"
@@ -582,12 +594,12 @@ loading="lazy"
 &lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241216092647.png"
 loading="lazy"
 >&lt;/p>
-&lt;p>安装指定版本的Kata-containers&lt;code>./metarget gadget install kata --version 1.10.0&lt;/code>
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241216092846.png"
+&lt;p>安装指定版本的Kata-containers&lt;code>./metarget gadget install kata --version 1.10.0&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241216092846.png"
 loading="lazy"
 >&lt;/p>
-&lt;p>安装指定版本Linux内核&lt;code>./metarget gadget install kernel --version 5.7.5&lt;/code>
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241216092946.png"
+&lt;p>安装指定版本Linux内核&lt;code>./metarget gadget install kernel --version 5.7.5&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241216092946.png"
 loading="lazy"
 >\&lt;/p>
 &lt;h1 id="第二次课1126">第二次课11.26&lt;/h1>
