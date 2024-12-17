@@ -301,8 +301,8 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>console output中得到flag=AEB14966-FFC2-4FB0-BF45-CD903B3535DA
 &lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210093811.png"
 loading="lazy"
->
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210093727.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241210093727.png"
 loading="lazy"
 >&lt;/p>
 &lt;h4 id="总结-3">总结&lt;/h4>
@@ -392,6 +392,8 @@ Checkov 是一个开源的静态代码分析工具，专门用于扫描 基础�
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">soft-fail&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">check&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">THIS_NOT_THE_CHECK_YOUR_ARE_LOOKING_FOR&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># soft-fail: true 使得失败的检查不会导致流程中止。&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># THIS_NOT_THE_CHECK_YOUR_ARE_LOOKING_FOR 无效的占位符或调试信息，提示该检查项无效或是错误的。&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改main.tf中的bucket acl为public-read(114行)&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl"> acl = &amp;#34;public-read&amp;#34;
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git add .
@@ -701,7 +703,7 @@ loading="lazy"
 >&lt;/p>
 &lt;h3 id="容器管理程序接口的风险">容器管理程序接口的风险&lt;/h3>
 &lt;h4 id="unix-socket挂载到容器内部">UNIX-socket挂载到容器内部&lt;/h4>
-&lt;p>原理：Docker Socket是Docker守护进程监听的Unix域套接字，用来与守护进程通信——查询信息或下发命令。如果在攻击者可控的容器内挂载了该套接字文件（/var/run/docker.sock），可通过Docker Socket与Docker守护进程通信，发送命令创建并运行一个新的容器，将宿主机的根目录挂载到新创建的容器内部，完成简单逃逸。
+&lt;p>原理：Docker Socket是Docker守护进程监听的Unix域套接字，用来与守护进程通信——查询信息或下发命令。如果在攻击者可控的容器内挂载了该套接字文件（/var/run/docker.sock），可通过Docker Socket与Docker守护进程通信，发送命令创建并运行一个新的容器，将宿主机的根目录挂载到新创建的容器内部，完成逃逸。
 &lt;a class="link" href="https://wiki.teamssix.com/cloudnative/docker/docker-socket-escape.html" target="_blank" rel="noopener"
 >https://wiki.teamssix.com/cloudnative/docker/docker-socket-escape.html&lt;/a>&lt;br>
 &lt;a class="link" href="https://www.freebuf.com/articles/system/382166.html" target="_blank" rel="noopener"
@@ -717,7 +719,18 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241216232152.png"
 loading="lazy"
 >&lt;/p>
-&lt;h2 id="第三次课123">第三次课12.3&lt;/h2></description></item><item><title>记录一些小问题</title><link>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</link><pubDate>Sun, 01 Dec 2024 22:37:04 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</guid><description>&lt;h3 id="wsl突然打不开了重启也没用">wsl突然打不开了，重启也没用&lt;/h3>
+&lt;h2 id="第三次课123">第三次课12.3&lt;/h2>
+&lt;h3 id="小作业-利用密钥获得存储桶信息">小作业-利用密钥获得存储桶信息&lt;/h3>
+&lt;p>&lt;a class="link" href="https://www.fzxm.cn/help/20210201144211000.html" target="_blank" rel="noopener"
+>https://www.fzxm.cn/help/20210201144211000.html&lt;/a>&lt;/p>
+&lt;p>复制右侧提供的python代码
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241217110330.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>替换为同学的密钥和地址，执行成功
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241217105046.png"
+loading="lazy"
+>&lt;/p></description></item><item><title>记录一些小问题</title><link>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</link><pubDate>Sun, 01 Dec 2024 22:37:04 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</guid><description>&lt;h3 id="wsl突然打不开了重启也没用">wsl突然打不开了，重启也没用&lt;/h3>
 &lt;p>1.cmd下管理员权限执行&lt;code>netsh winsock reset&lt;/code>&lt;br>
 2.重启电脑&lt;br>
 &lt;a class="link" href="https://blog.csdn.net/qq_41048761/article/details/121420814" target="_blank" rel="noopener"
