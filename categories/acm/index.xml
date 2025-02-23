@@ -31,6 +31,9 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>每个数字占5个字符宽度&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">a&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="si">:&lt;/span>&lt;span class="s2">5&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 右对齐&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">a&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="si">:&lt;/span>&lt;span class="s2">&amp;lt;5&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 左对齐&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>占4字符，不足补0&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="si">:&lt;/span>&lt;span class="s2">04d&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>输出字符串A-B&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="n">a&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">input&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">b&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">input&lt;/span>&lt;span class="p">()&lt;/span>
@@ -81,6 +84,136 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">count_dict&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">string&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">str_list&lt;/span>&lt;span class="p">:&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">count_dict&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">string&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">count_dict&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">string&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>进制转换&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 假设字符串 s 是二进制形式&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">s&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;1010&amp;#34;&lt;/span> &lt;span class="c1"># 二进制表示的 10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 将字符串 s 转换为整数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">result&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">s&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">result&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 输出：10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">num&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">binary_str&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">bin&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">num&lt;/span>&lt;span class="p">)[&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">:]&lt;/span> &lt;span class="c1"># 去掉前缀 &amp;#39;0b&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">binary_str&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 输出：&amp;#39;1010&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">num&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">binary_str&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">num&lt;/span>&lt;span class="si">:&lt;/span>&lt;span class="s2">b&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">binary_str&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 输出：&amp;#39;1010&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>字符串查找与替换&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="n">text&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Python&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">（&lt;/span>&lt;span class="n">返回&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="n">表示未找到&lt;/span>&lt;span class="err">）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 原始字符串&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">s&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;yny&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 将 &amp;#39;y&amp;#39; 替换为 &amp;#39;0&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">s&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">s&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;y&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;0&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 将 &amp;#39;n&amp;#39; 替换为 &amp;#39;1&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">s&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">s&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;n&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;1&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">s&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 输出：010&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>计算数字字符串各位的和&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="n">n&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">input&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">_&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">t&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">input&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 使用切片直接计算前三位和后三位的和&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nb">sum&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">map&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">int&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">t&lt;/span>&lt;span class="p">[:&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">]))&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="nb">sum&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">map&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">int&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">t&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">:])):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;You are lucky!&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Wish you good luck.&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>循环直到没有输入或有一个特定输入终止&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">s&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">iter&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">input&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">):&lt;/span> &lt;span class="c1"># 当输入为空字符串时停止&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;你输入的是: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">s&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>输入数字简化：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">read_ints&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nb">map&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">int&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">input&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">split&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">read_ints&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>输入数组简化：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">read_array&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data_type&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nb">list&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">map&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data_type&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">input&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">split&lt;/span>&lt;span class="p">()))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 读取整数数组&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">int_nums&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">read_array&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">int&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 读取浮点数数组&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">float_nums&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">read_array&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">float&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>找到每一位都是1，且能被n整除的数，并计算商&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="n">n&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">input&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">now&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">num&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">ans&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">while&lt;/span> &lt;span class="kc">True&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ans&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ans&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">10&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">num&lt;/span> &lt;span class="o">//&lt;/span> &lt;span class="n">n&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">num&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">ans&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2"> &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">now&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">num&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">num&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">n&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">10&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">now&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>字符串切片&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># s[start:stop:step] 是切片的基本语法。&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">s&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Hello, World!&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">reversed_s&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">s&lt;/span>&lt;span class="p">[::&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">reversed_s&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 输出: !dlroW ,olleH&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>一道有些语法知识的题目&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">L1-025 正整数A+B
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">分数 15
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">作者 陈越
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">单位 浙江大学
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">题的目标很简单，就是求两个正整数A和B的和，其中A和B都在区间[1,1000]。稍微有点麻烦的是，输入并不保证是两个正整数。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">输入格式：
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">输入在一行给出A和B，其间以空格分开。问题是A和B不一定是满足要求的正整数，有时候可能是超出范围的数字、负数、带小数点的实数、甚至是一堆乱码。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">注意：我们把输入中出现的第1个空格认为是A和B的分隔。题目保证至少存在一个空格，并且B不是一个空字符串。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">输出格式：
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">如果输入的确是两个正整数，则按格式A + B = 和输出。如果某个输入不合要求，则在相应位置输出?，显然此时和也是?。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">输入样例1：
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">123 456
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">输出样例1：
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">123 + 456 = 579
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">输入样例2：
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1. 18
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">输出样例2：
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">? + 18 = ?
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">输入样例3：
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-100 blabla bla...33
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">输出样例3：
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">? + ? = ?
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">is_valid_positive_integer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">s&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;判断字符串是否为合法的正整数（在 [1, 1000] 范围内）&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">num&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">s&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 尝试转换为整数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="o">&amp;lt;=&lt;/span> &lt;span class="n">num&lt;/span> &lt;span class="o">&amp;lt;=&lt;/span> &lt;span class="mi">1000&lt;/span> &lt;span class="c1"># 检查是否在范围内&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">except&lt;/span> &lt;span class="ne">ValueError&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">False&lt;/span> &lt;span class="c1"># 如果转换失败，返回 False&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 读取输入&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">input_str&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">input&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">strip&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 以第一个空格分隔 A 和 B&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">space_index&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">input_str&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">a_str&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">input_str&lt;/span>&lt;span class="p">[:&lt;/span>&lt;span class="n">space_index&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">b_str&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">input_str&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">space_index&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">:]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 判断 A 和 B 是否合法&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">a_valid&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">is_valid_positive_integer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a_str&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">b_valid&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">is_valid_positive_integer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">b_str&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 格式化输出&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">a_output&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">a_str&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">a_valid&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="s2">&amp;#34;?&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">b_output&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">b_str&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">b_valid&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="s2">&amp;#34;?&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sum_output&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a_str&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">b_str&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">a_valid&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="n">b_valid&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="s2">&amp;#34;?&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 打印结果&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">a_output&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2"> + &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">b_output&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2"> = &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">sum_output&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 调用主函数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">main&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>豆包刷题记录</title><link>https://blog.nrevery.cn/p/%E8%B1%86%E5%8C%85%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</link><pubDate>Sat, 18 Jan 2025 20:35:25 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%B1%86%E5%8C%85%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</guid><description>&lt;h2 id="简单">简单&lt;/h2>
 &lt;h3 id="3-数字字符串格式化">3 数字字符串格式化&lt;/h3>
 &lt;p>&lt;strong>问题&lt;/strong>&lt;br>
