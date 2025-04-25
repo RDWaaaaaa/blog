@@ -1,4 +1,131 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on nRevery's Blog</title><link>https://blog.nrevery.cn/post/</link><description>Recent content in Posts on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Tue, 18 Feb 2025 08:43:09 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/post/index.xml" rel="self" type="application/rss+xml"/><item><title>天梯赛练习</title><link>https://blog.nrevery.cn/p/%E5%A4%A9%E6%A2%AF%E8%B5%9B%E7%BB%83%E4%B9%A0/</link><pubDate>Tue, 18 Feb 2025 08:43:09 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E5%A4%A9%E6%A2%AF%E8%B5%9B%E7%BB%83%E4%B9%A0/</guid><description>&lt;p>&lt;a class="link" href="https://blog.csdn.net/soonway2010/article/details/129932114" target="_blank" rel="noopener"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on nRevery's Blog</title><link>https://blog.nrevery.cn/post/</link><description>Recent content in Posts on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Fri, 25 Apr 2025 21:30:32 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/post/index.xml" rel="self" type="application/rss+xml"/><item><title>大模型基础知识</title><link>https://blog.nrevery.cn/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</link><pubDate>Fri, 25 Apr 2025 21:30:32 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</guid><description>&lt;p>&lt;a class="link" href="https://novel.ict.ac.cn/aics/llmytk/llm-kcjj/" target="_blank" rel="noopener"
+>https://novel.ict.ac.cn/aics/llmytk/llm-kcjj/&lt;/a>&lt;/p>
+&lt;p>&lt;strong>数据准备&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>tokenization&lt;/li>
+&lt;li>embedding:one-hot, word2vec(CBOW通过上下文预测目标词, Skip-gram目标词来预测其上下文)&lt;/li>
+&lt;li>position encoding(三角函数，BERT中的可学习的位置嵌入，RoPE)
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212334.png"
+loading="lazy"
+>
+&lt;strong>模型结构&lt;/strong>&lt;/li>
+&lt;li>seq2seq(RNN或LSTM固定长度、权重相同)&lt;/li>
+&lt;li>attention:scaled dot-product attention, self-attention, multi-head attention&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212343.png"
+loading="lazy"
+> &lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212359.png"
+loading="lazy"
+>&lt;/li>
+&lt;li>Transformer
+&lt;ul>
+&lt;li>编码器输入：one-hot与embedding矩阵相乘/查询 + 三角函数&lt;/li>
+&lt;li>编码器：N x ((QKV分别线性层得到 -&amp;gt; 缩放点积注意力 -&amp;gt; 拼接、线性层) -&amp;gt; (残差连接 -&amp;gt; 层归一化) -&amp;gt; (FFN前馈层512-2048-512) -&amp;gt; (残差连接 -&amp;gt; 层归一化))&lt;/li>
+&lt;li>解码器输入：右移一位&lt;/li>
+&lt;li>解码器：N x ((掩码多头自注意力,QKV来自decoder) -&amp;gt; (残差连接 -&amp;gt; 层归一化) -&amp;gt; (多头交叉注意力,Q来自decoder,KV来自encoder) -&amp;gt; (残差连接 -&amp;gt; 层归一化) -&amp;gt; (FFN前馈层512-2048-512) -&amp;gt; (残差连接 -&amp;gt; 层归一化))&lt;/li>
+&lt;li>Transformer的输出: Linear将输出向量映射为词元数字索引的概率 -&amp;gt; softmax和groundtruth计算交叉熵损失&lt;/li>
+&lt;li>Transformer的训练: Adam（adaptive moment estimation，自适应矩估计），warmup&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>encoder-decoder（T5）&lt;/li>
+&lt;li>encoder-only（BERT）&lt;/li>
+&lt;li>decoder-only（GPTs，Llama）&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>训练&lt;/strong>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212424.png"
+loading="lazy"
+>&lt;/p>
+&lt;ol>
+&lt;li>预训练
+&lt;ul>
+&lt;li>无监督训练：自回归，给定前N-1个词，预测第N个词，无需标注&lt;/li>
+&lt;li>数据处理：数据获取，数据清洗，数据打包&lt;/li>
+&lt;li>如何观测训练效果：loss曲线，测试集去重&lt;/li>
+&lt;li>预训练相关数据参考&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212439.png"
+loading="lazy"
+>&lt;/li>
+&lt;li>尺度定律
+&lt;ul>
+&lt;li>规模与形状:模型效果强依赖于模型大小、数据大小、算力大小（scale），而弱依赖于模型形状&lt;/li>
+&lt;li>平滑幂律:当规模（模型大小、数据大小、算力大小）中，其他两项不是瓶颈时，模型效果和剩余那一项成幂律关系（power-law）&lt;/li>
+&lt;li>过拟合的普遍性:同时增大模型大小和数据大小，模型效果会持续增加。然而如果只一味增加其中一项，模型效果就会进入衰退阶段&lt;/li>
+&lt;li>样本效率:大模型具有比小模型更高的样本效率，达到同样效果所需的样本数和训练步数更少，同样的数据量大模型可以学的更好&lt;/li>
+&lt;li>算力的最优分配:给定算力大小，如何调整模型大小和数据集大小（训练步数 x batch size）以获得最优的模型效果？!&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212505.png"
+loading="lazy"
+>&lt;/li>
+&lt;li>尺度定律的可迁移性:当训练和测试不同分布时，模型在测试集上的表现仍满足尺度定律，且模型在不同分布测试集上的表现和模型在训练分布上的表现高度相关&lt;/li>
+&lt;li>数据有限下的尺度定律:当训练数据有限时，通过重复使用数据进行训练仍然可以得到可预测的“尺度定律”&lt;/li>
+&lt;li>尺度定律的普遍性:并不只有Transformer模型具有尺度定律，但是不同模型结构的效果会有区别&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>涌现:在小模型中不具备，但在大模型中具备的能力。随着模型训练规模增加，模型的准确率发生尖锐突变&amp;lt;-准确率指标非线性&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>后训练
+&lt;ul>
+&lt;li>指令微调：收集人工标注的成对&amp;lt;问题，答案&amp;gt;数据，进行
+监督训练，得到SFT modelss&lt;/li>
+&lt;li>偏好优化
+&lt;ul>
+&lt;li>训练奖励模型：人工给SFT model的输出做排序&lt;/li>
+&lt;li>优化策略模型：使用奖励模型和强化学习算法对大模型进行优化（Test-time scaling，pass@k，PRM &amp;gt; ORM &amp;gt; Majority Voting）&lt;/li>
+&lt;li>强化学习：？&lt;/li>
+&lt;li>自提升：？&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>微调&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212520.png"
+loading="lazy"
+>
+&lt;ul>
+&lt;li>分类：增加参数微调（适配器微调，软提示微调），选择性微调（DiffPruning，Bitfit），重参数化微调（Low-Rank Adaptation，Infused Adapter by Inhibiting and Amplifying Inner Activations）&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>推理
+&lt;ul>
+&lt;li>解码分类（Decoding）：贪心搜索，束搜索，采样，对比解码&lt;/li>
+&lt;li>解码加速：并行解码，投机解码&lt;/li>
+&lt;li>提示词prompt&lt;/li>
+&lt;li>上下文学习（In-Context Learning，ICL）&lt;/li>
+&lt;li>思维链（Chain of Thought，CoT）&lt;/li>
+&lt;li>检索增强生成（Retrieval-Augmented Generation，RAG）&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>大模型系统软件&lt;/strong>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212534.png"
+loading="lazy"
+>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212557.png"
+loading="lazy"
+>
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212607.png"
+loading="lazy"
+>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>分布式训练&lt;/p>
+&lt;ul>
+&lt;li>分布式架构：参数服务器，集合通信&lt;/li>
+&lt;li>分布式同步策略：同步通信，异步通信&lt;/li>
+&lt;li>并行&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212624.png"
+loading="lazy"
+>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212720.png"
+loading="lazy"
+>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212729.png"
+loading="lazy"
+>&lt;/li>
+&lt;li>计算效率优化:混合精度训练（Mixed Precision Training）,稀疏化（Sparsity）,注意力机制融合优化（FlashAttention）&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>FlashAttention:在GPU上构造Fully-Fused的Attention算子&lt;/p>
+&lt;ul>
+&lt;li>FlashAttention-1：softmax的性质&lt;/li>
+&lt;li>FlashAttention-2：进一步优化计算算法，并优化并行策略&lt;/li>
+&lt;li>FlashAttention-3：基于Hopper GPU硬件特性的进一步优化&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol></description></item><item><title>天梯赛练习</title><link>https://blog.nrevery.cn/p/%E5%A4%A9%E6%A2%AF%E8%B5%9B%E7%BB%83%E4%B9%A0/</link><pubDate>Tue, 18 Feb 2025 08:43:09 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E5%A4%A9%E6%A2%AF%E8%B5%9B%E7%BB%83%E4%B9%A0/</guid><description>&lt;p>&lt;a class="link" href="https://blog.csdn.net/soonway2010/article/details/129932114" target="_blank" rel="noopener"
 >https://blog.csdn.net/soonway2010/article/details/129932114&lt;/a>&lt;br>
 &lt;a class="link" href="https://zhuanlan.zhihu.com/p/607575071" target="_blank" rel="noopener"
 >https://zhuanlan.zhihu.com/p/607575071&lt;/a>&lt;/p>
