@@ -1349,7 +1349,7 @@ loading="lazy"
 &lt;p>1.cmd下管理员权限执行&lt;code>netsh winsock reset&lt;/code>&lt;br>
 2.重启电脑&lt;br>
 &lt;a class="link" href="https://blog.csdn.net/qq_41048761/article/details/121420814" target="_blank" rel="noopener"
->https://blog.csdn.net/qq_41048761/article/details/121420814&lt;/a>&lt;/p></description></item><item><title>训练营-第二阶段</title><link>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</link><pubDate>Mon, 28 Oct 2024 21:17:13 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/</guid><description/></item><item><title>Web入门</title><link>https://blog.nrevery.cn/p/web%E5%85%A5%E9%97%A8/</link><pubDate>Sat, 26 Oct 2024 10:51:20 +0800</pubDate><guid>https://blog.nrevery.cn/p/web%E5%85%A5%E9%97%A8/</guid><description>&lt;p>[TOC]&lt;/p>
+>https://blog.csdn.net/qq_41048761/article/details/121420814&lt;/a>&lt;/p></description></item><item><title>Web入门</title><link>https://blog.nrevery.cn/p/web%E5%85%A5%E9%97%A8/</link><pubDate>Sat, 26 Oct 2024 10:51:20 +0800</pubDate><guid>https://blog.nrevery.cn/p/web%E5%85%A5%E9%97%A8/</guid><description>&lt;p>[TOC]&lt;/p>
 &lt;h3 id="linux命令">linux命令&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">env &lt;span class="c1"># 环境变量&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find &amp;lt;路径&amp;gt; -name &amp;lt;文件名&amp;gt;
