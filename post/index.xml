@@ -7,7 +7,7 @@
 &lt;li>position encoding(三角函数，BERT中的可学习的位置嵌入，RoPE)&lt;/li>
 &lt;/ol>
 &lt;div style="text-align:center;">
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212334.png" style="width:100%; height:auto;">
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212334.png" style="width:70%; height:auto;">
 &lt;/div>
 &lt;p>&lt;strong>模型结构&lt;/strong>&lt;/p>
 &lt;ol>
@@ -15,10 +15,10 @@
 &lt;li>attention:scaled dot-product attention, self-attention, multi-head attention&lt;/li>
 &lt;/ol>
 &lt;div style="text-align:center;">
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212343.png" style="width:100%; height:auto;">
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212343.png" style="width:70%; height:auto;">
 &lt;/div>
 &lt;div style="text-align:center;">
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212359.png" style="width:100%; height:auto;">
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212359.png" style="width:70%; height:auto;">
 &lt;/div>
 &lt;ol>
 &lt;li>Transformer
@@ -37,7 +37,7 @@
 &lt;/ol>
 &lt;p>&lt;strong>训练&lt;/strong>&lt;/p>
 &lt;div style="text-align:center;">
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212424.png" style="width:100%; height:auto;">
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212424.png" style="width:70%; height:auto;">
 &lt;/div>
 &lt;ol>
 &lt;li>预训练
@@ -50,7 +50,7 @@
 &lt;/li>
 &lt;/ol>
 &lt;div style="text-align:center;">
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212439.png" style="width:100%; height:auto;">
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212439.png" style="width:70%; height:auto;">
 &lt;/div>
 &lt;pre>&lt;code>- 尺度定律
 - 规模与形状:模型效果强依赖于模型大小、数据大小、算力大小（scale），而弱依赖于模型形状
@@ -60,7 +60,7 @@
 - 算力的最优分配:给定算力大小，如何调整模型大小和数据集大小（训练步数 x batch size）以获得最优的模型效果？
 &lt;/code>&lt;/pre>
 &lt;div style="text-align:center;">
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212505.png" style="width:100%; height:auto;">
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212505.png" style="width:70%; height:auto;">
 &lt;/div>
 &lt;pre>&lt;code> - 尺度定律的可迁移性:当训练和测试不同分布时，模型在测试集上的表现仍满足尺度定律，且模型在不同分布测试集上的表现和模型在训练分布上的表现高度相关
 - 数据有限下的尺度定律:当训练数据有限时，通过重复使用数据进行训练仍然可以得到可预测的“尺度定律”
@@ -85,7 +85,7 @@
 &lt;li>微调&lt;/li>
 &lt;/ol>
 &lt;div style="text-align:center;">
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212520.png" style="width:100%; height:auto;">
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212520.png" style="width:70%; height:auto;">
 &lt;/div>
 &lt;ul>
 &lt;li>分类：增加参数微调（适配器微调，软提示微调），选择性微调（DiffPruning，Bitfit），重参数化微调（Low-Rank Adaptation，Infused Adapter by Inhibiting and Amplifying Inner Activations）&lt;/li>
@@ -104,13 +104,13 @@
 &lt;/ol>
 &lt;p>&lt;strong>大模型系统软件&lt;/strong>&lt;/p>
 &lt;div style="text-align:center;">
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212534.png" style="width:90%; height:auto;">
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212534.png" style="width:60%; height:auto;">
 &lt;/div>
 &lt;div style="text-align:center;">
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212557.png" style="width:50%; height:auto;">
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212557.png" style="width:30%; height:auto;">
 &lt;/div>
 &lt;div style="text-align:center;">
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212607.png" style="width:100%; height:auto;">
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212607.png" style="width:70%; height:auto;">
 &lt;/div>
 &lt;ol>
 &lt;li>分布式训练
@@ -122,13 +122,13 @@
 &lt;/li>
 &lt;/ol>
 &lt;div style="text-align:center;">
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212624.png" style="width:100%; height:auto;">
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212624.png" style="width:70%; height:auto;">
 &lt;/div>
 &lt;div style="text-align:center;">
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212720.png" style="width:100%; height:auto;">
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212720.png" style="width:70%; height:auto;">
 &lt;/div>
 &lt;div style="text-align:center;">
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212729.png" style="width:100%; height:auto;">
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250425212729.png" style="width:70%; height:auto;">
 &lt;/div>
 &lt;ul>
 &lt;li>计算效率优化:混合精度训练（Mixed Precision Training）,稀疏化（Sparsity）,注意力机制融合优化（FlashAttention）&lt;/li>
