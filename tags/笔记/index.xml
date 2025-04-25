@@ -4133,6 +4133,58 @@ loading="lazy"
 >&lt;br>
 &lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602230957.png"
 loading="lazy"
+>&lt;/p></description></item><item><title>综合实践2</title><link>https://blog.nrevery.cn/p/%E7%BB%BC%E5%90%88%E5%AE%9E%E8%B7%B52/</link><pubDate>Sat, 01 Jun 2024 22:57:17 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E7%BB%BC%E5%90%88%E5%AE%9E%E8%B7%B52/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo docker ps -a &lt;span class="c1"># 查看所有docker,必须有sudo,一开始名为user的docker状态一般是exit(0)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo docker start user &lt;span class="c1"># 启动名为user的容器&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo docker ps -a &lt;span class="c1"># 此时状态会是Up&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo docker &lt;span class="nb">exec&lt;/span> user ping 172.17.0.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo docker inspect -f &lt;span class="s1">&amp;#39;{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}&amp;#39;&lt;/span> my_container &lt;span class="c1">#显示docker的ip&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo docker &lt;span class="nb">exec&lt;/span> -it user /bin/bash &lt;span class="c1"># 打开user容器的bash&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="实验1-网络数据嗅探和欺骗">实验1-网络数据嗅探和欺骗&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">scapy.all&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="o">*&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">spoof_pkt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pkt&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">ICMP&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">pkt&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="n">pkt&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">ICMP&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">type&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">8&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Original Packet...&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Source IP:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">pkt&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">IP&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">src&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Destination IP:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">pkt&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">IP&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">dst&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ip&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">IP&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">pkt&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">IP&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">dst&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dst&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">pkt&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">IP&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">src&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ihl&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">pkt&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">IP&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ihl&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ip&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ttl&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">64&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">icmp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ICMP&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">pkt&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">ICMP&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">seq&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">pkt&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">ICMP&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">seq&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">pkt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">haslayer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Raw&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">pkt&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">Raw&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">load&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">newpkt&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ip&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="n">icmp&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="n">data&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">newpkt&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ip&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="n">icmp&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Spoofed Packet...&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Source IP:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">newpkt&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">IP&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">src&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Destination IP:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">newpkt&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">IP&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">dst&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">send&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">newpkt&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">verbose&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">sniff&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">filter&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;icmp and src host 172.17.0.2&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">iface&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;docker0&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">prn&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">spoof_pkt&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="实验2-arp缓存中毒攻击">实验2-ARP缓存中毒攻击&lt;/h2>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/b7a0e6691949c77b0cc60b6d64448b5.jpg"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/7c54447a2ac5aa6cf5dc17c3de8b541.jpg"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/0af6ff4dee045b9fb28973a89635783.jpg"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/e6b5f7936e00b003b55a879299a4afe.jpg"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/50f3ab85bc7fc4d5677e5f9e844495b.jpg"
+loading="lazy"
 >&lt;/p></description></item><item><title>Portswigger 靶场练习</title><link>https://blog.nrevery.cn/p/portswigger-%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/</link><pubDate>Wed, 01 May 2024 21:32:33 +0800</pubDate><guid>https://blog.nrevery.cn/p/portswigger-%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/</guid><description>&lt;h2 id="sql-injection">SQL injection&lt;/h2>
 &lt;p>题解参考：
 &lt;a class="link" href="https://www.cnblogs.com/yii-ling/p/17011963.html" target="_blank" rel="noopener"
