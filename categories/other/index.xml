@@ -730,11 +730,7 @@ loading="lazy"
 &lt;p>替换为同学的密钥和地址，执行成功
 &lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20241217105046.png"
 loading="lazy"
->&lt;/p></description></item><item><title>记录一些小问题</title><link>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</link><pubDate>Sun, 01 Dec 2024 22:37:04 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</guid><description>&lt;h3 id="wsl突然打不开了重启也没用">wsl突然打不开了，重启也没用&lt;/h3>
-&lt;p>1.cmd下管理员权限执行&lt;code>netsh winsock reset&lt;/code>&lt;br>
-2.重启电脑&lt;br>
-&lt;a class="link" href="https://blog.csdn.net/qq_41048761/article/details/121420814" target="_blank" rel="noopener"
->https://blog.csdn.net/qq_41048761/article/details/121420814&lt;/a>&lt;/p></description></item><item><title>实训</title><link>https://blog.nrevery.cn/p/%E5%AE%9E%E8%AE%AD/</link><pubDate>Mon, 22 Jul 2024 10:49:13 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E5%AE%9E%E8%AE%AD/</guid><description>&lt;h2 id="day1-渗透测试环境部署">day1 渗透测试环境部署&lt;/h2>
+>&lt;/p></description></item><item><title>实训</title><link>https://blog.nrevery.cn/p/%E5%AE%9E%E8%AE%AD/</link><pubDate>Mon, 22 Jul 2024 10:49:13 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E5%AE%9E%E8%AE%AD/</guid><description>&lt;h2 id="day1-渗透测试环境部署">day1 渗透测试环境部署&lt;/h2>
 &lt;p>下载安装安装kali2022
 &lt;a class="link" href="https://www.cnblogs.com/603115lh/p/12349908.html" target="_blank" rel="noopener"
 >https://www.cnblogs.com/603115lh/p/12349908.html&lt;/a>&lt;/p>
@@ -1224,8 +1220,8 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gcc file1.o file2.o -o my_executable
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="对拍">对拍&lt;/h2>
 &lt;p>&lt;a class="link" href="https://www.cnblogs.com/EdisonBa/p/13509379.html" target="_blank" rel="noopener"
->https://www.cnblogs.com/EdisonBa/p/13509379.html&lt;/a>
-一段出题代码&lt;/p>
+>https://www.cnblogs.com/EdisonBa/p/13509379.html&lt;/a>&lt;/p>
+&lt;h2 id="一段出题代码">一段出题代码&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span>&lt;span class="cpf">&amp;lt;bits/stdc++.h&amp;gt;&lt;/span>&lt;span class="cp">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="k">using&lt;/span> &lt;span class="k">namespace&lt;/span> &lt;span class="n">std&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">const&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">N&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">100000&lt;/span>&lt;span class="p">;&lt;/span>
@@ -1281,28 +1277,43 @@ user01:!$6$abcdefgh$wqe7r8yK3QH.DRTfEr1:19000:0:99999:7:::
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gpasswd student
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gpasswd -d user02 student
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">usermod -a -G developers,admins user02 &lt;span class="c1"># 将现有用户添加到一个或多个附加组中，并且保留用户之前所属的组。如果不使用 -a 选项，用户将被从原有的附加组中删除，只保留在新指定的附加组中。&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>/etc/passwd&lt;br>
-用户名:密码:UID:GID:用户信息:主目录:登录 shell&lt;br>
-user01:x:1001:1001::/home/user01:/bin/bash&lt;/p>
-&lt;p>/etc/shadow&lt;br>
-用户名:密码:上次更改日期:最小间隔天数:最大间隔天数:警告天数:禁用天数:账号过期日期:保留字段&lt;br>
-user01:$6$abcdefg$&amp;hellip;.:19000:0:99999:7:::&lt;/p>
-&lt;p>所有用户对passwd文件均可读取，只有root用户对shadow文件可读，因此密码存放在shadow文件中更安全。&lt;/p>
-&lt;p>/etc/group
-组名:密码:组ID:组成员
-root:x:0:
-daemon:x:1:
-bin:x:2:
-sys:x:3:
-adm:x:4:syslog
-users:x:100:alice,bob,charlie
-developers:x:101:alice,bob&lt;/p>
-&lt;p>/etc/gshadow
-组名:组密码:管理员:组成员
-root:!:root:daemon
-admins:!:alice,bob
-users::alice,bob,charlie&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Shellcode学习笔记</title><link>https://blog.nrevery.cn/p/shellcode%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 25 Mar 2024 22:13:53 +0800</pubDate><guid>https://blog.nrevery.cn/p/shellcode%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid><description>&lt;h2 id="gdb的使用">GDB的使用&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">/etc/passwd
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">用户名:密码:UID:GID:用户信息:主目录:登录 shell
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">user01:x:1001:1001::/home/user01:/bin/bash
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/etc/shadow
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">用户名:密码:上次更改日期:最小间隔天数:最大间隔天数:警告天数:禁用天数:账号过期日期:保留字段
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">user01:$6$abcdefg$....:19000:0:99999:7:::
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">所有用户对passwd文件均可读取，只有root用户对shadow文件可读，因此密码存放在shadow文件中更安全。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/etc/group
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">组名:密码:组ID:组成员
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">root:x:0:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">daemon:x:1:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">bin:x:2:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sys:x:3:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">adm:x:4:syslog
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">users:x:100:alice,bob,charlie
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">developers:x:101:alice,bob
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/etc/gshadow
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">组名:组密码:管理员:组成员
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">root:!:root:daemon
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">admins:!:alice,bob
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">users::alice,bob,charlie
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="配置代理">配置代理&lt;/h2>
+&lt;p>firefox - 设置 - 常规 - 网络设置&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">https_proxy&lt;/span>&lt;span class="o">=&lt;/span>http://xxx:7890
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">http_proxy&lt;/span>&lt;span class="o">=&lt;/span>http://xxx:7890
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">all_proxy&lt;/span>&lt;span class="o">=&lt;/span>socks5://xxx:7890
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git config --global http.proxy http://xxx:7890
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git config --global https.proxy http://xxx:7890
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="wsl突然打不开了重启也没用">wsl突然打不开了，重启也没用&lt;/h2>
+&lt;p>1.cmd下管理员权限执行&lt;code>netsh winsock reset&lt;/code>&lt;br>
+2.重启电脑&lt;br>
+&lt;a class="link" href="https://blog.csdn.net/qq_41048761/article/details/121420814" target="_blank" rel="noopener"
+>https://blog.csdn.net/qq_41048761/article/details/121420814&lt;/a>&lt;/p></description></item><item><title>Shellcode学习笔记</title><link>https://blog.nrevery.cn/p/shellcode%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 25 Mar 2024 22:13:53 +0800</pubDate><guid>https://blog.nrevery.cn/p/shellcode%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid><description>&lt;h2 id="gdb的使用">GDB的使用&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">b main
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">delete &lt;span class="m">1&lt;/span> &lt;span class="c1"># 断点编号&lt;/span>
