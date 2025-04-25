@@ -1,2 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Cloud on nRevery's Blog</title><link>https://blog.nrevery.cn/categories/cloud/</link><description>Recent content in Cloud on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Wed, 12 Feb 2025 15:25:26 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/categories/cloud/index.xml" rel="self" type="application/rss+xml"/><item><title>CNCF Alibaba 云原生技术公开课</title><link>https://blog.nrevery.cn/p/cncf-alibaba-%E4%BA%91%E5%8E%9F%E7%94%9F%E6%8A%80%E6%9C%AF%E5%85%AC%E5%BC%80%E8%AF%BE/</link><pubDate>Wed, 12 Feb 2025 15:25:26 +0800</pubDate><guid>https://blog.nrevery.cn/p/cncf-alibaba-%E4%BA%91%E5%8E%9F%E7%94%9F%E6%8A%80%E6%9C%AF%E5%85%AC%E5%BC%80%E8%AF%BE/</guid><description>&lt;p>&lt;a class="link" href="https://tech.meituan.com/2015/03/31/cgroups.html" target="_blank" rel="noopener"
->Linux资源管理之cgroups简介&lt;/a>&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Cloud on nRevery&#39;s Blog</title>
+        <link>https://blog.nrevery.cn/categories/cloud/</link>
+        <description>Recent content in Cloud on nRevery&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>nRevery</copyright>
+        <lastBuildDate>Wed, 12 Feb 2025 15:25:26 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/categories/cloud/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>CNCF Alibaba 云原生技术公开课</title>
+        <link>https://blog.nrevery.cn/p/cncf-alibaba-%E4%BA%91%E5%8E%9F%E7%94%9F%E6%8A%80%E6%9C%AF%E5%85%AC%E5%BC%80%E8%AF%BE/</link>
+        <pubDate>Wed, 12 Feb 2025 15:25:26 +0800</pubDate>
+        
+        <guid>https://blog.nrevery.cn/p/cncf-alibaba-%E4%BA%91%E5%8E%9F%E7%94%9F%E6%8A%80%E6%9C%AF%E5%85%AC%E5%BC%80%E8%AF%BE/</guid>
+        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tech.meituan.com/2015/03/31/cgroups.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Linux资源管理之cgroups简介&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
