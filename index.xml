@@ -163,7 +163,12 @@ loading="lazy"
 >&lt;/p>
 &lt;p>根据&lt;a class="link" href="https://github.com/stanford-cs149/cs149gpt/issues/2#issuecomment-2439791718" target="_blank" rel="noopener"
 >此解决方案&lt;/a>改用conda。注意&amp;quot;cpuonly&amp;quot;强制 conda 安装 不带 CUDA 支持的 PyTorch&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">conda create -n gpt149 &lt;span class="nv">python&lt;/span>&lt;span class="o">=&lt;/span>3.10
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">apt update &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt install wget bzip2 -y
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">bash Miniconda3-latest-Linux-x86_64.sh -b -p /root/miniconda3
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;/root/miniconda3/bin:&lt;/span>&lt;span class="nv">$PATH&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">conda create -n gpt149 &lt;span class="nv">python&lt;/span>&lt;span class="o">=&lt;/span>3.10
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">conda init bash
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> ~/.bashrc
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">conda activate gpt149
