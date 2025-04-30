@@ -137,7 +137,7 @@ loading="lazy"
 &lt;/li>
 &lt;/ol>
 &lt;h3 id="conda">conda&lt;/h3>
-&lt;p>说明：我本来是在docker容器里使用conda，后来发现有点唐，在wsl中直接用conda就可以&lt;/p>
+&lt;p>说明：我本来是在wsl2的docker容器里使用conda，后来发现有点唐，在wsl中直接用conda就可以&lt;/p>
 &lt;p>虚拟环境中完成&lt;a class="link" href="https://github.com/stanford-cs149/cs149gpt" target="_blank" rel="noopener"
 >cs149gpt&lt;/a>&lt;/p>
 &lt;p>在venv中&lt;/p>
