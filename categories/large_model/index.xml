@@ -35,7 +35,7 @@ loading="lazy"
 &lt;h2 id="v3">v3&lt;/h2>
 &lt;p>&lt;a class="link" href="https://arxiv.org/abs/2407.08608" target="_blank" rel="noopener"
 >https://arxiv.org/abs/2407.08608&lt;/a>&lt;br>
-&lt;strong>Fast and Accurate Attention with Asynchrony and Low-precision&lt;/strong>&lt;br>
+&lt;strong>FlashAttention-3: Fast and Accurate Attention with Asynchrony and Low-precision&lt;/strong>&lt;br>
 FA2 算子在 H100 上的利用率不高。H100 新增了 TMA 硬件 Warpgroup 级别的 GEMM 指令，是 NV 首个可实现完全异步通信和计算的 GPU，同时具有 FP8 低精度运算的能力。&lt;/p>
 &lt;p>Hopper 架构新指令：&lt;/p>
 &lt;ol>
