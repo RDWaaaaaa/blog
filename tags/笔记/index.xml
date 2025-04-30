@@ -1,4 +1,76 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>笔记 on nRevery's Blog</title><link>https://blog.nrevery.cn/tags/%E7%AC%94%E8%AE%B0/</link><description>Recent content in 笔记 on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Fri, 25 Apr 2025 21:30:32 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/tags/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml"/><item><title>大模型基础知识</title><link>https://blog.nrevery.cn/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</link><pubDate>Fri, 25 Apr 2025 21:30:32 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</guid><description>&lt;p>&lt;a class="link" href="https://novel.ict.ac.cn/aics/llmytk/llm-kcjj/" target="_blank" rel="noopener"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>笔记 on nRevery's Blog</title><link>https://blog.nrevery.cn/tags/%E7%AC%94%E8%AE%B0/</link><description>Recent content in 笔记 on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Wed, 30 Apr 2025 10:53:25 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/tags/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml"/><item><title>Flash Attention</title><link>https://blog.nrevery.cn/p/flash-attention/</link><pubDate>Wed, 30 Apr 2025 10:53:25 +0800</pubDate><guid>https://blog.nrevery.cn/p/flash-attention/</guid><description>&lt;p>&lt;a class="link" href="https://zhuanlan.zhihu.com/p/685020608" target="_blank" rel="noopener"
+>https://zhuanlan.zhihu.com/p/685020608&lt;/a>&lt;br>
+&lt;a class="link" href="https://hebiao064.github.io/fa3-attn-backend-basic" target="_blank" rel="noopener"
+>https://hebiao064.github.io/fa3-attn-backend-basic&lt;/a>&lt;br>
+&lt;a class="link" href="https://zhuanlan.zhihu.com/p/17533058076" target="_blank" rel="noopener"
+>https://zhuanlan.zhihu.com/p/17533058076&lt;/a>&lt;br>
+&lt;a class="link" href="https://blog.csdn.net/v_JULY_v/article/details/133619540" target="_blank" rel="noopener"
+>https://blog.csdn.net/v_JULY_v/article/details/133619540&lt;/a>&lt;br>
+&lt;a class="link" href="https://zhuanlan.zhihu.com/p/639228219" target="_blank" rel="noopener"
+>https://zhuanlan.zhihu.com/p/639228219&lt;/a>&lt;/p>
+&lt;h2 id="v1">v1&lt;/h2>
+&lt;p>&lt;a class="link" href="https://arxiv.org/abs/2205.14135" target="_blank" rel="noopener"
+>https://arxiv.org/abs/2205.14135&lt;/a>&lt;br>
+&lt;strong>FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness&lt;/strong>&lt;br>
+自注意力模块在序列长度上具有二次方的时间和内存复杂度。这导致在处理长序列时速度变慢且内存需求巨大&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250429160558.png"
+loading="lazy"
+>&lt;/p>
+&lt;h2 id="v2">v2&lt;/h2>
+&lt;p>&lt;a class="link" href="https://arxiv.org/abs/2307.08691" target="_blank" rel="noopener"
+>https://arxiv.org/abs/2307.08691&lt;/a>&lt;br>
+&lt;strong>FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning&lt;/strong>&lt;/p>
+&lt;p>GPU对不同thread blocks和warps工作分配不是最优的，造成了利用率低和不必要的共享内存读写。&lt;/p>
+&lt;ol>
+&lt;li>减少non-matmul FLOPs-最后算softmax的分母&lt;/li>
+&lt;li>在序列长度这一维度上进行并行化，FlashAttention-2将 Q 移到了外循环 i，K V 移到了内循环 j，由于改进了算法使得warps之间不再需要相互通信去处理，所以外循环可以放在不同的thread block上（之前只在batch和heads两个维度上进行了并行化，使用一个thread block来处理一个attention head，总共需要thread block的数量等于batch size × number of heads）&lt;/li>
+&lt;li>在一个attention计算块内，将工作分配在一个thread block的不同warp上&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250429195002.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250429210040.png"
+loading="lazy"
+>&lt;/p>
+&lt;h2 id="v3">v3&lt;/h2>
+&lt;p>&lt;a class="link" href="https://arxiv.org/abs/2407.08608" target="_blank" rel="noopener"
+>https://arxiv.org/abs/2407.08608&lt;/a>&lt;br>
+&lt;strong>Fast and Accurate Attention with Asynchrony and Low-precision&lt;/strong>&lt;br>
+FA2 算子在 H100 上的利用率不高。H100 新增了 TMA 硬件 Warpgroup 级别的 GEMM 指令，是 NV 首个可实现完全异步通信和计算的 GPU，同时具有 FP8 低精度运算的能力。&lt;/p>
+&lt;p>Hopper 架构新指令：&lt;/p>
+&lt;ol>
+&lt;li>WGMMA operand A 可以从 RMEM/SMEM 读取，operand B 只能从 SMEM 读取。&lt;/li>
+&lt;li>TMA，允许程序在 GMEM 和 SMEM 之间异步且双向地传输 1D 到 5D 的张量。TMA 不仅可以将相同的数据传输到调用 SM 的 SMEM，还可以传输到同一 Thread Block Cluster 中的其他 SM 的 SMEM。这被称为 multicast&lt;/li>
+&lt;/ol>
+&lt;p>方案：&lt;/p>
+&lt;ol>
+&lt;li>A100 之前的异步：warp 间异步，Warp Specialization。A100 的异步：同一 warp 中，Multistage。H100 的异步：Warp Specialization + Intra-warpgroup overlapping。&lt;/li>
+&lt;li>FP8 低精度运算&lt;/li>
+&lt;/ol>
+&lt;h2 id="flash-decoding">Flash-Decoding&lt;/h2>
+&lt;p>&lt;a class="link" href="https://crfm.stanford.edu/2023/10/12/flashdecoding.html" target="_blank" rel="noopener"
+>https://crfm.stanford.edu/2023/10/12/flashdecoding.html&lt;/a>&lt;br>
+&lt;strong>Flash-Decoding for long-context inference&lt;/strong>&lt;br>
+需要增强处理长上下文能力。attention操作对内存的访问会随着batch size增加而增加，而模型中其他操作只和模型大小相关。&lt;/p>
+&lt;p>增加了一个新的并行化维度：keys/values的序列长度。&lt;/p>
+&lt;p>&lt;img src="https://pic3.zhimg.com/v2-13fcb10493400523013dcfe55cc9b846_b.webp"
+loading="lazy"
+>&lt;/p>
+&lt;h2 id="flashdecoding">FlashDecoding++&lt;/h2>
+&lt;p>&lt;a class="link" href="https://arxiv.org/abs/2311.01282" target="_blank" rel="noopener"
+>https://arxiv.org/abs/2311.01282&lt;/a>&lt;br>
+&lt;strong>FlashDecoding++: Faster Large Language Model Inference on GPUs&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>同步partial softmax更新&lt;/li>
+&lt;li>Flat GEMM操作的计算资源未得到充分利用。当batch size较小时，cublas和cutlass会将矩阵填充zeros以执行更大batchsize的GEMM，导致计算利用率不足50%。&lt;/li>
+&lt;li>动态输入和固定硬件配置影响了LLM推理的性能。例如，当batch size较小时，LLM推理的解码过程是memory-bounded，而当batch size较大时是compute-bounded。&lt;/li>
+&lt;/ol>
+&lt;p>解决方案：&lt;/p>
+&lt;ol>
+&lt;li>为分块softmax计算设置了一个共享的最大值&lt;/li>
+&lt;li>只将矩阵大小填充到8 + 双缓冲等技术&lt;/li>
+&lt;li>动态kernel优化&lt;/li>
+&lt;/ol></description></item><item><title>大模型基础知识</title><link>https://blog.nrevery.cn/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</link><pubDate>Fri, 25 Apr 2025 21:30:32 +0800</pubDate><guid>https://blog.nrevery.cn/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</guid><description>&lt;p>&lt;a class="link" href="https://novel.ict.ac.cn/aics/llmytk/llm-kcjj/" target="_blank" rel="noopener"
 >https://novel.ict.ac.cn/aics/llmytk/llm-kcjj/&lt;/a>&lt;/p>
 &lt;p>&lt;strong>数据准备&lt;/strong>&lt;/p>
 &lt;ol>
