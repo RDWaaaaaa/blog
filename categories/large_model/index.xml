@@ -1,4 +1,34 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>大模型 on nRevery's Blog</title><link>https://blog.nrevery.cn/categories/large_model/</link><description>Recent content in 大模型 on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Wed, 30 Apr 2025 10:53:25 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/categories/large_model/index.xml" rel="self" type="application/rss+xml"/><item><title>Flash Attention</title><link>https://blog.nrevery.cn/p/flash-attention/</link><pubDate>Wed, 30 Apr 2025 10:53:25 +0800</pubDate><guid>https://blog.nrevery.cn/p/flash-attention/</guid><description>&lt;p>&lt;a class="link" href="https://zhuanlan.zhihu.com/p/685020608" target="_blank" rel="noopener"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>大模型 on nRevery's Blog</title><link>https://blog.nrevery.cn/categories/large_model/</link><description>Recent content in 大模型 on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Sat, 03 May 2025 21:04:32 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/categories/large_model/index.xml" rel="self" type="application/rss+xml"/><item><title>ISPC</title><link>https://blog.nrevery.cn/p/ispc/</link><pubDate>Sat, 03 May 2025 21:04:32 +0800</pubDate><guid>https://blog.nrevery.cn/p/ispc/</guid><description>&lt;h2 id="分布存储系统并行编程">分布存储系统并行编程&lt;/h2>
+&lt;p>&lt;a class="link" href="https://cs.nju.edu.cn/lxie/parallel/PC14.pdf" target="_blank" rel="noopener"
+>https://cs.nju.edu.cn/lxie/parallel/PC14.pdf&lt;/a>&lt;/p>
+&lt;ol>
+&lt;li>消息传递模型
+&lt;ol>
+&lt;li>分类
+&lt;ul>
+&lt;li>SPMD（Single-Program Multiple-Data）：主机/节点式(Host/Node)，无主机式(Hostless)&lt;/li>
+&lt;li>MPMD：数据流方式，客户/服务器方式&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>消息传递库(Message-Passing Libraries)
+&lt;ul>
+&lt;li>MPI（Message Passing Interface）：是一种标准接口规范 ，不是具体的软件。它定义了用于进程间通信的一组函数和行为（如 MPI_Send, MPI_Recv 等。&lt;/li>
+&lt;li>PVM（Parallel Virtual Machine）：是一个早期的消息传递系统软件包 ，比 MPI 更早出现。它允许将多台不同类型的计算机组成一个虚拟的并行计算环境。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>消息传递方式
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250504170501.png"
+loading="lazy"
+>&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>数据并行模型：SIMD, SPMD&lt;/li>
+&lt;/ol>
+&lt;h2 id="ispc">ispc&lt;/h2>
+&lt;p>ISPC（Intel® SPMD Program Compiler）是一种面向CPU的高性能并行编译器，其核心作用是将SPMD模式的代码编译为高效的SIMD指令集，从而在CPU上实现接近原生硬件的并行计算性能。&lt;/p>
+&lt;h2 id="实践">实践&lt;/h2>
+&lt;p>&lt;a class="link" href="https://github.com/RDWaaaaaa/FlashAttn-CS149" target="_blank" rel="noopener"
+>https://github.com/RDWaaaaaa/FlashAttn-CS149&lt;/a>&lt;/p></description></item><item><title>Flash Attention</title><link>https://blog.nrevery.cn/p/flash-attention/</link><pubDate>Wed, 30 Apr 2025 10:53:25 +0800</pubDate><guid>https://blog.nrevery.cn/p/flash-attention/</guid><description>&lt;p>&lt;a class="link" href="https://zhuanlan.zhihu.com/p/685020608" target="_blank" rel="noopener"
 >https://zhuanlan.zhihu.com/p/685020608&lt;/a>&lt;br>
 &lt;a class="link" href="https://hebiao064.github.io/fa3-attn-backend-basic" target="_blank" rel="noopener"
 >https://hebiao064.github.io/fa3-attn-backend-basic&lt;/a>&lt;br>
@@ -70,6 +100,110 @@ loading="lazy"
 &lt;li>为分块softmax计算设置了一个共享的最大值&lt;/li>
 &lt;li>只将矩阵大小填充到8 + 双缓冲等技术&lt;/li>
 &lt;li>动态kernel优化&lt;/li>
+&lt;/ol>
+&lt;h2 id="myfa">myFA&lt;/h2>
+&lt;p>&lt;a class="link" href="https://github.com/stanford-cs149/cs149gpt" target="_blank" rel="noopener"
+>cs149&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/RDWaaaaaa/FlashAttn-CS149" target="_blank" rel="noopener"
+>我的仓库&lt;/a>&lt;/p>
+&lt;p>此项目通过分块 + 融合实现了简化（忽略了sqrt(dk)和safe softma）的fa1，并通过ISPC内部函数实现向量化。&lt;/p>
+&lt;p>在ISPC向量化中我使用了两个方法：&lt;/p>
+&lt;ol>
+&lt;li>最内层循环通过foreach实现并行&lt;/li>
+&lt;li>最后一步的矩阵乘法分块并行。&lt;/li>
+&lt;/ol>
+&lt;h3 id="br-bc-tile_size---myfa分支">Br, Bc, TILE_SIZE - myFA分支&lt;/h3>
+&lt;p>已知默认值d = 32&lt;br>
+RTX 3080的L1缓存大小为 M = 128 KB（每SM） = 32K floats&lt;br>
+Br = min(ceil(M / 4d), d) = min(256, 32) = 32&lt;br>
+Bc = ceil(M / 4d) = 256&lt;/p>
+&lt;p>TILE_SIZE的意义更多在于并行而非分块。&lt;br>
+我的matmulRow函数参考了https://github.com/BienBoy/cs149gpt/blob/main/module.ispc。&lt;br>
+matmulRow函数处理一行与一个矩阵的乘积。naive的方法是一行逐次与多列点乘。此处的并行优化是，TILE_SIZE个列为一组，每次处理一行与多个列的点乘。TILE_SIZE的大小只是防止占用空间过大。&lt;br>
+然而此方法只适用于A * B而不适用于A * B_t，实践证明matmul_TRow是一个负优化，可能是因为TILE_SIZE个行反而降低了局部性。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//A 是原矩阵的一行，长度为N，B 是 NxK的矩阵，C 是 1行K列的输出
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">export&lt;/span> &lt;span class="kr">inline&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">matmulRow&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">uniform&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">A&lt;/span>&lt;span class="p">[],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">uniform&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">B&lt;/span>&lt;span class="p">[],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">uniform&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">C&lt;/span>&lt;span class="p">[],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">uniform&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">N&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">uniform&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">K&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">uniform&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">sumTile&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">TILE_SIZE&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">uniform&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">k&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">k&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="n">K&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">k&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">TILE_SIZE&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">foreach&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">ki&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="p">...&lt;/span> &lt;span class="n">TILE_SIZE&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sumTile&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">ki&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">uniform&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="n">N&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">n&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">foreach&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ki&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">k&lt;/span> &lt;span class="p">...&lt;/span> &lt;span class="n">min&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">k&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">TILE_SIZE&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">K&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sumTile&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">ki&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">k&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">A&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">B&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">K&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">ki&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">foreach&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">ki&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">k&lt;/span> &lt;span class="p">...&lt;/span> &lt;span class="n">min&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">k&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">TILE_SIZE&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">K&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">C&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">ki&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">sumTile&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">ki&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">k&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// part1中可尝试替换的部分，实践证明是负优化
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// matmulRow(QK_t + i * N, V, O + i * d, N, d);
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">uniform&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">j&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">j&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="n">d&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">j&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">float&lt;/span> &lt;span class="n">sum&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">foreach&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">k&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="p">...&lt;/span> &lt;span class="n">N&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">float&lt;/span> &lt;span class="n">val1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">QK_t&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">N&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">k&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">float&lt;/span> &lt;span class="n">val2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">V&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">b&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">H&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">N&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">d&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">h&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">N&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">d&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">k&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">d&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">j&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sum&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">val1&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">val2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">uniform&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">sum1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">reduce_add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sum&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">O&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">d&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">j&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">sum1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// A 是原矩阵的一行，长度为K，B 是NxK的矩阵，C 是 1行N列的输出
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">export&lt;/span> &lt;span class="kr">inline&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">matmul_TRow&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">uniform&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">A&lt;/span>&lt;span class="p">[],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">uniform&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">B&lt;/span>&lt;span class="p">[],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">uniform&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">C&lt;/span>&lt;span class="p">[],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">uniform&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">N&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">uniform&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">K&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">uniform&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">sumTile&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">TILE_SIZE&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">uniform&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="n">N&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">TILE_SIZE&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">foreach&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">ni&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="p">...&lt;/span> &lt;span class="n">TILE_SIZE&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sumTile&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">ni&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">uniform&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">k&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">k&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="n">K&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">k&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">foreach&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ni&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="p">...&lt;/span> &lt;span class="n">min&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">TILE_SIZE&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">N&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sumTile&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">ni&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">n&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">A&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">k&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">B&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">ni&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">K&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">k&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">foreach&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">ni&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="p">...&lt;/span> &lt;span class="n">min&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">TILE_SIZE&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">N&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">C&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">ni&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">sumTile&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">ni&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">n&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// part1中可尝试替换的部分，实践证明是负优化
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// QK^t
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// matmul_TRow(Q + i * d, K, QK_t + i * N, N, d);
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">uniform&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">j&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">j&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="n">N&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">j&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">float&lt;/span> &lt;span class="n">val&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">foreach&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">k&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="p">...&lt;/span> &lt;span class="n">d&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">float&lt;/span> &lt;span class="n">val1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Q&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">d&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">k&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">float&lt;/span> &lt;span class="n">val2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">K&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">j&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">d&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">k&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">val&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">val1&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">val2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">uniform&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">sum&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">reduce_add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">val&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">programIndex&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">QK_t&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">N&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">j&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">sum&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>此尝试实际上证明了，让多个列并行效果会更好，RTX 3080 的 Cache Line大小通常为 64 字节，即16个float大小，理论上讲TILE_SIZE = 16刚好。&lt;br>
+然而实践过程中发现32效果最好，而d又恰好为32，因此此处无需分块，三层循环的矩阵乘法代码可简化为：对于A * B，可对第二层foreach并行，对于A * B_t，对最内层直接并行。&lt;/p>
+&lt;h3 id="进一步优化">进一步优化&lt;/h3>
+&lt;p>TODO：&lt;/p>
+&lt;ol>
+&lt;li>实现safe softmax, sqrt(d_k)以完成完整FA1&lt;/li>
+&lt;li>cuda实现&lt;/li>
+&lt;li>v2&lt;/li>
 &lt;/ol></description></item><item><title>Cuda入门</title><link>https://blog.nrevery.cn/p/cuda%E5%85%A5%E9%97%A8/</link><pubDate>Mon, 28 Apr 2025 13:16:28 +0800</pubDate><guid>https://blog.nrevery.cn/p/cuda%E5%85%A5%E9%97%A8/</guid><description>&lt;h2 id="vscode--wsl--docker--conda">vscode + wsl + docker / conda&lt;/h2>
 &lt;h3 id="docker">docker&lt;/h3>
 &lt;ol>
