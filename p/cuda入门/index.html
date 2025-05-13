@@ -36,6 +36,46 @@
 </span></span><span class=line><span class=cl>locate libcudart.so
 </span></span></code></pre></div><p><img src=https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250430164918.png loading=lazy></p><p><img src=https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250430165355.png loading=lazy></p><p>手动设置:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=nb>export</span> <span class=nv>CUDA_HOME</span><span class=o>=</span>/usr/local/cuda
 </span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>LD_LIBRARY_PATH</span><span class=o>=</span>/usr/local/cuda/lib64:<span class=nv>$LD_LIBRARY_PATH</span>
+</span></span></code></pre></div><p>版本信息</p><p>Python version: 3.12.9<br>PyTorch version: 2.3.1+cu121<br>Is CUDA available: True<br>CUDA version (from PyTorch): 12.1<br>GPU device name: NVIDIA GeForce RTX 3080 Laptop GPU<br>FlashAttention version: 2.7.4.post1<br>Compiled with new C++ ABI (cxx11abi): Unknown / Not available</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-py data-lang=py><span class=line><span class=cl><span class=kn>import</span> <span class=nn>torch</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>flash_attn</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>sys</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>get_versions</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>versions</span> <span class=o>=</span> <span class=p>{}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># Python 版本</span>
+</span></span><span class=line><span class=cl>    <span class=n>versions</span><span class=p>[</span><span class=s2>&#34;Python version&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=n>sys</span><span class=o>.</span><span class=n>version</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s2>&#34; &#34;</span><span class=p>)[</span><span class=mi>0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># PyTorch 版本</span>
+</span></span><span class=line><span class=cl>    <span class=n>versions</span><span class=p>[</span><span class=s2>&#34;PyTorch version&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=n>torch</span><span class=o>.</span><span class=n>__version__</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># CUDA 是否可用</span>
+</span></span><span class=line><span class=cl>    <span class=n>versions</span><span class=p>[</span><span class=s2>&#34;Is CUDA available&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=n>torch</span><span class=o>.</span><span class=n>cuda</span><span class=o>.</span><span class=n>is_available</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># CUDA 版本（PyTorch 报告的）</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>torch</span><span class=o>.</span><span class=n>cuda</span><span class=o>.</span><span class=n>is_available</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=n>versions</span><span class=p>[</span><span class=s2>&#34;CUDA version (from PyTorch)&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=n>torch</span><span class=o>.</span><span class=n>version</span><span class=o>.</span><span class=n>cuda</span>
+</span></span><span class=line><span class=cl>        <span class=n>versions</span><span class=p>[</span><span class=s2>&#34;GPU device name&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=n>torch</span><span class=o>.</span><span class=n>cuda</span><span class=o>.</span><span class=n>get_device_name</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>versions</span><span class=p>[</span><span class=s2>&#34;CUDA version (from PyTorch)&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=s2>&#34;N/A&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=n>versions</span><span class=p>[</span><span class=s2>&#34;GPU device name&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=s2>&#34;N/A&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># FlashAttention 版本</span>
+</span></span><span class=line><span class=cl>    <span class=n>versions</span><span class=p>[</span><span class=s2>&#34;FlashAttention version&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=n>flash_attn</span><span class=o>.</span><span class=n>__version__</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># 是否使用新版 C++ ABI</span>
+</span></span><span class=line><span class=cl>    <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=kn>from</span> <span class=nn>torch.compiled_with_cxx11_abi</span> <span class=kn>import</span> <span class=n>compiled_with_cxx11_abi</span>
+</span></span><span class=line><span class=cl>        <span class=n>versions</span><span class=p>[</span><span class=s2>&#34;Compiled with new C++ ABI (cxx11abi)&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=n>compiled_with_cxx11_abi</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=k>except</span> <span class=ne>ImportError</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>versions</span><span class=p>[</span><span class=s2>&#34;Compiled with new C++ ABI (cxx11abi)&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=s2>&#34;Unknown / Not available&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>versions</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&#34;__main__&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>versions</span> <span class=o>=</span> <span class=n>get_versions</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>key</span><span class=p>,</span> <span class=n>value</span> <span class=ow>in</span> <span class=n>versions</span><span class=o>.</span><span class=n>items</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=n>key</span><span class=si>}</span><span class=s2>: </span><span class=si>{</span><span class=n>value</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
 </span></span></code></pre></div><h2 id=基础知识>基础知识</h2><p><a class=link href=https://ai.oldpan.me/t/topic/72 target=_blank rel=noopener>https://ai.oldpan.me/t/topic/72</a></p><h3 id=gpu中的基本概念>GPU中的基本概念</h3><p><a class=link href=https://zhuanlan.zhihu.com/p/150810484 target=_blank rel=noopener>https://zhuanlan.zhihu.com/p/150810484</a><br><strong>硬件资源</strong><br>SP：streaming processor，也称为CUDA core。<br>SM：多个SP加上其他的一些资源组成一个streaming multiprocessor，也叫GPU大核。<br><strong>软件资源</strong><br>Grid，Block，Warp，Thread<br>Thread-local memory和resigters<br>Block-shared memory<br>Grid之间会有Global memory和Cache<br>1个Warp = 32 threads<br>一个thread对应一个SP，SM和Grid无对应关系</p><h3 id=cuda编程模型>CUDA编程模型</h3><p><strong>Kernel</strong></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=c1>// Kernel definition
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>__global__</span> <span class=kt>void</span> <span class=nf>VecAdd</span><span class=p>(</span><span class=kt>float</span><span class=o>*</span> <span class=n>A</span><span class=p>,</span> <span class=kt>float</span><span class=o>*</span> <span class=n>B</span><span class=p>,</span> <span class=kt>float</span><span class=o>*</span> <span class=n>C</span><span class=p>)</span>
 </span></span><span class=line><span class=cl><span class=p>{</span>
