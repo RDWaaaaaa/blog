@@ -118,6 +118,13 @@ user01:!$6$abcdefgh$wqe7r8yK3QH.DRTfEr1:19000:0:99999:7:::
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">apt clean
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rm -rf /var/lib/apt/lists/*
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt update
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="git在配置ssh-key后出现如下错误">git在配置ssh key后出现如下错误：&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">ssh -T git@github.com
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">nc: connect to xxx.xxx.xxx.xxx port 7890 (tcp) failed: Connection refused
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">kex_exchange_identification: Connection closed by remote host
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Connection closed by UNKNOWN port 65535
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>换端口&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">ssh -T -p &lt;span class="m">443&lt;/span> git@ssh.github.com
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="git-clone失败">git clone失败&lt;/h2>
 &lt;p>&lt;a class="link" href="https://blog.csdn.net/qq_30252465/article/details/125762378" target="_blank" rel="noopener"
 >https://blog.csdn.net/qq_30252465/article/details/125762378&lt;/a>&lt;/p>
@@ -137,4 +144,8 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 正常push就没问题了&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push -u origin main
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="连接服务器容易掉线">连接服务器容易掉线&lt;/h2>
+&lt;p>&lt;a class="link" href="https://blog.csdn.net/sanqima/article/details/118293157" target="_blank" rel="noopener"
+>https://blog.csdn.net/sanqima/article/details/118293157&lt;/a>&lt;br>
+&lt;a class="link" href="https://blog.csdn.net/qq_39846820/article/details/103371782" target="_blank" rel="noopener"
+>https://blog.csdn.net/qq_39846820/article/details/103371782&lt;/a>&lt;/p></description></item></channel></rss>

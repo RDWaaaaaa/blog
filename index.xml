@@ -1,122 +1,285 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>nRevery's Blog</title><link>https://blog.nrevery.cn/</link><description>Recent content on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Sat, 03 May 2025 21:04:32 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>ISPC</title><link>https://blog.nrevery.cn/p/ispc/</link><pubDate>Sat, 03 May 2025 21:04:32 +0800</pubDate><guid>https://blog.nrevery.cn/p/ispc/</guid><description>&lt;h2 id="分布存储系统并行编程">分布存储系统并行编程&lt;/h2>
-&lt;p>&lt;a class="link" href="https://cs.nju.edu.cn/lxie/parallel/PC14.pdf" target="_blank" rel="noopener"
->https://cs.nju.edu.cn/lxie/parallel/PC14.pdf&lt;/a>&lt;/p>
-&lt;ol>
-&lt;li>消息传递模型
-&lt;ol>
-&lt;li>分类
-&lt;ul>
-&lt;li>SPMD（Single-Program Multiple-Data）：主机/节点式(Host/Node)，无主机式(Hostless)&lt;/li>
-&lt;li>MPMD：数据流方式，客户/服务器方式&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>消息传递库(Message-Passing Libraries)
-&lt;ul>
-&lt;li>MPI（Message Passing Interface）：是一种标准接口规范 ，不是具体的软件。它定义了用于进程间通信的一组函数和行为（如 MPI_Send, MPI_Recv 等。&lt;/li>
-&lt;li>PVM（Parallel Virtual Machine）：是一个早期的消息传递系统软件包 ，比 MPI 更早出现。它允许将多台不同类型的计算机组成一个虚拟的并行计算环境。&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>消息传递方式
-&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250504170501.png"
-loading="lazy"
->&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>数据并行模型：SIMD, SPMD&lt;/li>
-&lt;/ol>
-&lt;h2 id="ispc">ispc&lt;/h2>
-&lt;p>ISPC（Intel® SPMD Program Compiler）是一种面向CPU的高性能并行编译器，其核心作用是将SPMD模式的代码编译为高效的SIMD指令集，从而在CPU上实现接近原生硬件的并行计算性能。&lt;/p>
-&lt;h2 id="实践">实践&lt;/h2>
-&lt;p>&lt;a class="link" href="https://github.com/RDWaaaaaa/FlashAttn-CS149" target="_blank" rel="noopener"
->https://github.com/RDWaaaaaa/FlashAttn-CS149&lt;/a>&lt;/p></description></item><item><title>Flash Attention</title><link>https://blog.nrevery.cn/p/flash-attention/</link><pubDate>Wed, 30 Apr 2025 10:53:25 +0800</pubDate><guid>https://blog.nrevery.cn/p/flash-attention/</guid><description>&lt;p>&lt;a class="link" href="https://zhuanlan.zhihu.com/p/685020608" target="_blank" rel="noopener"
->https://zhuanlan.zhihu.com/p/685020608&lt;/a>&lt;br>
-&lt;a class="link" href="https://hebiao064.github.io/fa3-attn-backend-basic" target="_blank" rel="noopener"
->https://hebiao064.github.io/fa3-attn-backend-basic&lt;/a>&lt;br>
-&lt;a class="link" href="https://zhuanlan.zhihu.com/p/17533058076" target="_blank" rel="noopener"
->https://zhuanlan.zhihu.com/p/17533058076&lt;/a>&lt;br>
-&lt;a class="link" href="https://blog.csdn.net/v_JULY_v/article/details/133619540" target="_blank" rel="noopener"
->https://blog.csdn.net/v_JULY_v/article/details/133619540&lt;/a>&lt;br>
-&lt;a class="link" href="https://zhuanlan.zhihu.com/p/639228219" target="_blank" rel="noopener"
->https://zhuanlan.zhihu.com/p/639228219&lt;/a>&lt;/p>
-&lt;h2 id="v1">v1&lt;/h2>
-&lt;p>&lt;a class="link" href="https://arxiv.org/abs/2205.14135" target="_blank" rel="noopener"
->https://arxiv.org/abs/2205.14135&lt;/a>&lt;br>
-&lt;strong>FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness&lt;/strong>&lt;br>
-自注意力模块在序列长度上具有二次方的时间和内存复杂度。这导致在处理长序列时速度变慢且内存需求巨大&lt;/p>
-&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250429160558.png"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>nRevery's Blog</title><link>https://blog.nrevery.cn/</link><description>Recent content on nRevery's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>nRevery</copyright><lastBuildDate>Tue, 20 May 2025 10:01:09 +0800</lastBuildDate><atom:link href="https://blog.nrevery.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Flash Attention - 4</title><link>https://blog.nrevery.cn/p/flash-attention-4/</link><pubDate>Tue, 20 May 2025 10:01:09 +0800</pubDate><guid>https://blog.nrevery.cn/p/flash-attention-4/</guid><description>&lt;h2 id="编译选项">编译选项&lt;/h2>
+&lt;p>-arch=sm_86 是 CUDA 编译器（nvcc）中的一个编译选项，用于指定生成的代码要针对哪种 Compute Capability（计算能力） 的 GPU 架构进行编译。这里的 sm_86 表示的是 Compute Capability 8.6 的架构&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">torch&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">cuda&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_device_capability&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="n">mr&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">load&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;custom_module&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sources&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;module.cpp&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;kernel.cu&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># extra_cuda_cflags=[&amp;#34;-arch=sm_86&amp;#34;, &amp;#34;-O3&amp;#34;, &amp;#34;--use_fast_math&amp;#34;],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">extra_cuda_cflags&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;-arch=sm_86&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">verbose&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="pytorch中的transposepermutecontiguousviewreshape">pytorch中的transpose,permute,contiguous,view,reshape&lt;/h2>
+&lt;h3 id="transpose">transpose&lt;/h3>
+&lt;p>Q,K,V的形状应当是(B, N, H, d), 而我的代码处理的要求是(B, H, N, d), 可能用到V.transpose(1, 2)。注意&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">flash_attn&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">flash_attn_func&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">V&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">V&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">transpose&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">flash_attn_func&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Q&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">K&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">V&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>transpose 操作通过 修改张量的形状（shape）和步长（stride） 来实现维度交换。每个张量在内存中都是以一维数组的形式存储的。为了访问多维张量中的元素，PyTorch 使用 步长（stride） 来确定在每个维度上移动一个单位时，需要在内存中跳过多少个元素。
+假设有一个 2D 张量 A，形状为 (2, 3)，步长为 (3, 1), 其数据为：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">A = [[0, 1, 2],
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> [3, 4, 5]]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>A.transpose(0, 1) 后，张量的形状变为 (3, 2)，步长变为 (1, 3)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">A_transposed = [[0, 3],
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> [1, 4],
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> [2, 5]]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="permute">permute&lt;/h3>
+&lt;p>将张量的维度按照指定的索引顺序重新排列，dims 的长度必须与张量的维度数一致，且每个元素是原维度的索引（从0开始）。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">torch&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 创建一个形状为 (2, 3, 4) 的三维张量&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">randn&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 使用 permute 重新排列维度：将原维度顺序 (0, 1, 2) 改为 (2, 0, 1)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">permute&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">shape&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 输出: (4, 2, 3)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="contiguous">contiguous&lt;/h3>
+&lt;p>非连续张量 ：.contiguous() 会复制数据到新内存，并重新计算步长以匹配形状&lt;br>
+连续张量 ：无需复制，操作无影响&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">torch&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 创建一个连续张量&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">randn&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Original (continuous):&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;is_contiguous:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">is_contiguous&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;data_ptr:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">data_ptr&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 调用 contiguous() 并比较&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">x_cont&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">contiguous&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s2">x_cont (after contiguous):&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x_cont&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;is_contiguous:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">x_cont&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">is_contiguous&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;data_ptr:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">x_cont&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">data_ptr&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Same data_ptr as original?&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">data_ptr&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">x_cont&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">data_ptr&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="c1"># 应为 True&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 创建一个非连续张量（通过 transpose）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">transpose&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s2">Transposed (non-continuous):&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;is_contiguous:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">is_contiguous&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;data_ptr:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">data_ptr&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 调用 contiguous() 并比较&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">y_cont&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">contiguous&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s2">y_cont (after contiguous):&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y_cont&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;is_contiguous:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y_cont&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">is_contiguous&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;data_ptr:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y_cont&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">data_ptr&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Same data_ptr as transposed?&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">data_ptr&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">y_cont&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">data_ptr&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="c1"># 应为 False&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="view">view&lt;/h3>
+&lt;p>view() 要求张量在内存中是连续存储的,总是共享数据&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">tensor&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">view&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">y&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">99&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 输出: tensor([99, 2, 3, 4])&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="reshape">reshape&lt;/h3>
+&lt;p>如果输入张量连续，reshape() 返回视图（共享数据）。对于非连续张量，reshape() 会自动调用 .contiguous()，生成新的连续内存副本。&lt;br>
+可能共享或复制数据&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">tensor&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">reshape&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">y&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">99&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 输出: tensor([99, 2, 3, 4])（共享数据）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">randn&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">transpose&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 非连续张量&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">reshape&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">y&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">99&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 输出: 未改变（数据已复制）&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="注意">注意&lt;/h3>
+&lt;p>基于以上信息，当我们使用指针顺序访问张量时，要确保数据顺序存储。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="n">half&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="n">O&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">half&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="n">OTensor&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">data_ptr&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">at&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">Half&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="cuda的异步执行">CUDA的异步执行?&lt;/h2>
+&lt;h3 id="现象1">现象1&lt;/h3>
+&lt;p>此处数据都在cuda中，连续多次print(out)只有第一次答案是对的，其余若干次均错误且不相同。然而放到cpu中再print则不会出错。&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250520113217.png"
 loading="lazy"
 >&lt;/p>
-&lt;h2 id="v2">v2&lt;/h2>
-&lt;p>&lt;a class="link" href="https://arxiv.org/abs/2307.08691" target="_blank" rel="noopener"
->https://arxiv.org/abs/2307.08691&lt;/a>&lt;br>
-&lt;strong>FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning&lt;/strong>&lt;/p>
-&lt;p>GPU对不同thread blocks和warps工作分配不是最优的，造成了利用率低和不必要的共享内存读写。&lt;/p>
-&lt;ol>
-&lt;li>减少non-matmul FLOPs-最后算softmax的分母&lt;/li>
-&lt;li>在序列长度这一维度上进行并行化，FlashAttention-2将 Q 移到了外循环 i，K V 移到了内循环 j，由于改进了算法使得warps之间不再需要相互通信去处理，所以外循环可以放在不同的thread block上（之前只在batch和heads两个维度上进行了并行化，使用一个thread block来处理一个attention head，总共需要thread block的数量等于batch size × number of heads）&lt;/li>
-&lt;li>在一个attention计算块内，将工作分配在一个thread block的不同warp上&lt;/li>
-&lt;/ol>
-&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250429195002.png"
+&lt;p>可能与CUDA的异步执行与内存复用有关？在当调用函数时，操作被提交给GPU，但不是同步完成。out返回的是一个指向 GPU 内存的“句柄”，实际结果可能稍后才写入。&lt;/p>
+&lt;h3 id="现象2">现象2&lt;/h3>
+&lt;p>当运行 fa1 测试时，调用 C++/CUDA 扩展函数（如 mr.myFA1 或 mr.myNaiveAttention）后，C++ 中的输出（如check函数的 std::cout）可能出现在 Python 输出的任意位置 ，而非代码逻辑中的预期位置。可能的原因：&lt;/p>
+&lt;p>&lt;strong>CUDA 异步执行机制&lt;/strong>&lt;br>
+PyTorch 的 CUDA 操作默认是异步的 ，即 Python 发起的 CUDA 操作（如内核启动）会立即返回，而实际执行在后台进行。如果 C++ 代码中包含 CUDA 内核（如 kernel.cu），内核的输出（如 printf 或 std::cout）可能在 Python 代码继续执行后才触发，导致输出顺序混乱。&lt;br>
+&lt;strong>Python 与 C++ 输出缓冲区不同步&lt;/strong>&lt;br>
+std::cout 和 printf 在 CUDA 设备端可能使用不同的缓冲区策略，导致输出延迟或交错。尤其是在多线程或异步执行时，输出可能不会立即刷新到控制台。
+&lt;strong>Profiler 干扰执行顺序&lt;/strong>&lt;br>
+使用 torch.autograd.profiler.profile 会引入额外的同步和计时操作，可能影响内核的实际执行顺序，进一步加剧输出顺序的不确定性。&lt;/p>
+&lt;h3 id="现象3">现象3&lt;/h3>
+&lt;p>此处如果断言torch.allclose(res_ref, res, atol=1e-3)即使确保都在同一个设备上，也会出错。&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250521102308.png"
 loading="lazy"
 >&lt;/p>
-&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250429210040.png"
-loading="lazy"
->&lt;/p>
-&lt;h2 id="v3">v3&lt;/h2>
-&lt;p>&lt;a class="link" href="https://arxiv.org/abs/2407.08608" target="_blank" rel="noopener"
->https://arxiv.org/abs/2407.08608&lt;/a>&lt;br>
-&lt;strong>FlashAttention-3: Fast and Accurate Attention with Asynchrony and Low-precision&lt;/strong>&lt;br>
-FA2 算子在 H100 上的利用率不高。H100 新增了 TMA 硬件 Warpgroup 级别的 GEMM 指令，是 NV 首个可实现完全异步通信和计算的 GPU，同时具有 FP8 低精度运算的能力。&lt;/p>
-&lt;p>Hopper 架构新指令：&lt;/p>
-&lt;ol>
-&lt;li>WGMMA operand A 可以从 RMEM/SMEM 读取，operand B 只能从 SMEM 读取。&lt;/li>
-&lt;li>TMA，允许程序在 GMEM 和 SMEM 之间异步且双向地传输 1D 到 5D 的张量。TMA 不仅可以将相同的数据传输到调用 SM 的 SMEM，还可以传输到同一 Thread Block Cluster 中的其他 SM 的 SMEM。这被称为 multicast&lt;/li>
-&lt;/ol>
-&lt;p>方案：&lt;/p>
-&lt;ol>
-&lt;li>A100 之前的异步：warp 间异步，Warp Specialization。A100 的异步：同一 warp 中，Multistage。H100 的异步：Warp Specialization + Intra-warpgroup overlapping。&lt;/li>
-&lt;li>FP8 低精度运算&lt;/li>
-&lt;/ol>
-&lt;h2 id="flash-decoding">Flash-Decoding&lt;/h2>
-&lt;p>&lt;a class="link" href="https://crfm.stanford.edu/2023/10/12/flashdecoding.html" target="_blank" rel="noopener"
->https://crfm.stanford.edu/2023/10/12/flashdecoding.html&lt;/a>&lt;br>
-&lt;strong>Flash-Decoding for long-context inference&lt;/strong>&lt;br>
-需要增强处理长上下文能力。attention操作对内存的访问会随着batch size增加而增加，而模型中其他操作只和模型大小相关。&lt;/p>
-&lt;p>增加了一个新的并行化维度：keys/values的序列长度。&lt;/p>
-&lt;p>&lt;img src="https://pic3.zhimg.com/v2-13fcb10493400523013dcfe55cc9b846_b.webp"
-loading="lazy"
->&lt;/p>
-&lt;h2 id="flashdecoding">FlashDecoding++&lt;/h2>
-&lt;p>&lt;a class="link" href="https://arxiv.org/abs/2311.01282" target="_blank" rel="noopener"
->https://arxiv.org/abs/2311.01282&lt;/a>&lt;br>
-&lt;strong>FlashDecoding++: Faster Large Language Model Inference on GPUs&lt;/strong>&lt;/p>
-&lt;ol>
-&lt;li>同步partial softmax更新&lt;/li>
-&lt;li>Flat GEMM操作的计算资源未得到充分利用。当batch size较小时，cublas和cutlass会将矩阵填充zeros以执行更大batchsize的GEMM，导致计算利用率不足50%。&lt;/li>
-&lt;li>动态输入和固定硬件配置影响了LLM推理的性能。例如，当batch size较小时，LLM推理的解码过程是memory-bounded，而当batch size较大时是compute-bounded。&lt;/li>
-&lt;/ol>
-&lt;p>解决方案：&lt;/p>
-&lt;ol>
-&lt;li>为分块softmax计算设置了一个共享的最大值&lt;/li>
-&lt;li>只将矩阵大小填充到8 + 双缓冲等技术&lt;/li>
-&lt;li>动态kernel优化&lt;/li>
-&lt;/ol>
-&lt;h2 id="myfa">myFA&lt;/h2>
+&lt;p>尝试捕获错误：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">assert&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">allclose&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">res_ref&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">res&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">atol&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mf">1e-3&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="s2">&amp;#34;INCORRECT RESULTS&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">except&lt;/span> &lt;span class="ne">AssertionError&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">e&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;Assertion failed: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 输出更多调试信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;res_ref (GPU):&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">res_ref&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;res_ref (CPU):&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">res_ref_cpu&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;res (GPU):&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">res&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;res (CPU):&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">res_cpu&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">diff&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">abs&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">res_ref&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">res&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Max diff on GPU:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">diff&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">max&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">item&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Total mismatched elements on GPU:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">diff&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mf">1e-3&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sum&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">item&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>发现res (GPU)错误，res (CPU)正确。和现象1的形成原因似乎一致。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="n">res&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">customFunc&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="c1"># CUDA 异步操作&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">cuda&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">synchronize&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="c1"># 即使此处加上同步也不能成功？&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">assert&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">allclose&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">res_ref&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">res&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">atol&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mf">1e-3&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 失败&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="半精度数据类型">半精度数据类型&lt;/h2>
+&lt;h3 id="__half">__half&lt;/h3>
+&lt;p>__half或half（typedef __half half）： CUDA 编程中用于表示 16 位浮点数（half-precision floating-point）的原始数据类型&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="n">__global__&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">kernel&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">__half&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="n">data&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="n">idx&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">threadIdx&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">float&lt;/span> &lt;span class="n">val&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">__half2float&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">idx&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">val&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">idx&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">__float2half&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">val&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="athalf">at::Half&lt;/h3>
+&lt;p>PyTorch C++ 层中用于表示 16 位浮点数的封装类型，本质上是对 __half 的封装。&lt;br>
+在 CPU 上使用 Eigen 等库进行模拟；&lt;br>
+在 GPU 上映射为 __half；&lt;br>
+提供了与标准 C++ 类型（如 float）之间的转换接口&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="n">at&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">Tensor&lt;/span> &lt;span class="n">tensor&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">at&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">randn&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">},&lt;/span> &lt;span class="n">at&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">kHalf&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 创建半精度张量
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kt">float&lt;/span> &lt;span class="n">value&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tensor&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="n">item&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">float&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// 转换为 float
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="torchkhalf">torch::kHalf&lt;/h3>
+&lt;p>PyTorch C++ 枚举类型。&lt;br>
+是 at::ScalarType::kHalf 的别名；&lt;br>
+用于与 Python 层的 torch.float16 或 torch.half() 对应；&lt;br>
+在 C++ 中常用于张量转换（如 .to(torch::kHalf)）。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="n">torch&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">Tensor&lt;/span> &lt;span class="n">tensor&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">randn&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">}).&lt;/span>&lt;span class="n">to&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torch&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">kHalf&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 转换为半精度
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="torchfloat16-或-torchhalf">torch.float16 或 torch.half()&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">torch&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">randn&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">half&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="c1"># 创建半精度张量&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">dtype&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 输出: torch.float16&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Flash Attention - 3</title><link>https://blog.nrevery.cn/p/flash-attention-3/</link><pubDate>Tue, 13 May 2025 14:26:01 +0800</pubDate><guid>https://blog.nrevery.cn/p/flash-attention-3/</guid><description>&lt;h2 id="简介">简介&lt;/h2>
 &lt;p>&lt;a class="link" href="https://github.com/stanford-cs149/cs149gpt" target="_blank" rel="noopener"
 >cs149&lt;/a>&lt;/p>
 &lt;p>&lt;a class="link" href="https://github.com/RDWaaaaaa/FlashAttn-CS149" target="_blank" rel="noopener"
 >我的仓库&lt;/a>&lt;/p>
-&lt;p>此项目通过分块 + 融合实现了简化（忽略了sqrt(dk)和safe softma）的fa1，并通过ISPC内部函数实现向量化。&lt;/p>
+&lt;p>CS149存在若干待优化内容：&lt;/p>
+&lt;ol>
+&lt;li>safe softmax, sqrt(d_k)&lt;/li>
+&lt;li>CUDA中的并行&lt;/li>
+&lt;li>v2及之后的优化&lt;/li>
+&lt;/ol>
+&lt;p>为了进一步优化，增加FA-1、FA-2等分支实现完整的各版本FA。&lt;br>
+使用官方flash attention实现作为test以验证正确性和效率。&lt;/p>
+&lt;h2 id="安装flash-attention">安装flash-attention&lt;/h2>
+&lt;h3 id="cuda11">cuda11&lt;/h3>
+&lt;p>安装cuda12在测试种出现问题，改为cuda11&lt;br>
+ImportError: /home/libo/cs149/cs149gpt/module_ref.so: undefined symbol: _ZN2at4_ops5zeros4callEN3c108ArrayRefINS2_6SymIntEEENS2_8optionalINS2_10ScalarTypeEEENS6_INS2_6LayoutEEENS6_INS2_6DeviceEEENS6_IbEE`&lt;br>
+&lt;a class="link" href="https://github.com/stanford-cs149/cs149gpt/issues/2#issuecomment-2439791718" target="_blank" rel="noopener"
+>https://github.com/stanford-cs149/cs149gpt/issues/2#issuecomment-2439791718&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">conda create -n gpt149
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">conda activate gpt149
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">conda install &lt;span class="nv">pytorch&lt;/span>&lt;span class="o">==&lt;/span>2.1.2 &lt;span class="nv">torchvision&lt;/span>&lt;span class="o">==&lt;/span>0.16.2 &lt;span class="nv">torchaudio&lt;/span>&lt;span class="o">==&lt;/span>2.1.2 pytorch-cuda&lt;span class="o">=&lt;/span>11.8 &lt;span class="nv">python&lt;/span>&lt;span class="o">=&lt;/span>3.10 &lt;span class="nv">numpy&lt;/span>&lt;span class="o">=&lt;/span>1.26 ninja tiktoken -c pytorch -c conda-forge -c nvidia
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># https://github.com/Dao-AILab/flash-attention/releases/download/v2.7.0.post2/flash_attn-2.7.0.post2+cu11torch2.1cxx11abiFALSE-cp310-cp310-linux_x86_64.whl&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pip install flash_attn-2.7.0.post2+cu11torch2.1cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="cuda12">cuda12&lt;/h3>
+&lt;p>&lt;a class="link" href="https://blog.csdn.net/MurphyStar/article/details/138523803" target="_blank" rel="noopener"
+>https://blog.csdn.net/MurphyStar/article/details/138523803&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/Dao-AILab/flash-attention/releases/" target="_blank" rel="noopener"
+>https://github.com/Dao-AILab/flash-attention/releases/&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">conda create -n fa &lt;span class="nv">python&lt;/span>&lt;span class="o">=&lt;/span>3.12
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">conda activate fa
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pip install &lt;span class="nv">torch&lt;/span>&lt;span class="o">==&lt;/span>2.3.1+cu121 &lt;span class="nv">torchvision&lt;/span>&lt;span class="o">==&lt;/span>0.18.1+cu121 &lt;span class="nv">torchaudio&lt;/span>&lt;span class="o">==&lt;/span>2.3.1 --extra-index-url https://download.pytorch.org/whl/cu121
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 检查环境&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">python -c &lt;span class="s2">&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">import torch;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">print(&amp;#39;PyTorch version:&amp;#39;, torch.__version__);
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">print(&amp;#39;CUDA available:&amp;#39;, torch.cuda.is_available());
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">print(&amp;#39;CXX11 ABI:&amp;#39;, torch.compiled_with_cxx11_abi())
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 安装对应版本wheel&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pip install flash_attn-2.7.4.post1+cu12torch2.2cxx11abiFALSE-cp312-cp312-linux_x86_64.whl
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 如果需要更新pytorch&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">conda install pytorch torchvision torchaudio -c pytorch
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 显示undefined symbol: _ZN3c104cuda9SetDeviceEi&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 参考https://github.com/Dao-AILab/flash-attention/issues/620&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># https://github.com/EleutherAI/lm-evaluation-harness/issues/1342&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pip install flash_attn -U --force-reinstall
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>简单测试&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">torch&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">flash_attn&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">flash_attn_func&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 创建 QKV 张量（假设 batch=2, seq_len=128, num_heads=8, head_dim=64）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">batch_size&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">seq_len&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">128&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">num_heads&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">8&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">head_dim&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">64&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">dtype&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">float16&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">device&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;cuda&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">q&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">randn&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">batch_size&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">seq_len&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">num_heads&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">head_dim&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">device&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">device&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dtype&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">dtype&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">k&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">randn_like&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">q&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">v&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">randn_like&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">q&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 调用 FlashAttention&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">out&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">flash_attn_func&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">q&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">k&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Output shape:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">shape&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">torch&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">flash_attn&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">sys&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">get_versions&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Python 版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Python version&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">sys&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">version&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">)[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># PyTorch 版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;PyTorch version&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__version__&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># CUDA 是否可用&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Is CUDA available&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">cuda&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">is_available&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># CUDA 版本（PyTorch 报告的）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">cuda&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">is_available&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;CUDA version (from PyTorch)&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">version&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">cuda&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;GPU device name&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">cuda&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_device_name&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;CUDA version (from PyTorch)&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;N/A&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;GPU device name&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;N/A&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># FlashAttention 版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;FlashAttention version&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">flash_attn&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__version__&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 是否使用新版 C++ ABI&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">from&lt;/span> &lt;span class="nn">torch.compiled_with_cxx11_abi&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">compiled_with_cxx11_abi&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Compiled with new C++ ABI (cxx11abi)&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">compiled_with_cxx11_abi&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">except&lt;/span> &lt;span class="ne">ImportError&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Compiled with new C++ ABI (cxx11abi)&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Unknown / Not available&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">versions&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">get_versions&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">key&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">value&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">versions&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">items&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">value&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Flash Attention - 2</title><link>https://blog.nrevery.cn/p/flash-attention-2/</link><pubDate>Tue, 13 May 2025 14:22:41 +0800</pubDate><guid>https://blog.nrevery.cn/p/flash-attention-2/</guid><description>&lt;h2 id="简介">简介&lt;/h2>
+&lt;p>&lt;a class="link" href="https://github.com/stanford-cs149/cs149gpt" target="_blank" rel="noopener"
+>cs149&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/RDWaaaaaa/FlashAttn-CS149" target="_blank" rel="noopener"
+>我的仓库&lt;/a>&lt;/p>
+&lt;p>myFA分支完成了任务要求。通过分块 + 融合实现了简化（忽略了sqrt(dk)和safe softma）的fa1，并通过ISPC内部函数实现向量化。&lt;/p>
 &lt;p>在ISPC向量化中我使用了两个方法：&lt;/p>
 &lt;ol>
 &lt;li>最内层循环通过foreach实现并行&lt;/li>
 &lt;li>最后一步的矩阵乘法分块并行。&lt;/li>
 &lt;/ol>
-&lt;h3 id="br-bc-tile_size---myfa分支">Br, Bc, TILE_SIZE - myFA分支&lt;/h3>
+&lt;h2 id="br-bc">Br, Bc&lt;/h2>
 &lt;p>已知默认值d = 32&lt;br>
 RTX 3080的L1缓存大小为 M = 128 KB（每SM） = 32K floats&lt;br>
 Br = min(ceil(M / 4d), d) = min(256, 32) = 32&lt;br>
 Bc = ceil(M / 4d) = 256&lt;/p>
+&lt;h2 id="tile_size">TILE_SIZE&lt;/h2>
 &lt;p>TILE_SIZE的意义更多在于并行而非分块。&lt;br>
 我的matmulRow函数参考了https://github.com/BienBoy/cs149gpt/blob/main/module.ispc。&lt;br>
 matmulRow函数处理一行与一个矩阵的乘积。naive的方法是一行逐次与多列点乘。此处的并行优化是，TILE_SIZE个列为一组，每次处理一行与多个列的点乘。TILE_SIZE的大小只是防止占用空间过大。&lt;br>
@@ -197,61 +360,108 @@ matmulRow函数处理一行与一个矩阵的乘积。naive的方法是一行逐
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>此尝试实际上证明了，让多个列并行效果会更好，RTX 3080 的 Cache Line大小通常为 64 字节，即16个float大小，理论上讲TILE_SIZE = 16刚好。&lt;br>
-然而实践过程中发现32效果最好，而d又恰好为32，因此此处无需分块，三层循环的矩阵乘法代码可简化为：对于A * B，可对第二层foreach并行，对于A * B_t，对最内层直接并行。&lt;/p>
-&lt;h3 id="进一步优化">进一步优化&lt;/h3>
-&lt;p>参考官方flash attention实现&lt;/p>
-&lt;p>&lt;a class="link" href="https://blog.csdn.net/MurphyStar/article/details/138523803" target="_blank" rel="noopener"
->https://blog.csdn.net/MurphyStar/article/details/138523803&lt;/a>&lt;/p>
-&lt;p>尝试安装更高版本&lt;/p>
-&lt;p>&lt;a class="link" href="https://github.com/Dao-AILab/flash-attention/releases/" target="_blank" rel="noopener"
->https://github.com/Dao-AILab/flash-attention/releases/&lt;/a>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">conda create -n fa &lt;span class="nv">python&lt;/span>&lt;span class="o">=&lt;/span>3.12
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">conda activate fa
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pip install &lt;span class="nv">torch&lt;/span>&lt;span class="o">==&lt;/span>2.3.1+cu121 &lt;span class="nv">torchvision&lt;/span>&lt;span class="o">==&lt;/span>0.18.1+cu121 &lt;span class="nv">torchaudio&lt;/span>&lt;span class="o">==&lt;/span>2.3.1 --extra-index-url https://download.pytorch.org/whl/cu121
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 检查环境&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">python -c &lt;span class="s2">&amp;#34;
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">import torch;
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">print(&amp;#39;PyTorch version:&amp;#39;, torch.__version__);
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">print(&amp;#39;CUDA available:&amp;#39;, torch.cuda.is_available());
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">print(&amp;#39;CXX11 ABI:&amp;#39;, torch.compiled_with_cxx11_abi())
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 安装对应版本wheel&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pip install flash_attn-2.7.4.post1+cu12torch2.2cxx11abiFALSE-cp312-cp312-linux_x86_64.whl
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 如果需要更新pytorch&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">conda install pytorch torchvision torchaudio -c pytorch
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 显示undefined symbol: _ZN3c104cuda9SetDeviceEi&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 参考https://github.com/Dao-AILab/flash-attention/issues/620&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># https://github.com/EleutherAI/lm-evaluation-harness/issues/1342&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pip install flash_attn -U --force-reinstall
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>简单测试&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">torch&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">flash_attn&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">flash_attn_func&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 创建 QKV 张量（假设 batch=2, seq_len=128, num_heads=8, head_dim=64）&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">batch_size&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">2&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">seq_len&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">128&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">num_heads&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">8&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">head_dim&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">64&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">dtype&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">float16&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">device&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;cuda&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">q&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">randn&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">batch_size&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">seq_len&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">num_heads&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">head_dim&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">device&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">device&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dtype&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">dtype&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">k&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">randn_like&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">q&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">v&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">randn_like&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">q&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 调用 FlashAttention&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">out&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">flash_attn_func&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">q&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">k&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Output shape:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">shape&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>TODO：&lt;/p>
+但是实践过程中发现32效果最好，而d又恰好为32，因此此处无需分块，三层循环的矩阵乘法代码可简化为：对于A * B，可对第二层foreach并行，对于A * B_t，对最内层直接并行。即使当d!=32需要分块时，也无需单独写函数，只需要foreach外面加上一层分块的循环即可。&lt;/p></description></item><item><title>ISPC</title><link>https://blog.nrevery.cn/p/ispc/</link><pubDate>Sat, 03 May 2025 21:04:32 +0800</pubDate><guid>https://blog.nrevery.cn/p/ispc/</guid><description>&lt;h2 id="分布存储系统并行编程">分布存储系统并行编程&lt;/h2>
+&lt;p>&lt;a class="link" href="https://cs.nju.edu.cn/lxie/parallel/PC14.pdf" target="_blank" rel="noopener"
+>https://cs.nju.edu.cn/lxie/parallel/PC14.pdf&lt;/a>&lt;/p>
 &lt;ol>
-&lt;li>实现safe softmax, sqrt(d_k)以完成完整FA1&lt;/li>
-&lt;li>cuda实现&lt;/li>
-&lt;li>v2&lt;/li>
+&lt;li>消息传递模型
+&lt;ol>
+&lt;li>分类
+&lt;ul>
+&lt;li>SPMD（Single-Program Multiple-Data）：主机/节点式(Host/Node)，无主机式(Hostless)&lt;/li>
+&lt;li>MPMD：数据流方式，客户/服务器方式&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>消息传递库(Message-Passing Libraries)
+&lt;ul>
+&lt;li>MPI（Message Passing Interface）：是一种标准接口规范 ，不是具体的软件。它定义了用于进程间通信的一组函数和行为（如 MPI_Send, MPI_Recv 等。&lt;/li>
+&lt;li>PVM（Parallel Virtual Machine）：是一个早期的消息传递系统软件包 ，比 MPI 更早出现。它允许将多台不同类型的计算机组成一个虚拟的并行计算环境。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>消息传递方式
+&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250504170501.png"
+loading="lazy"
+>&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>数据并行模型：SIMD, SPMD&lt;/li>
+&lt;/ol>
+&lt;h2 id="ispc">ispc&lt;/h2>
+&lt;p>ISPC（Intel® SPMD Program Compiler）是一种面向CPU的高性能并行编译器，其核心作用是将SPMD模式的代码编译为高效的SIMD指令集，从而在CPU上实现接近原生硬件的并行计算性能。&lt;/p>
+&lt;h2 id="实践">实践&lt;/h2>
+&lt;p>&lt;a class="link" href="https://github.com/RDWaaaaaa/FlashAttn-CS149" target="_blank" rel="noopener"
+>https://github.com/RDWaaaaaa/FlashAttn-CS149&lt;/a>&lt;/p></description></item><item><title>Flash Attention - 1</title><link>https://blog.nrevery.cn/p/flash-attention-1/</link><pubDate>Wed, 30 Apr 2025 10:53:25 +0800</pubDate><guid>https://blog.nrevery.cn/p/flash-attention-1/</guid><description>&lt;p>&lt;a class="link" href="https://zhuanlan.zhihu.com/p/685020608" target="_blank" rel="noopener"
+>https://zhuanlan.zhihu.com/p/685020608&lt;/a>&lt;br>
+&lt;a class="link" href="https://hebiao064.github.io/fa3-attn-backend-basic" target="_blank" rel="noopener"
+>https://hebiao064.github.io/fa3-attn-backend-basic&lt;/a>&lt;br>
+&lt;a class="link" href="https://zhuanlan.zhihu.com/p/17533058076" target="_blank" rel="noopener"
+>https://zhuanlan.zhihu.com/p/17533058076&lt;/a>&lt;br>
+&lt;a class="link" href="https://blog.csdn.net/v_JULY_v/article/details/133619540" target="_blank" rel="noopener"
+>https://blog.csdn.net/v_JULY_v/article/details/133619540&lt;/a>&lt;br>
+&lt;a class="link" href="https://zhuanlan.zhihu.com/p/639228219" target="_blank" rel="noopener"
+>https://zhuanlan.zhihu.com/p/639228219&lt;/a>&lt;/p>
+&lt;h2 id="v1">v1&lt;/h2>
+&lt;p>&lt;a class="link" href="https://arxiv.org/abs/2205.14135" target="_blank" rel="noopener"
+>https://arxiv.org/abs/2205.14135&lt;/a>&lt;br>
+&lt;strong>FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness&lt;/strong>&lt;br>
+自注意力模块在序列长度上具有二次方的时间和内存复杂度。这导致在处理长序列时速度变慢且内存需求巨大&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250429160558.png"
+loading="lazy"
+>&lt;/p>
+&lt;h2 id="v2">v2&lt;/h2>
+&lt;p>&lt;a class="link" href="https://arxiv.org/abs/2307.08691" target="_blank" rel="noopener"
+>https://arxiv.org/abs/2307.08691&lt;/a>&lt;br>
+&lt;strong>FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning&lt;/strong>&lt;/p>
+&lt;p>GPU对不同thread blocks和warps工作分配不是最优的，造成了利用率低和不必要的共享内存读写。&lt;/p>
+&lt;ol>
+&lt;li>减少non-matmul FLOPs-最后算softmax的分母&lt;/li>
+&lt;li>在序列长度这一维度上进行并行化，FlashAttention-2将 Q 移到了外循环 i，K V 移到了内循环 j，由于改进了算法使得warps之间不再需要相互通信去处理，所以外循环可以放在不同的thread block上（之前只在batch和heads两个维度上进行了并行化，使用一个thread block来处理一个attention head，总共需要thread block的数量等于batch size × number of heads）&lt;/li>
+&lt;li>在一个attention计算块内，将工作分配在一个thread block的不同warp上&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250429195002.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://fastly.jsdelivr.net/gh/RDWaaaaaa/img/20250429210040.png"
+loading="lazy"
+>&lt;/p>
+&lt;h2 id="v3">v3&lt;/h2>
+&lt;p>&lt;a class="link" href="https://arxiv.org/abs/2407.08608" target="_blank" rel="noopener"
+>https://arxiv.org/abs/2407.08608&lt;/a>&lt;br>
+&lt;strong>FlashAttention-3: Fast and Accurate Attention with Asynchrony and Low-precision&lt;/strong>&lt;br>
+FA2 算子在 H100 上的利用率不高。H100 新增了 TMA 硬件 Warpgroup 级别的 GEMM 指令，是 NV 首个可实现完全异步通信和计算的 GPU，同时具有 FP8 低精度运算的能力。&lt;/p>
+&lt;p>Hopper 架构新指令：&lt;/p>
+&lt;ol>
+&lt;li>WGMMA operand A 可以从 RMEM/SMEM 读取，operand B 只能从 SMEM 读取。&lt;/li>
+&lt;li>TMA，允许程序在 GMEM 和 SMEM 之间异步且双向地传输 1D 到 5D 的张量。TMA 不仅可以将相同的数据传输到调用 SM 的 SMEM，还可以传输到同一 Thread Block Cluster 中的其他 SM 的 SMEM。这被称为 multicast&lt;/li>
+&lt;/ol>
+&lt;p>方案：&lt;/p>
+&lt;ol>
+&lt;li>A100 之前的异步：warp 间异步，Warp Specialization。A100 的异步：同一 warp 中，Multistage。H100 的异步：Warp Specialization + Intra-warpgroup overlapping。&lt;/li>
+&lt;li>FP8 低精度运算&lt;/li>
+&lt;/ol>
+&lt;h2 id="flash-decoding">Flash-Decoding&lt;/h2>
+&lt;p>&lt;a class="link" href="https://crfm.stanford.edu/2023/10/12/flashdecoding.html" target="_blank" rel="noopener"
+>https://crfm.stanford.edu/2023/10/12/flashdecoding.html&lt;/a>&lt;br>
+&lt;strong>Flash-Decoding for long-context inference&lt;/strong>&lt;br>
+需要增强处理长上下文能力。attention操作对内存的访问会随着batch size增加而增加，而模型中其他操作只和模型大小相关。&lt;/p>
+&lt;p>增加了一个新的并行化维度：keys/values的序列长度。&lt;/p>
+&lt;p>&lt;img src="https://pic3.zhimg.com/v2-13fcb10493400523013dcfe55cc9b846_b.webp"
+loading="lazy"
+>&lt;/p>
+&lt;h2 id="flashdecoding">FlashDecoding++&lt;/h2>
+&lt;p>&lt;a class="link" href="https://arxiv.org/abs/2311.01282" target="_blank" rel="noopener"
+>https://arxiv.org/abs/2311.01282&lt;/a>&lt;br>
+&lt;strong>FlashDecoding++: Faster Large Language Model Inference on GPUs&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>同步partial softmax更新&lt;/li>
+&lt;li>Flat GEMM操作的计算资源未得到充分利用。当batch size较小时，cublas和cutlass会将矩阵填充zeros以执行更大batchsize的GEMM，导致计算利用率不足50%。&lt;/li>
+&lt;li>动态输入和固定硬件配置影响了LLM推理的性能。例如，当batch size较小时，LLM推理的解码过程是memory-bounded，而当batch size较大时是compute-bounded。&lt;/li>
+&lt;/ol>
+&lt;p>解决方案：&lt;/p>
+&lt;ol>
+&lt;li>为分块softmax计算设置了一个共享的最大值&lt;/li>
+&lt;li>只将矩阵大小填充到8 + 双缓冲等技术&lt;/li>
+&lt;li>动态kernel优化&lt;/li>
 &lt;/ol></description></item><item><title>Cuda入门</title><link>https://blog.nrevery.cn/p/cuda%E5%85%A5%E9%97%A8/</link><pubDate>Mon, 28 Apr 2025 13:16:28 +0800</pubDate><guid>https://blog.nrevery.cn/p/cuda%E5%85%A5%E9%97%A8/</guid><description>&lt;h2 id="vscode--wsl--docker--conda">vscode + wsl + docker / conda&lt;/h2>
 &lt;h3 id="docker">docker&lt;/h3>
 &lt;ol>
@@ -385,54 +595,6 @@ loading="lazy"
 &lt;p>手动设置:&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">CUDA_HOME&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/cuda
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">LD_LIBRARY_PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/cuda/lib64:&lt;span class="nv">$LD_LIBRARY_PATH&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>版本信息&lt;/p>
-&lt;p>Python version: 3.12.9&lt;br>
-PyTorch version: 2.3.1+cu121&lt;br>
-Is CUDA available: True&lt;br>
-CUDA version (from PyTorch): 12.1&lt;br>
-GPU device name: NVIDIA GeForce RTX 3080 Laptop GPU&lt;br>
-FlashAttention version: 2.7.4.post1&lt;br>
-Compiled with new C++ ABI (cxx11abi): Unknown / Not available&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">torch&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">flash_attn&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">sys&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">get_versions&lt;/span>&lt;span class="p">():&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Python 版本&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Python version&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">sys&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">version&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">)[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># PyTorch 版本&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;PyTorch version&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__version__&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># CUDA 是否可用&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Is CUDA available&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">cuda&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">is_available&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># CUDA 版本（PyTorch 报告的）&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">cuda&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">is_available&lt;/span>&lt;span class="p">():&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;CUDA version (from PyTorch)&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">version&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">cuda&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;GPU device name&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">cuda&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_device_name&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;CUDA version (from PyTorch)&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;N/A&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;GPU device name&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;N/A&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># FlashAttention 版本&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;FlashAttention version&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">flash_attn&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__version__&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 是否使用新版 C++ ABI&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">from&lt;/span> &lt;span class="nn">torch.compiled_with_cxx11_abi&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">compiled_with_cxx11_abi&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Compiled with new C++ ABI (cxx11abi)&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">compiled_with_cxx11_abi&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">except&lt;/span> &lt;span class="ne">ImportError&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Compiled with new C++ ABI (cxx11abi)&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Unknown / Not available&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">versions&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">versions&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">get_versions&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">key&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">value&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">versions&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">items&lt;/span>&lt;span class="p">():&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">value&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="基础知识">基础知识&lt;/h2>
 &lt;p>&lt;a class="link" href="https://ai.oldpan.me/t/topic/72" target="_blank" rel="noopener"
 >https://ai.oldpan.me/t/topic/72&lt;/a>&lt;/p>
@@ -7721,6 +7883,13 @@ user01:!$6$abcdefgh$wqe7r8yK3QH.DRTfEr1:19000:0:99999:7:::
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">apt clean
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rm -rf /var/lib/apt/lists/*
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt update
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="git在配置ssh-key后出现如下错误">git在配置ssh key后出现如下错误：&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">ssh -T git@github.com
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">nc: connect to xxx.xxx.xxx.xxx port 7890 (tcp) failed: Connection refused
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">kex_exchange_identification: Connection closed by remote host
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Connection closed by UNKNOWN port 65535
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>换端口&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">ssh -T -p &lt;span class="m">443&lt;/span> git@ssh.github.com
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="git-clone失败">git clone失败&lt;/h2>
 &lt;p>&lt;a class="link" href="https://blog.csdn.net/qq_30252465/article/details/125762378" target="_blank" rel="noopener"
 >https://blog.csdn.net/qq_30252465/article/details/125762378&lt;/a>&lt;/p>
@@ -7740,7 +7909,11 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 正常push就没问题了&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push -u origin main
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Shellcode学习笔记</title><link>https://blog.nrevery.cn/p/shellcode%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 25 Mar 2024 22:13:53 +0800</pubDate><guid>https://blog.nrevery.cn/p/shellcode%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid><description>&lt;h2 id="gdb的使用">GDB的使用&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="连接服务器容易掉线">连接服务器容易掉线&lt;/h2>
+&lt;p>&lt;a class="link" href="https://blog.csdn.net/sanqima/article/details/118293157" target="_blank" rel="noopener"
+>https://blog.csdn.net/sanqima/article/details/118293157&lt;/a>&lt;br>
+&lt;a class="link" href="https://blog.csdn.net/qq_39846820/article/details/103371782" target="_blank" rel="noopener"
+>https://blog.csdn.net/qq_39846820/article/details/103371782&lt;/a>&lt;/p></description></item><item><title>Shellcode学习笔记</title><link>https://blog.nrevery.cn/p/shellcode%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 25 Mar 2024 22:13:53 +0800</pubDate><guid>https://blog.nrevery.cn/p/shellcode%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid><description>&lt;h2 id="gdb的使用">GDB的使用&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">b main
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">delete &lt;span class="m">1&lt;/span> &lt;span class="c1"># 断点编号&lt;/span>
